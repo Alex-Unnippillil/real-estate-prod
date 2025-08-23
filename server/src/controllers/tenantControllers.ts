@@ -7,8 +7,8 @@ const prisma = new PrismaClient();
 export const getTenant = async (req: Request, res: Response): Promise<void> => {
   try {
     const { cognitoId } = req.params;
-    const tenant = await prisma.tenant.findUnique({
-      where: { cognitoId },
+    const tenant = await prisma.tenant.findFirst({
+      where: { cognitoId, deletedAt: null },
       include: {
         favorites: true,
       },
@@ -124,8 +124,8 @@ export const addFavoriteProperty = async (
 ): Promise<void> => {
   try {
     const { cognitoId, propertyId } = req.params;
-    const tenant = await prisma.tenant.findUnique({
-      where: { cognitoId },
+    const tenant = await prisma.tenant.findFirst({
+      where: { cognitoId, deletedAt: null },
       include: { favorites: true },
     });
 
@@ -181,5 +181,76 @@ export const removeFavoriteProperty = async (
     res
       .status(500)
       .json({ message: `Error removing favorite property: ${err.message}` });
+  }
+};
+
+export const requestTenantDataExport = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { cognitoId } = req.params;
+    const tenant = await prisma.tenant.findFirst({
+      where: { cognitoId, deletedAt: null },
+      include: {
+        favorites: true,
+        applications: true,
+        leases: true,
+        properties: true,
+      },
+    });
+
+    if (!tenant) {
+      res.status(404).json({ message: "Tenant not found" });
+      return;
+    }
+
+    await prisma.auditLog.create({
+      data: { actor: cognitoId, action: "REQUEST_DATA_EXPORT" },
+    });
+
+    res.json(tenant);
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: `Error exporting tenant data: ${error.message}` });
+  }
+};
+
+export const requestTenantAccountDeletion = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { cognitoId } = req.params;
+
+    const existing = await prisma.tenant.findFirst({
+      where: { cognitoId, deletedAt: null },
+    });
+
+    if (!existing) {
+      res.status(404).json({ message: "Tenant not found" });
+      return;
+    }
+
+    await prisma.tenant.update({
+      where: { cognitoId },
+      data: {
+        name: "",
+        email: "",
+        phoneNumber: "",
+        deletedAt: new Date(),
+      },
+    });
+
+    await prisma.auditLog.create({
+      data: { actor: cognitoId, action: "REQUEST_ACCOUNT_DELETION" },
+    });
+
+    res.json({ message: "Account deletion requested" });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: `Error deleting tenant account: ${error.message}` });
   }
 };

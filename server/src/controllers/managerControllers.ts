@@ -10,8 +10,8 @@ export const getManager = async (
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
-    const manager = await prisma.manager.findUnique({
-      where: { cognitoId },
+    const manager = await prisma.manager.findFirst({
+      where: { cognitoId, deletedAt: null },
     });
 
     if (manager) {
@@ -115,5 +115,71 @@ export const getManagerProperties = async (
     res
       .status(500)
       .json({ message: `Error retrieving manager properties: ${err.message}` });
+  }
+};
+
+export const requestManagerDataExport = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { cognitoId } = req.params;
+    const manager = await prisma.manager.findFirst({
+      where: { cognitoId, deletedAt: null },
+      include: { managedProperties: true },
+    });
+
+    if (!manager) {
+      res.status(404).json({ message: "Manager not found" });
+      return;
+    }
+
+    await prisma.auditLog.create({
+      data: { actor: cognitoId, action: "REQUEST_DATA_EXPORT" },
+    });
+
+    res.json(manager);
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: `Error exporting manager data: ${error.message}` });
+  }
+};
+
+export const requestManagerAccountDeletion = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { cognitoId } = req.params;
+
+    const existing = await prisma.manager.findFirst({
+      where: { cognitoId, deletedAt: null },
+    });
+
+    if (!existing) {
+      res.status(404).json({ message: "Manager not found" });
+      return;
+    }
+
+    await prisma.manager.update({
+      where: { cognitoId },
+      data: {
+        name: "",
+        email: "",
+        phoneNumber: "",
+        deletedAt: new Date(),
+      },
+    });
+
+    await prisma.auditLog.create({
+      data: { actor: cognitoId, action: "REQUEST_ACCOUNT_DELETION" },
+    });
+
+    res.json({ message: "Account deletion requested" });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: `Error deleting manager account: ${error.message}` });
   }
 };
