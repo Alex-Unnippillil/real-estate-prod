@@ -32,7 +32,7 @@ import React from "react";
 
 const PaymentMethod = () => {
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden p-6 mt-10 md:mt-0 flex-1">
+    <div className="bg-card rounded-xl shadow-md overflow-hidden p-6 mt-10 md:mt-0 flex-1">
       <h2 className="text-2xl font-bold mb-4">Payment method</h2>
       <p className="mb-4">Change how you pay for your plan.</p>
       <div className="border rounded-lg p-6">
@@ -40,7 +40,7 @@ const PaymentMethod = () => {
           {/* Card Info */}
           <div className="flex gap-10">
             <div className="w-36 h-20 bg-blue-600 flex items-center justify-center rounded-md">
-              <span className="text-white text-2xl font-bold">VISA</span>
+              <span className="text-primary-foreground text-2xl font-bold">VISA</span>
             </div>
             <div className="flex flex-col justify-between">
               <div>
@@ -50,12 +50,12 @@ const PaymentMethod = () => {
                     Default
                   </span>
                 </div>
-                <div className="text-sm text-gray-500 flex items-center">
+                <div className="text-sm text-muted-foreground flex items-center">
                   <CreditCard className="w-4 h-4 mr-1" />
                   <span>Expiry • 26/06/2024</span>
                 </div>
               </div>
-              <div className="text-sm text-gray-500 flex items-center">
+              <div className="text-sm text-muted-foreground flex items-center">
                 <Mail className="w-4 h-4 mr-1" />
                 <span>billing@baseclub.com</span>
               </div>
@@ -64,7 +64,7 @@ const PaymentMethod = () => {
 
           <hr className="my-4" />
           <div className="flex justify-end">
-            <button className="bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-md flex items-center justify-center hover:bg-primary-700 hover:text-primary-50">
+            <button className="bg-card border border-border text-foreground py-2 px-4 rounded-md flex items-center justify-center hover:bg-primary-700 hover:text-primary-50">
               <Edit className="w-5 h-5 mr-2" />
               <span>Edit</span>
             </button>
@@ -83,14 +83,14 @@ const ResidenceCard = ({
   currentLease: Lease;
 }) => {
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden p-6 flex-1 flex flex-col justify-between">
+    <div className="bg-card rounded-xl shadow-md overflow-hidden p-6 flex-1 flex flex-col justify-between">
       {/* Header */}
       <div className="flex gap-5">
         <div className="w-64 h-32 object-cover bg-slate-500 rounded-xl"></div>
 
         <div className="flex flex-col justify-between">
           <div>
-            <div className="bg-green-500 w-fit text-white px-4 py-1 rounded-full text-sm font-semibold">
+            <div className="bg-green-500 w-fit text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold">
               Active Leases
             </div>
 
@@ -104,7 +104,7 @@ const ResidenceCard = ({
           </div>
           <div className="text-xl font-bold">
             ${currentLease.rent}{" "}
-            <span className="text-gray-500 text-sm font-normal">/ night</span>
+            <span className="text-muted-foreground text-sm font-normal">/ night</span>
           </div>
         </div>
       </div>
@@ -113,21 +113,21 @@ const ResidenceCard = ({
         <hr className="my-4" />
         <div className="flex justify-between items-center">
           <div className="xl:flex">
-            <div className="text-gray-500 mr-2">Start Date: </div>
+            <div className="text-muted-foreground mr-2">Start Date: </div>
             <div className="font-semibold">
               {new Date(currentLease.startDate).toLocaleDateString()}
             </div>
           </div>
           <div className="border-[0.5px] border-primary-300 h-4" />
           <div className="xl:flex">
-            <div className="text-gray-500 mr-2">End Date: </div>
+            <div className="text-muted-foreground mr-2">End Date: </div>
             <div className="font-semibold">
               {new Date(currentLease.endDate).toLocaleDateString()}
             </div>
           </div>
           <div className="border-[0.5px] border-primary-300 h-4" />
           <div className="xl:flex">
-            <div className="text-gray-500 mr-2">Next Payment: </div>
+            <div className="text-muted-foreground mr-2">Next Payment: </div>
             <div className="font-semibold">
               {new Date(currentLease.endDate).toLocaleDateString()}
             </div>
@@ -137,11 +137,11 @@ const ResidenceCard = ({
       </div>
       {/* Buttons */}
       <div className="flex justify-end gap-2 w-full">
-        <button className="bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-md flex items-center justify-center hover:bg-primary-700 hover:text-primary-50">
+        <button className="bg-card border border-border text-foreground py-2 px-4 rounded-md flex items-center justify-center hover:bg-primary-700 hover:text-primary-50">
           <User className="w-5 h-5 mr-2" />
           Manager
         </button>
-        <button className="bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-md flex items-center justify-center hover:bg-primary-700 hover:text-primary-50">
+        <button className="bg-card border border-border text-foreground py-2 px-4 rounded-md flex items-center justify-center hover:bg-primary-700 hover:text-primary-50">
           <Download className="w-5 h-5 mr-2" />
           Download Agreement
         </button>
@@ -152,17 +152,17 @@ const ResidenceCard = ({
 
 const BillingHistory = ({ payments }: { payments: Payment[] }) => {
   return (
-    <div className="mt-8 bg-white rounded-xl shadow-md overflow-hidden p-6">
+    <div className="mt-8 bg-card rounded-xl shadow-md overflow-hidden p-6">
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold mb-1">Billing History</h2>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-muted-foreground">
             Download your previous plan receipts and usage details.
           </p>
         </div>
         <div>
-          <button className="bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-md flex items-center justify-center hover:bg-primary-700 hover:text-primary-50">
+          <button className="bg-card border border-border text-foreground py-2 px-4 rounded-md flex items-center justify-center hover:bg-primary-700 hover:text-primary-50">
             <Download className="w-5 h-5 mr-2" />
             <span>Download All</span>
           </button>
@@ -212,7 +212,7 @@ const BillingHistory = ({ payments }: { payments: Payment[] }) => {
                 </TableCell>
                 <TableCell>${payment.amountPaid.toFixed(2)}</TableCell>
                 <TableCell>
-                  <button className="border border-gray-300 text-gray-700 py-2 px-4 rounded-md flex items-center justify-center font-semibold hover:bg-primary-700 hover:text-primary-50">
+                  <button className="border border-border text-foreground py-2 px-4 rounded-md flex items-center justify-center font-semibold hover:bg-primary-700 hover:text-primary-50">
                     <ArrowDownToLineIcon className="w-4 h-4 mr-1" />
                     Download
                   </button>

@@ -18,6 +18,7 @@ import {
 } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { SidebarTrigger } from "./ui/sidebar";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const { data: authUser } = useGetAuthUserQuery();
@@ -37,7 +38,7 @@ const Navbar = () => {
       className="fixed top-0 left-0 w-full z-50 shadow-xl"
       style={{ height: `${NAVBAR_HEIGHT}px` }}
     >
-      <div className="flex justify-between items-center w-full py-3 px-8 bg-primary-700 text-white">
+      <div className="flex justify-between items-center w-full py-3 px-8 bg-primary-700 text-primary-foreground">
         <div className="flex items-center gap-4 md:gap-6">
           {isDashboardPage && (
             <div className="md:hidden">
@@ -122,9 +123,9 @@ const Navbar = () => {
                     {authUser.userInfo?.name}
                   </p>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-white text-primary-700">
+                <DropdownMenuContent className="bg-background text-foreground">
                   <DropdownMenuItem
-                    className="cursor-pointer hover:!bg-primary-700 hover:!text-primary-100 font-bold"
+                    className="cursor-pointer hover:!bg-primary-700 hover:!text-primary-foreground font-bold"
                     onClick={() =>
                       router.push(
                         authUser.userRole?.toLowerCase() === "manager"
@@ -138,7 +139,7 @@ const Navbar = () => {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-primary-200" />
                   <DropdownMenuItem
-                    className="cursor-pointer hover:!bg-primary-700 hover:!text-primary-100"
+                    className="cursor-pointer hover:!bg-primary-700 hover:!text-primary-foreground"
                     onClick={() =>
                       router.push(
                         `/${authUser.userRole?.toLowerCase()}s/settings`,
@@ -149,7 +150,7 @@ const Navbar = () => {
                     Settings
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    className="cursor-pointer hover:!bg-primary-700 hover:!text-primary-100"
+                    className="cursor-pointer hover:!bg-primary-700 hover:!text-primary-foreground"
                     onClick={handleSignOut}
                   >
                     Sign out
@@ -162,21 +163,19 @@ const Navbar = () => {
               <Link href="/signin">
                 <Button
                   variant="outline"
-                  className="text-white border-white bg-transparent hover:bg-white hover:text-primary-700 rounded-lg"
+                  className="text-primary-foreground border-primary-foreground bg-transparent hover:bg-primary-foreground hover:text-primary rounded-lg"
                 >
                   Sign In
                 </Button>
               </Link>
               <Link href="/signup">
-                <Button
-                  variant="secondary"
-                  className="text-white bg-secondary-600 hover:bg-white hover:text-primary-700 rounded-lg"
-                >
+                <Button variant="secondary" className="rounded-lg">
                   Sign Up
                 </Button>
               </Link>
             </>
           )}
+          <ThemeToggle />
         </div>
       </div>
     </div>

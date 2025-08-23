@@ -51,7 +51,7 @@ const ApplicationModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-white">
+      <DialogContent className="bg-card">
         <DialogHeader className="mb-4">
           <DialogTitle>Submit Application for this Property</DialogTitle>
         </DialogHeader>
@@ -81,7 +81,7 @@ const ApplicationModal = ({
               type="textarea"
               placeholder="Enter any additional information"
             />
-            <Button type="submit" className="bg-primary-700 text-white w-full">
+            <Button type="submit" className="w-full">
               Submit Application
             </Button>
           </form>

@@ -88,7 +88,7 @@ const FiltersFull = () => {
   if (!isFiltersFullOpen) return null;
 
   return (
-    <div className="bg-white rounded-lg px-4 h-full overflow-auto pb-10">
+    <div className="bg-card rounded-lg px-4 h-full overflow-auto pb-10">
       <div className="flex flex-col space-y-6">
         {/* Location */}
         <div>
@@ -107,7 +107,7 @@ const FiltersFull = () => {
             />
             <Button
               onClick={handleLocationSearch}
-              className="rounded-r-xl rounded-l-none border-l-none border-black shadow-none border hover:bg-primary-700 hover:text-primary-50"
+              className="rounded-r-xl rounded-l-none border-l-none border-border shadow-none border hover:bg-primary-700 hover:text-primary-50"
             >
               <Search className="w-4 h-4" />
             </Button>
@@ -124,8 +124,8 @@ const FiltersFull = () => {
                 className={cn(
                   "flex flex-col items-center justify-center p-4 border rounded-xl cursor-pointer",
                   localFilters.propertyType === type
-                    ? "border-black"
-                    : "border-gray-200"
+                    ? "border-primary"
+                    : "border-border"
                 )}
                 onClick={() =>
                   setLocalFilters((prev) => ({
@@ -243,8 +243,8 @@ const FiltersFull = () => {
                 className={cn(
                   "flex items-center space-x-2 p-2 border rounded-lg hover:cursor-pointer",
                   localFilters.amenities.includes(amenity as AmenityEnum)
-                    ? "border-black"
-                    : "border-gray-200"
+                    ? "border-primary"
+                    : "border-border"
                 )}
                 onClick={() => handleAmenityChange(amenity as AmenityEnum)}
               >
@@ -279,10 +279,7 @@ const FiltersFull = () => {
 
         {/* Apply and Reset buttons */}
         <div className="flex gap-4 mt-6">
-          <Button
-            onClick={handleSubmit}
-            className="flex-1 bg-primary-700 text-white rounded-xl"
-          >
+          <Button onClick={handleSubmit} className="flex-1 rounded-xl">
             APPLY
           </Button>
           <Button

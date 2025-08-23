@@ -11,18 +11,18 @@ const ApplicationCard = ({
     application.property.photoUrls?.[0] || "/placeholder.jpg"
   );
 
-  const statusColor =
+  const statusClasses =
     application.status === "Approved"
-      ? "bg-green-500"
+      ? "bg-primary text-primary-foreground"
       : application.status === "Denied"
-      ? "bg-red-500"
-      : "bg-yellow-500";
+      ? "bg-destructive text-destructive-foreground"
+      : "bg-secondary text-secondary-foreground";
 
   const contactPerson =
     userType === "manager" ? application.tenant : application.manager;
 
   return (
-    <div className="border rounded-xl overflow-hidden shadow-sm bg-white mb-4">
+    <div className="border rounded-xl overflow-hidden shadow-sm bg-card mb-4">
       <div className="flex flex-col lg:flex-row  items-start lg:items-center justify-between px-6 md:px-4 py-6 gap-6 lg:gap-4">
         {/* Property Info Section */}
         <div className="flex flex-col lg:flex-row gap-5 w-full lg:w-auto">
@@ -47,7 +47,7 @@ const ApplicationCard = ({
             </div>
             <div className="text-xl font-semibold">
               ${application.property.pricePerMonth}{" "}
-              <span className="text-sm font-normal">/ month</span>
+              <span className="text-sm font-normal text-muted-foreground">/ month</span>
             </div>
           </div>
         </div>
@@ -59,9 +59,9 @@ const ApplicationCard = ({
         <div className="flex flex-col justify-between w-full lg:basis-2/12 lg:h-48 py-2 gap-3 lg:gap-0">
           <div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-500">Status:</span>
+              <span className="text-muted-foreground">Status:</span>
               <span
-                className={`px-2 py-1 ${statusColor} text-white rounded-full text-sm`}
+                className={`px-2 py-1 ${statusClasses} rounded-full text-sm`}
               >
                 {application.status}
               </span>
@@ -69,15 +69,15 @@ const ApplicationCard = ({
             <hr className="mt-3" />
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-500">Start Date:</span>{" "}
+            <span className="text-muted-foreground">Start Date:</span>{" "}
             {new Date(application.lease?.startDate).toLocaleDateString()}
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-500">End Date:</span>{" "}
+            <span className="text-muted-foreground">End Date:</span>{" "}
             {new Date(application.lease?.endDate).toLocaleDateString()}
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-500">Next Payment:</span>{" "}
+            <span className="text-muted-foreground">Next Payment:</span>{" "}
             {new Date(application.lease?.nextPaymentDate).toLocaleDateString()}
           </div>
         </div>

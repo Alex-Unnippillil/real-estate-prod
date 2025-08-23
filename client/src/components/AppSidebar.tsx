@@ -51,7 +51,7 @@ const AppSidebar = ({ userType }: AppSidebarProps) => {
   return (
     <Sidebar
       collapsible="icon"
-      className="fixed left-0 bg-white shadow-lg"
+      className="fixed left-0 bg-card shadow-lg"
       style={{
         top: `${NAVBAR_HEIGHT}px`,
         height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
@@ -68,22 +68,22 @@ const AppSidebar = ({ userType }: AppSidebarProps) => {
             >
               {open ? (
                 <>
-                  <h1 className="text-xl font-bold text-gray-800">
+                  <h1 className="text-xl font-bold text-foreground">
                     {userType === "manager" ? "Manager View" : "Renter View"}
                   </h1>
                   <button
-                    className="hover:bg-gray-100 p-2 rounded-md"
+                    className="hover:bg-muted p-2 rounded-md"
                     onClick={() => toggleSidebar()}
                   >
-                    <X className="h-6 w-6 text-gray-600" />
+                    <X className="h-6 w-6 text-muted-foreground" />
                   </button>
                 </>
               ) : (
                 <button
-                  className="hover:bg-gray-100 p-2 rounded-md"
+                  className="hover:bg-muted p-2 rounded-md"
                   onClick={() => toggleSidebar()}
                 >
-                  <Menu className="h-6 w-6 text-gray-600" />
+                  <Menu className="h-6 w-6 text-muted-foreground" />
                 </button>
               )}
             </div>
@@ -103,21 +103,21 @@ const AppSidebar = ({ userType }: AppSidebarProps) => {
                   className={cn(
                     "flex items-center px-7 py-7",
                     isActive
-                      ? "bg-gray-100"
-                      : "text-gray-600 hover:bg-gray-100",
-                    open ? "text-blue-600" : "ml-[5px]"
+                      ? "bg-muted"
+                      : "text-muted-foreground hover:bg-muted",
+                    open ? "text-primary" : "ml-[5px]"
                   )}
                 >
                   <Link href={link.href} className="w-full" scroll={false}>
                     <div className="flex items-center gap-3">
                       <link.icon
                         className={`h-5 w-5 ${
-                          isActive ? "text-blue-600" : "text-gray-600"
+                          isActive ? "text-primary" : "text-muted-foreground"
                         }`}
                       />
                       <span
                         className={`font-medium ${
-                          isActive ? "text-blue-600" : "text-gray-600"
+                          isActive ? "text-primary" : "text-muted-foreground"
                         }`}
                       >
                         {link.label}
