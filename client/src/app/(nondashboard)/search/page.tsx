@@ -2,7 +2,7 @@
 
 import { NAVBAR_HEIGHT } from "@/lib/constants";
 import { useAppDispatch, useAppSelector } from "@/state/redux";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import FiltersBar from "./FiltersBar";
 import FiltersFull from "./FiltersFull";
@@ -13,13 +13,16 @@ import Listings from "./Listings";
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
   const dispatch = useAppDispatch();
+  const filters = useAppSelector((state) => state.global.filters);
   const isFiltersFullOpen = useAppSelector(
     (state) => state.global.isFiltersFullOpen
   );
 
   useEffect(() => {
-    const initialFilters = Array.from(searchParams.entries()).reduce(
+    const paramsFilters = Array.from(searchParams.entries()).reduce(
       (acc: any, [key, value]) => {
         if (key === "priceRange" || key === "squareFeet") {
           acc[key] = value.split(",").map((v) => (v === "" ? null : Number(v)));
@@ -34,9 +37,23 @@ const SearchPage = () => {
       {}
     );
 
-    const cleanedFilters = cleanParams(initialFilters);
-    dispatch(setFilters(cleanedFilters));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    const cleanedFilters = cleanParams(paramsFilters);
+    if (JSON.stringify(cleanedFilters) !== JSON.stringify(filters)) {
+      dispatch(setFilters(cleanedFilters));
+    }
+  }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    const cleanFilters = cleanParams(filters);
+    const params = new URLSearchParams();
+    Object.entries(cleanFilters).forEach(([key, value]) => {
+      params.set(
+        key,
+        Array.isArray(value) ? value.join(",") : value.toString()
+      );
+    });
+    router.replace(`${pathname}?${params.toString()}`);
+  }, [filters, pathname, router]);
 
   return (
     <div
