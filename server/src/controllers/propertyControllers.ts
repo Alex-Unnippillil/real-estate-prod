@@ -32,7 +32,9 @@ export const getProperties = async (
       longitude,
     } = req.query;
 
-    let whereConditions: Prisma.Sql[] = [];
+    let whereConditions: Prisma.Sql[] = [
+      Prisma.sql`p."isDeleted" = false`,
+    ];
 
     if (favoriteIds) {
       const favoriteIdsArray = (favoriteIds as string).split(",").map(Number);
@@ -156,8 +158,8 @@ export const getProperty = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const property = await prisma.property.findUnique({
-      where: { id: Number(id) },
+    const property = await prisma.property.findFirst({
+      where: { id: Number(id), isDeleted: false },
       include: {
         location: true,
       },
@@ -182,6 +184,8 @@ export const getProperty = async (
         },
       };
       res.json(propertyWithCoordinates);
+    } else {
+      res.status(404).json({ message: "Property not found" });
     }
   } catch (err: any) {
     res
@@ -289,5 +293,42 @@ export const createProperty = async (
     res
       .status(500)
       .json({ message: `Error creating property: ${err.message}` });
+  }
+};
+
+export const updateProperty = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const updatedProperty = await prisma.property.update({
+      where: { id: Number(id) },
+      data: req.body,
+      include: { location: true, manager: true },
+    });
+    res.json(updatedProperty);
+  } catch (err: any) {
+    res
+      .status(500)
+      .json({ message: `Error updating property: ${err.message}` });
+  }
+};
+
+export const softDeleteProperty = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    await prisma.property.update({
+      where: { id: Number(id) },
+      data: { isDeleted: true },
+    });
+    res.status(204).send();
+  } catch (err: any) {
+    res
+      .status(500)
+      .json({ message: `Error deleting property: ${err.message}` });
   }
 };
