@@ -31,7 +31,7 @@ export const createManager = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { cognitoId, name, email, phoneNumber } = req.body;
+    const { cognitoId, name, email, phoneNumber, smsOptIn } = req.body;
 
     const manager = await prisma.manager.create({
       data: {
@@ -39,6 +39,7 @@ export const createManager = async (
         name,
         email,
         phoneNumber,
+        smsOptIn,
       },
     });
 
@@ -56,7 +57,7 @@ export const updateManager = async (
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
-    const { name, email, phoneNumber } = req.body;
+    const { name, email, phoneNumber, smsOptIn } = req.body;
 
     const updateManager = await prisma.manager.update({
       where: { cognitoId },
@@ -64,6 +65,7 @@ export const updateManager = async (
         name,
         email,
         phoneNumber,
+        smsOptIn,
       },
     });
 

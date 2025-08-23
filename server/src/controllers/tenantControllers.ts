@@ -31,7 +31,7 @@ export const createTenant = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { cognitoId, name, email, phoneNumber } = req.body;
+    const { cognitoId, name, email, phoneNumber, smsOptIn } = req.body;
 
     const tenant = await prisma.tenant.create({
       data: {
@@ -39,6 +39,7 @@ export const createTenant = async (
         name,
         email,
         phoneNumber,
+        smsOptIn,
       },
     });
 
@@ -56,7 +57,7 @@ export const updateTenant = async (
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
-    const { name, email, phoneNumber } = req.body;
+    const { name, email, phoneNumber, smsOptIn } = req.body;
 
     const updateTenant = await prisma.tenant.update({
       where: { cognitoId },
@@ -64,6 +65,7 @@ export const updateTenant = async (
         name,
         email,
         phoneNumber,
+        smsOptIn,
       },
     });
 
