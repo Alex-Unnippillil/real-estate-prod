@@ -11,7 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  useGetPaymentsQuery,
+  useGetPropertyInvoicesQuery,
   useGetPropertyLeasesQuery,
   useGetPropertyQuery,
 } from "@/state/api";
@@ -29,20 +29,20 @@ const PropertyTenants = () => {
     useGetPropertyQuery(propertyId);
   const { data: leases, isLoading: leasesLoading } =
     useGetPropertyLeasesQuery(propertyId);
-  const { data: payments, isLoading: paymentsLoading } =
-    useGetPaymentsQuery(propertyId);
+  const { data: invoices, isLoading: invoicesLoading } =
+    useGetPropertyInvoicesQuery(propertyId);
 
-  if (propertyLoading || leasesLoading || paymentsLoading) return <Loading />;
+  if (propertyLoading || leasesLoading || invoicesLoading) return <Loading />;
 
-  const getCurrentMonthPaymentStatus = (leaseId: number) => {
+  const getCurrentMonthInvoiceStatus = (leaseId: number) => {
     const currentDate = new Date();
-    const currentMonthPayment = payments?.find(
+    const currentMonthInvoice = invoices?.find(
       (payment) =>
         payment.leaseId === leaseId &&
         new Date(payment.dueDate).getMonth() === currentDate.getMonth() &&
         new Date(payment.dueDate).getFullYear() === currentDate.getFullYear()
     );
-    return currentMonthPayment?.paymentStatus || "Not Paid";
+    return currentMonthInvoice?.status || "Not Paid";
   };
 
   return (
@@ -126,15 +126,15 @@ const PropertyTenants = () => {
                     <TableCell>
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                          getCurrentMonthPaymentStatus(lease.id) === "Paid"
+                          getCurrentMonthInvoiceStatus(lease.id) === "Paid"
                             ? "bg-green-100 text-green-800 border-green-300"
                             : "bg-red-100 text-red-800 border-red-300"
                         }`}
                       >
-                        {getCurrentMonthPaymentStatus(lease.id) === "Paid" && (
+                        {getCurrentMonthInvoiceStatus(lease.id) === "Paid" && (
                           <Check className="w-4 h-4 inline-block mr-1" />
                         )}
-                        {getCurrentMonthPaymentStatus(lease.id)}
+                        {getCurrentMonthInvoiceStatus(lease.id)}
                       </span>
                     </TableCell>
                     <TableCell>{lease.tenant.phoneNumber}</TableCell>

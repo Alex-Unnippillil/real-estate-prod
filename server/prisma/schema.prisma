@@ -58,7 +58,7 @@ enum ApplicationStatus {
   Approved
 }
 
-enum PaymentStatus {
+enum InvoiceStatus {
   Pending
   Paid
   PartiallyPaid
@@ -111,6 +111,7 @@ model Tenant {
   name        String
   email       String
   phoneNumber String
+  stripeCustomerId String?
 
   properties   Property[]    @relation("TenantProperties")
   favorites    Property[]    @relation("TenantFavorites")
@@ -159,17 +160,18 @@ model Lease {
   property    Property     @relation(fields: [propertyId], references: [id])
   tenant      Tenant       @relation(fields: [tenantCognitoId], references: [cognitoId])
   application Application?
-  payments    Payment[]
+  invoices    Invoice[]
 }
 
-model Payment {
-  id            Int           @id @default(autoincrement())
-  amountDue     Float
-  amountPaid    Float
-  dueDate       DateTime
-  paymentDate   DateTime
-  paymentStatus PaymentStatus
-  leaseId       Int
+model Invoice {
+  id                   Int           @id @default(autoincrement())
+  amountDue            Float
+  amountPaid           Float
+  dueDate              DateTime
+  paymentDate          DateTime?
+  status               InvoiceStatus
+  stripePaymentIntentId String?
+  leaseId              Int
 
   lease Lease @relation(fields: [leaseId], references: [id])
 }

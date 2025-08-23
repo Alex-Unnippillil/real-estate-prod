@@ -44,10 +44,10 @@ export type Application = $Result.DefaultSelection<Prisma.$ApplicationPayload>
  */
 export type Lease = $Result.DefaultSelection<Prisma.$LeasePayload>
 /**
- * Model Payment
+ * Model Invoice
  * 
  */
-export type Payment = $Result.DefaultSelection<Prisma.$PaymentPayload>
+export type Invoice = $Result.DefaultSelection<Prisma.$InvoicePayload>
 
 /**
  * Enums
@@ -114,14 +114,14 @@ export const ApplicationStatus: {
 export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
 
 
-export const PaymentStatus: {
+export const InvoiceStatus: {
   Pending: 'Pending',
   Paid: 'Paid',
   PartiallyPaid: 'PartiallyPaid',
   Overdue: 'Overdue'
 };
 
-export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+export type InvoiceStatus = (typeof InvoiceStatus)[keyof typeof InvoiceStatus]
 
 }
 
@@ -141,9 +141,9 @@ export type ApplicationStatus = $Enums.ApplicationStatus
 
 export const ApplicationStatus: typeof $Enums.ApplicationStatus
 
-export type PaymentStatus = $Enums.PaymentStatus
+export type InvoiceStatus = $Enums.InvoiceStatus
 
-export const PaymentStatus: typeof $Enums.PaymentStatus
+export const InvoiceStatus: typeof $Enums.InvoiceStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -331,14 +331,14 @@ export class PrismaClient<
   get lease(): Prisma.LeaseDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.payment`: Exposes CRUD operations for the **Payment** model.
+   * `prisma.invoice`: Exposes CRUD operations for the **Invoice** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Payments
-    * const payments = await prisma.payment.findMany()
+    * // Fetch zero or more Invoices
+    * const invoices = await prisma.invoice.findMany()
     * ```
     */
-  get payment(): Prisma.PaymentDelegate<ExtArgs, ClientOptions>;
+  get invoice(): Prisma.InvoiceDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -785,7 +785,7 @@ export namespace Prisma {
     Location: 'Location',
     Application: 'Application',
     Lease: 'Lease',
-    Payment: 'Payment'
+    Invoice: 'Invoice'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -801,7 +801,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "property" | "manager" | "tenant" | "location" | "application" | "lease" | "payment"
+      modelProps: "property" | "manager" | "tenant" | "location" | "application" | "lease" | "invoice"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1233,77 +1233,77 @@ export namespace Prisma {
           }
         }
       }
-      Payment: {
-        payload: Prisma.$PaymentPayload<ExtArgs>
-        fields: Prisma.PaymentFieldRefs
+      Invoice: {
+        payload: Prisma.$InvoicePayload<ExtArgs>
+        fields: Prisma.InvoiceFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.PaymentFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentPayload> | null
+            args: Prisma.InvoiceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.PaymentFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>
+            args: Prisma.InvoiceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
           }
           findFirst: {
-            args: Prisma.PaymentFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentPayload> | null
+            args: Prisma.InvoiceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.PaymentFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>
+            args: Prisma.InvoiceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
           }
           findMany: {
-            args: Prisma.PaymentFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>[]
+            args: Prisma.InvoiceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>[]
           }
           create: {
-            args: Prisma.PaymentCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>
+            args: Prisma.InvoiceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
           }
           createMany: {
-            args: Prisma.PaymentCreateManyArgs<ExtArgs>
+            args: Prisma.InvoiceCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.PaymentCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>[]
+            args: Prisma.InvoiceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>[]
           }
           delete: {
-            args: Prisma.PaymentDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>
+            args: Prisma.InvoiceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
           }
           update: {
-            args: Prisma.PaymentUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>
+            args: Prisma.InvoiceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
           }
           deleteMany: {
-            args: Prisma.PaymentDeleteManyArgs<ExtArgs>
+            args: Prisma.InvoiceDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.PaymentUpdateManyArgs<ExtArgs>
+            args: Prisma.InvoiceUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.PaymentUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>[]
+            args: Prisma.InvoiceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>[]
           }
           upsert: {
-            args: Prisma.PaymentUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>
+            args: Prisma.InvoiceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InvoicePayload>
           }
           aggregate: {
-            args: Prisma.PaymentAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePayment>
+            args: Prisma.InvoiceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInvoice>
           }
           groupBy: {
-            args: Prisma.PaymentGroupByArgs<ExtArgs>
-            result: $Utils.Optional<PaymentGroupByOutputType>[]
+            args: Prisma.InvoiceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InvoiceGroupByOutputType>[]
           }
           count: {
-            args: Prisma.PaymentCountArgs<ExtArgs>
-            result: $Utils.Optional<PaymentCountAggregateOutputType> | number
+            args: Prisma.InvoiceCountArgs<ExtArgs>
+            result: $Utils.Optional<InvoiceCountAggregateOutputType> | number
           }
         }
       }
@@ -1397,7 +1397,7 @@ export namespace Prisma {
     location?: LocationOmit
     application?: ApplicationOmit
     lease?: LeaseOmit
-    payment?: PaymentOmit
+    invoice?: InvoiceOmit
   }
 
   /* Types for Logging */
@@ -1670,11 +1670,11 @@ export namespace Prisma {
    */
 
   export type LeaseCountOutputType = {
-    payments: number
+    invoices: number
   }
 
   export type LeaseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    payments?: boolean | LeaseCountOutputTypeCountPaymentsArgs
+    invoices?: boolean | LeaseCountOutputTypeCountInvoicesArgs
   }
 
   // Custom InputTypes
@@ -1691,8 +1691,8 @@ export namespace Prisma {
   /**
    * LeaseCountOutputType without action
    */
-  export type LeaseCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PaymentWhereInput
+  export type LeaseCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
   }
 
 
@@ -4263,6 +4263,7 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
+    stripeCustomerId: string | null
   }
 
   export type TenantMaxAggregateOutputType = {
@@ -4271,6 +4272,7 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
+    stripeCustomerId: string | null
   }
 
   export type TenantCountAggregateOutputType = {
@@ -4279,6 +4281,7 @@ export namespace Prisma {
     name: number
     email: number
     phoneNumber: number
+    stripeCustomerId: number
     _all: number
   }
 
@@ -4297,6 +4300,7 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    stripeCustomerId?: true
   }
 
   export type TenantMaxAggregateInputType = {
@@ -4305,6 +4309,7 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    stripeCustomerId?: true
   }
 
   export type TenantCountAggregateInputType = {
@@ -4313,6 +4318,7 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    stripeCustomerId?: true
     _all?: true
   }
 
@@ -4408,6 +4414,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeCustomerId: string | null
     _count: TenantCountAggregateOutputType | null
     _avg: TenantAvgAggregateOutputType | null
     _sum: TenantSumAggregateOutputType | null
@@ -4435,6 +4442,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    stripeCustomerId?: boolean
     properties?: boolean | Tenant$propertiesArgs<ExtArgs>
     favorites?: boolean | Tenant$favoritesArgs<ExtArgs>
     applications?: boolean | Tenant$applicationsArgs<ExtArgs>
@@ -4448,6 +4456,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    stripeCustomerId?: boolean
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4456,6 +4465,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    stripeCustomerId?: boolean
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectScalar = {
@@ -4464,9 +4474,10 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    stripeCustomerId?: boolean
   }
 
-  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cognitoId" | "name" | "email" | "phoneNumber", ExtArgs["result"]["tenant"]>
+  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cognitoId" | "name" | "email" | "phoneNumber" | "stripeCustomerId", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     properties?: boolean | Tenant$propertiesArgs<ExtArgs>
     favorites?: boolean | Tenant$favoritesArgs<ExtArgs>
@@ -4491,6 +4502,7 @@ export namespace Prisma {
       name: string
       email: string
       phoneNumber: string
+      stripeCustomerId: string | null
     }, ExtArgs["result"]["tenant"]>
     composites: {}
   }
@@ -4923,6 +4935,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Tenant", 'String'>
     readonly email: FieldRef<"Tenant", 'String'>
     readonly phoneNumber: FieldRef<"Tenant", 'String'>
+    readonly stripeCustomerId: FieldRef<"Tenant", 'String'>
   }
     
 
@@ -7809,7 +7822,7 @@ export namespace Prisma {
     property?: boolean | PropertyDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     application?: boolean | Lease$applicationArgs<ExtArgs>
-    payments?: boolean | Lease$paymentsArgs<ExtArgs>
+    invoices?: boolean | Lease$invoicesArgs<ExtArgs>
     _count?: boolean | LeaseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lease"]>
 
@@ -7852,7 +7865,7 @@ export namespace Prisma {
     property?: boolean | PropertyDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     application?: boolean | Lease$applicationArgs<ExtArgs>
-    payments?: boolean | Lease$paymentsArgs<ExtArgs>
+    invoices?: boolean | Lease$invoicesArgs<ExtArgs>
     _count?: boolean | LeaseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type LeaseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7870,7 +7883,7 @@ export namespace Prisma {
       property: Prisma.$PropertyPayload<ExtArgs>
       tenant: Prisma.$TenantPayload<ExtArgs>
       application: Prisma.$ApplicationPayload<ExtArgs> | null
-      payments: Prisma.$PaymentPayload<ExtArgs>[]
+      invoices: Prisma.$InvoicePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -8277,7 +8290,7 @@ export namespace Prisma {
     property<T extends PropertyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PropertyDefaultArgs<ExtArgs>>): Prisma__PropertyClient<$Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     application<T extends Lease$applicationArgs<ExtArgs> = {}>(args?: Subset<T, Lease$applicationArgs<ExtArgs>>): Prisma__ApplicationClient<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
-    payments<T extends Lease$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Lease$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    invoices<T extends Lease$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Lease$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8729,27 +8742,27 @@ export namespace Prisma {
   }
 
   /**
-   * Lease.payments
+   * Lease.invoices
    */
-  export type Lease$paymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Lease$invoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Payment
+     * Select specific fields to fetch from the Invoice
      */
-    select?: PaymentSelect<ExtArgs> | null
+    select?: InvoiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Payment
+     * Omit specific fields from the Invoice
      */
-    omit?: PaymentOmit<ExtArgs> | null
+    omit?: InvoiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentInclude<ExtArgs> | null
-    where?: PaymentWhereInput
-    orderBy?: PaymentOrderByWithRelationInput | PaymentOrderByWithRelationInput[]
-    cursor?: PaymentWhereUniqueInput
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    cursor?: InvoiceWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
   }
 
   /**
@@ -8772,279 +8785,290 @@ export namespace Prisma {
 
 
   /**
-   * Model Payment
+   * Model Invoice
    */
 
-  export type AggregatePayment = {
-    _count: PaymentCountAggregateOutputType | null
-    _avg: PaymentAvgAggregateOutputType | null
-    _sum: PaymentSumAggregateOutputType | null
-    _min: PaymentMinAggregateOutputType | null
-    _max: PaymentMaxAggregateOutputType | null
+  export type AggregateInvoice = {
+    _count: InvoiceCountAggregateOutputType | null
+    _avg: InvoiceAvgAggregateOutputType | null
+    _sum: InvoiceSumAggregateOutputType | null
+    _min: InvoiceMinAggregateOutputType | null
+    _max: InvoiceMaxAggregateOutputType | null
   }
 
-  export type PaymentAvgAggregateOutputType = {
+  export type InvoiceAvgAggregateOutputType = {
     id: number | null
     amountDue: number | null
     amountPaid: number | null
     leaseId: number | null
   }
 
-  export type PaymentSumAggregateOutputType = {
+  export type InvoiceSumAggregateOutputType = {
     id: number | null
     amountDue: number | null
     amountPaid: number | null
     leaseId: number | null
   }
 
-  export type PaymentMinAggregateOutputType = {
-    id: number | null
-    amountDue: number | null
-    amountPaid: number | null
-    dueDate: Date | null
-    paymentDate: Date | null
-    paymentStatus: $Enums.PaymentStatus | null
-    leaseId: number | null
-  }
-
-  export type PaymentMaxAggregateOutputType = {
+  export type InvoiceMinAggregateOutputType = {
     id: number | null
     amountDue: number | null
     amountPaid: number | null
     dueDate: Date | null
     paymentDate: Date | null
-    paymentStatus: $Enums.PaymentStatus | null
+    status: $Enums.InvoiceStatus | null
+    stripePaymentIntentId: string | null
     leaseId: number | null
   }
 
-  export type PaymentCountAggregateOutputType = {
+  export type InvoiceMaxAggregateOutputType = {
+    id: number | null
+    amountDue: number | null
+    amountPaid: number | null
+    dueDate: Date | null
+    paymentDate: Date | null
+    status: $Enums.InvoiceStatus | null
+    stripePaymentIntentId: string | null
+    leaseId: number | null
+  }
+
+  export type InvoiceCountAggregateOutputType = {
     id: number
     amountDue: number
     amountPaid: number
     dueDate: number
     paymentDate: number
-    paymentStatus: number
+    status: number
+    stripePaymentIntentId: number
     leaseId: number
     _all: number
   }
 
 
-  export type PaymentAvgAggregateInputType = {
+  export type InvoiceAvgAggregateInputType = {
     id?: true
     amountDue?: true
     amountPaid?: true
     leaseId?: true
   }
 
-  export type PaymentSumAggregateInputType = {
+  export type InvoiceSumAggregateInputType = {
     id?: true
     amountDue?: true
     amountPaid?: true
     leaseId?: true
   }
 
-  export type PaymentMinAggregateInputType = {
+  export type InvoiceMinAggregateInputType = {
     id?: true
     amountDue?: true
     amountPaid?: true
     dueDate?: true
     paymentDate?: true
-    paymentStatus?: true
+    status?: true
+    stripePaymentIntentId?: true
     leaseId?: true
   }
 
-  export type PaymentMaxAggregateInputType = {
+  export type InvoiceMaxAggregateInputType = {
     id?: true
     amountDue?: true
     amountPaid?: true
     dueDate?: true
     paymentDate?: true
-    paymentStatus?: true
+    status?: true
+    stripePaymentIntentId?: true
     leaseId?: true
   }
 
-  export type PaymentCountAggregateInputType = {
+  export type InvoiceCountAggregateInputType = {
     id?: true
     amountDue?: true
     amountPaid?: true
     dueDate?: true
     paymentDate?: true
-    paymentStatus?: true
+    status?: true
+    stripePaymentIntentId?: true
     leaseId?: true
     _all?: true
   }
 
-  export type PaymentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Payment to aggregate.
+     * Filter which Invoice to aggregate.
      */
-    where?: PaymentWhereInput
+    where?: InvoiceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Payments to fetch.
+     * Determine the order of Invoices to fetch.
      */
-    orderBy?: PaymentOrderByWithRelationInput | PaymentOrderByWithRelationInput[]
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: PaymentWhereUniqueInput
+    cursor?: InvoiceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Payments from the position of the cursor.
+     * Take `±n` Invoices from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Payments.
+     * Skip the first `n` Invoices.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Payments
+     * Count returned Invoices
     **/
-    _count?: true | PaymentCountAggregateInputType
+    _count?: true | InvoiceCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: PaymentAvgAggregateInputType
+    _avg?: InvoiceAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: PaymentSumAggregateInputType
+    _sum?: InvoiceSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: PaymentMinAggregateInputType
+    _min?: InvoiceMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: PaymentMaxAggregateInputType
+    _max?: InvoiceMaxAggregateInputType
   }
 
-  export type GetPaymentAggregateType<T extends PaymentAggregateArgs> = {
-        [P in keyof T & keyof AggregatePayment]: P extends '_count' | 'count'
+  export type GetInvoiceAggregateType<T extends InvoiceAggregateArgs> = {
+        [P in keyof T & keyof AggregateInvoice]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregatePayment[P]>
-      : GetScalarType<T[P], AggregatePayment[P]>
+        : GetScalarType<T[P], AggregateInvoice[P]>
+      : GetScalarType<T[P], AggregateInvoice[P]>
   }
 
 
 
 
-  export type PaymentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PaymentWhereInput
-    orderBy?: PaymentOrderByWithAggregationInput | PaymentOrderByWithAggregationInput[]
-    by: PaymentScalarFieldEnum[] | PaymentScalarFieldEnum
-    having?: PaymentScalarWhereWithAggregatesInput
+  export type InvoiceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithAggregationInput | InvoiceOrderByWithAggregationInput[]
+    by: InvoiceScalarFieldEnum[] | InvoiceScalarFieldEnum
+    having?: InvoiceScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: PaymentCountAggregateInputType | true
-    _avg?: PaymentAvgAggregateInputType
-    _sum?: PaymentSumAggregateInputType
-    _min?: PaymentMinAggregateInputType
-    _max?: PaymentMaxAggregateInputType
+    _count?: InvoiceCountAggregateInputType | true
+    _avg?: InvoiceAvgAggregateInputType
+    _sum?: InvoiceSumAggregateInputType
+    _min?: InvoiceMinAggregateInputType
+    _max?: InvoiceMaxAggregateInputType
   }
 
-  export type PaymentGroupByOutputType = {
+  export type InvoiceGroupByOutputType = {
     id: number
     amountDue: number
     amountPaid: number
     dueDate: Date
-    paymentDate: Date
-    paymentStatus: $Enums.PaymentStatus
+    paymentDate: Date | null
+    status: $Enums.InvoiceStatus
+    stripePaymentIntentId: string | null
     leaseId: number
-    _count: PaymentCountAggregateOutputType | null
-    _avg: PaymentAvgAggregateOutputType | null
-    _sum: PaymentSumAggregateOutputType | null
-    _min: PaymentMinAggregateOutputType | null
-    _max: PaymentMaxAggregateOutputType | null
+    _count: InvoiceCountAggregateOutputType | null
+    _avg: InvoiceAvgAggregateOutputType | null
+    _sum: InvoiceSumAggregateOutputType | null
+    _min: InvoiceMinAggregateOutputType | null
+    _max: InvoiceMaxAggregateOutputType | null
   }
 
-  type GetPaymentGroupByPayload<T extends PaymentGroupByArgs> = Prisma.PrismaPromise<
+  type GetInvoiceGroupByPayload<T extends InvoiceGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<PaymentGroupByOutputType, T['by']> &
+      PickEnumerable<InvoiceGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof PaymentGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof InvoiceGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], PaymentGroupByOutputType[P]>
-            : GetScalarType<T[P], PaymentGroupByOutputType[P]>
+              : GetScalarType<T[P], InvoiceGroupByOutputType[P]>
+            : GetScalarType<T[P], InvoiceGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type PaymentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type InvoiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     amountDue?: boolean
     amountPaid?: boolean
     dueDate?: boolean
     paymentDate?: boolean
-    paymentStatus?: boolean
+    status?: boolean
+    stripePaymentIntentId?: boolean
     leaseId?: boolean
     lease?: boolean | LeaseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["payment"]>
+  }, ExtArgs["result"]["invoice"]>
 
-  export type PaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type InvoiceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     amountDue?: boolean
     amountPaid?: boolean
     dueDate?: boolean
     paymentDate?: boolean
-    paymentStatus?: boolean
+    status?: boolean
+    stripePaymentIntentId?: boolean
     leaseId?: boolean
     lease?: boolean | LeaseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["payment"]>
+  }, ExtArgs["result"]["invoice"]>
 
-  export type PaymentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     amountDue?: boolean
     amountPaid?: boolean
     dueDate?: boolean
     paymentDate?: boolean
-    paymentStatus?: boolean
+    status?: boolean
+    stripePaymentIntentId?: boolean
     leaseId?: boolean
     lease?: boolean | LeaseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["payment"]>
+  }, ExtArgs["result"]["invoice"]>
 
-  export type PaymentSelectScalar = {
+  export type InvoiceSelectScalar = {
     id?: boolean
     amountDue?: boolean
     amountPaid?: boolean
     dueDate?: boolean
     paymentDate?: boolean
-    paymentStatus?: boolean
+    status?: boolean
+    stripePaymentIntentId?: boolean
     leaseId?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amountDue" | "amountPaid" | "dueDate" | "paymentDate" | "paymentStatus" | "leaseId", ExtArgs["result"]["payment"]>
-  export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amountDue" | "amountPaid" | "dueDate" | "paymentDate" | "status" | "stripePaymentIntentId" | "leaseId", ExtArgs["result"]["invoice"]>
+  export type InvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lease?: boolean | LeaseDefaultArgs<ExtArgs>
   }
-  export type PaymentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lease?: boolean | LeaseDefaultArgs<ExtArgs>
   }
-  export type PaymentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lease?: boolean | LeaseDefaultArgs<ExtArgs>
   }
 
-  export type $PaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Payment"
+  export type $InvoicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Invoice"
     objects: {
       lease: Prisma.$LeasePayload<ExtArgs>
     }
@@ -9053,139 +9077,140 @@ export namespace Prisma {
       amountDue: number
       amountPaid: number
       dueDate: Date
-      paymentDate: Date
-      paymentStatus: $Enums.PaymentStatus
+      paymentDate: Date | null
+      status: $Enums.InvoiceStatus
+      stripePaymentIntentId: string | null
       leaseId: number
-    }, ExtArgs["result"]["payment"]>
+    }, ExtArgs["result"]["invoice"]>
     composites: {}
   }
 
-  type PaymentGetPayload<S extends boolean | null | undefined | PaymentDefaultArgs> = $Result.GetResult<Prisma.$PaymentPayload, S>
+  type InvoiceGetPayload<S extends boolean | null | undefined | InvoiceDefaultArgs> = $Result.GetResult<Prisma.$InvoicePayload, S>
 
-  type PaymentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<PaymentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: PaymentCountAggregateInputType | true
+  type InvoiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InvoiceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InvoiceCountAggregateInputType | true
     }
 
-  export interface PaymentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Payment'], meta: { name: 'Payment' } }
+  export interface InvoiceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Invoice'], meta: { name: 'Invoice' } }
     /**
-     * Find zero or one Payment that matches the filter.
-     * @param {PaymentFindUniqueArgs} args - Arguments to find a Payment
+     * Find zero or one Invoice that matches the filter.
+     * @param {InvoiceFindUniqueArgs} args - Arguments to find a Invoice
      * @example
-     * // Get one Payment
-     * const payment = await prisma.payment.findUnique({
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends PaymentFindUniqueArgs>(args: SelectSubset<T, PaymentFindUniqueArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findUnique<T extends InvoiceFindUniqueArgs>(args: SelectSubset<T, InvoiceFindUniqueArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one Payment that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Invoice that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {PaymentFindUniqueOrThrowArgs} args - Arguments to find a Payment
+     * @param {InvoiceFindUniqueOrThrowArgs} args - Arguments to find a Invoice
      * @example
-     * // Get one Payment
-     * const payment = await prisma.payment.findUniqueOrThrow({
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends PaymentFindUniqueOrThrowArgs>(args: SelectSubset<T, PaymentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findUniqueOrThrow<T extends InvoiceFindUniqueOrThrowArgs>(args: SelectSubset<T, InvoiceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Find the first Payment that matches the filter.
+     * Find the first Invoice that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentFindFirstArgs} args - Arguments to find a Payment
+     * @param {InvoiceFindFirstArgs} args - Arguments to find a Invoice
      * @example
-     * // Get one Payment
-     * const payment = await prisma.payment.findFirst({
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends PaymentFindFirstArgs>(args?: SelectSubset<T, PaymentFindFirstArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    findFirst<T extends InvoiceFindFirstArgs>(args?: SelectSubset<T, InvoiceFindFirstArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find the first Payment that matches the filter or
+     * Find the first Invoice that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentFindFirstOrThrowArgs} args - Arguments to find a Payment
+     * @param {InvoiceFindFirstOrThrowArgs} args - Arguments to find a Invoice
      * @example
-     * // Get one Payment
-     * const payment = await prisma.payment.findFirstOrThrow({
+     * // Get one Invoice
+     * const invoice = await prisma.invoice.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends PaymentFindFirstOrThrowArgs>(args?: SelectSubset<T, PaymentFindFirstOrThrowArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+    findFirstOrThrow<T extends InvoiceFindFirstOrThrowArgs>(args?: SelectSubset<T, InvoiceFindFirstOrThrowArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Find zero or more Payments that matches the filter.
+     * Find zero or more Invoices that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {InvoiceFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Payments
-     * const payments = await prisma.payment.findMany()
+     * // Get all Invoices
+     * const invoices = await prisma.invoice.findMany()
      * 
-     * // Get first 10 Payments
-     * const payments = await prisma.payment.findMany({ take: 10 })
+     * // Get first 10 Invoices
+     * const invoices = await prisma.invoice.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const paymentWithIdOnly = await prisma.payment.findMany({ select: { id: true } })
+     * const invoiceWithIdOnly = await prisma.invoice.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends PaymentFindManyArgs>(args?: SelectSubset<T, PaymentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", ClientOptions>>
+    findMany<T extends InvoiceFindManyArgs>(args?: SelectSubset<T, InvoiceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", ClientOptions>>
 
     /**
-     * Create a Payment.
-     * @param {PaymentCreateArgs} args - Arguments to create a Payment.
+     * Create a Invoice.
+     * @param {InvoiceCreateArgs} args - Arguments to create a Invoice.
      * @example
-     * // Create one Payment
-     * const Payment = await prisma.payment.create({
+     * // Create one Invoice
+     * const Invoice = await prisma.invoice.create({
      *   data: {
-     *     // ... data to create a Payment
+     *     // ... data to create a Invoice
      *   }
      * })
      * 
      */
-    create<T extends PaymentCreateArgs>(args: SelectSubset<T, PaymentCreateArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+    create<T extends InvoiceCreateArgs>(args: SelectSubset<T, InvoiceCreateArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Create many Payments.
-     * @param {PaymentCreateManyArgs} args - Arguments to create many Payments.
+     * Create many Invoices.
+     * @param {InvoiceCreateManyArgs} args - Arguments to create many Invoices.
      * @example
-     * // Create many Payments
-     * const payment = await prisma.payment.createMany({
+     * // Create many Invoices
+     * const invoice = await prisma.invoice.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends PaymentCreateManyArgs>(args?: SelectSubset<T, PaymentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends InvoiceCreateManyArgs>(args?: SelectSubset<T, InvoiceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Payments and returns the data saved in the database.
-     * @param {PaymentCreateManyAndReturnArgs} args - Arguments to create many Payments.
+     * Create many Invoices and returns the data saved in the database.
+     * @param {InvoiceCreateManyAndReturnArgs} args - Arguments to create many Invoices.
      * @example
-     * // Create many Payments
-     * const payment = await prisma.payment.createManyAndReturn({
+     * // Create many Invoices
+     * const invoice = await prisma.invoice.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Payments and only return the `id`
-     * const paymentWithIdOnly = await prisma.payment.createManyAndReturn({
+     * // Create many Invoices and only return the `id`
+     * const invoiceWithIdOnly = await prisma.invoice.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -9195,28 +9220,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends PaymentCreateManyAndReturnArgs>(args?: SelectSubset<T, PaymentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+    createManyAndReturn<T extends InvoiceCreateManyAndReturnArgs>(args?: SelectSubset<T, InvoiceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
     /**
-     * Delete a Payment.
-     * @param {PaymentDeleteArgs} args - Arguments to delete one Payment.
+     * Delete a Invoice.
+     * @param {InvoiceDeleteArgs} args - Arguments to delete one Invoice.
      * @example
-     * // Delete one Payment
-     * const Payment = await prisma.payment.delete({
+     * // Delete one Invoice
+     * const Invoice = await prisma.invoice.delete({
      *   where: {
-     *     // ... filter to delete one Payment
+     *     // ... filter to delete one Invoice
      *   }
      * })
      * 
      */
-    delete<T extends PaymentDeleteArgs>(args: SelectSubset<T, PaymentDeleteArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+    delete<T extends InvoiceDeleteArgs>(args: SelectSubset<T, InvoiceDeleteArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Update one Payment.
-     * @param {PaymentUpdateArgs} args - Arguments to update one Payment.
+     * Update one Invoice.
+     * @param {InvoiceUpdateArgs} args - Arguments to update one Invoice.
      * @example
-     * // Update one Payment
-     * const payment = await prisma.payment.update({
+     * // Update one Invoice
+     * const invoice = await prisma.invoice.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -9226,30 +9251,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends PaymentUpdateArgs>(args: SelectSubset<T, PaymentUpdateArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+    update<T extends InvoiceUpdateArgs>(args: SelectSubset<T, InvoiceUpdateArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
     /**
-     * Delete zero or more Payments.
-     * @param {PaymentDeleteManyArgs} args - Arguments to filter Payments to delete.
+     * Delete zero or more Invoices.
+     * @param {InvoiceDeleteManyArgs} args - Arguments to filter Invoices to delete.
      * @example
-     * // Delete a few Payments
-     * const { count } = await prisma.payment.deleteMany({
+     * // Delete a few Invoices
+     * const { count } = await prisma.invoice.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends PaymentDeleteManyArgs>(args?: SelectSubset<T, PaymentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends InvoiceDeleteManyArgs>(args?: SelectSubset<T, InvoiceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Payments.
+     * Update zero or more Invoices.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {InvoiceUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Payments
-     * const payment = await prisma.payment.updateMany({
+     * // Update many Invoices
+     * const invoice = await prisma.invoice.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -9259,14 +9284,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends PaymentUpdateManyArgs>(args: SelectSubset<T, PaymentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends InvoiceUpdateManyArgs>(args: SelectSubset<T, InvoiceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Payments and returns the data updated in the database.
-     * @param {PaymentUpdateManyAndReturnArgs} args - Arguments to update many Payments.
+     * Update zero or more Invoices and returns the data updated in the database.
+     * @param {InvoiceUpdateManyAndReturnArgs} args - Arguments to update many Invoices.
      * @example
-     * // Update many Payments
-     * const payment = await prisma.payment.updateManyAndReturn({
+     * // Update many Invoices
+     * const invoice = await prisma.invoice.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -9275,8 +9300,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Payments and only return the `id`
-     * const paymentWithIdOnly = await prisma.payment.updateManyAndReturn({
+     * // Update zero or more Invoices and only return the `id`
+     * const invoiceWithIdOnly = await prisma.invoice.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -9289,56 +9314,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends PaymentUpdateManyAndReturnArgs>(args: SelectSubset<T, PaymentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+    updateManyAndReturn<T extends InvoiceUpdateManyAndReturnArgs>(args: SelectSubset<T, InvoiceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
 
     /**
-     * Create or update one Payment.
-     * @param {PaymentUpsertArgs} args - Arguments to update or create a Payment.
+     * Create or update one Invoice.
+     * @param {InvoiceUpsertArgs} args - Arguments to update or create a Invoice.
      * @example
-     * // Update or create a Payment
-     * const payment = await prisma.payment.upsert({
+     * // Update or create a Invoice
+     * const invoice = await prisma.invoice.upsert({
      *   create: {
-     *     // ... data to create a Payment
+     *     // ... data to create a Invoice
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Payment we want to update
+     *     // ... the filter for the Invoice we want to update
      *   }
      * })
      */
-    upsert<T extends PaymentUpsertArgs>(args: SelectSubset<T, PaymentUpsertArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+    upsert<T extends InvoiceUpsertArgs>(args: SelectSubset<T, InvoiceUpsertArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
 
 
     /**
-     * Count the number of Payments.
+     * Count the number of Invoices.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentCountArgs} args - Arguments to filter Payments to count.
+     * @param {InvoiceCountArgs} args - Arguments to filter Invoices to count.
      * @example
-     * // Count the number of Payments
-     * const count = await prisma.payment.count({
+     * // Count the number of Invoices
+     * const count = await prisma.invoice.count({
      *   where: {
-     *     // ... the filter for the Payments we want to count
+     *     // ... the filter for the Invoices we want to count
      *   }
      * })
     **/
-    count<T extends PaymentCountArgs>(
-      args?: Subset<T, PaymentCountArgs>,
+    count<T extends InvoiceCountArgs>(
+      args?: Subset<T, InvoiceCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], PaymentCountAggregateOutputType>
+          : GetScalarType<T['select'], InvoiceCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Payment.
+     * Allows you to perform aggregations operations on a Invoice.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {InvoiceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -9358,13 +9383,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends PaymentAggregateArgs>(args: Subset<T, PaymentAggregateArgs>): Prisma.PrismaPromise<GetPaymentAggregateType<T>>
+    aggregate<T extends InvoiceAggregateArgs>(args: Subset<T, InvoiceAggregateArgs>): Prisma.PrismaPromise<GetInvoiceAggregateType<T>>
 
     /**
-     * Group by Payment.
+     * Group by Invoice.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PaymentGroupByArgs} args - Group by arguments.
+     * @param {InvoiceGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -9379,14 +9404,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends PaymentGroupByArgs,
+      T extends InvoiceGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: PaymentGroupByArgs['orderBy'] }
-        : { orderBy?: PaymentGroupByArgs['orderBy'] },
+        ? { orderBy: InvoiceGroupByArgs['orderBy'] }
+        : { orderBy?: InvoiceGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -9435,20 +9460,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, PaymentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPaymentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, InvoiceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInvoiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Payment model
+   * Fields of the Invoice model
    */
-  readonly fields: PaymentFieldRefs;
+  readonly fields: InvoiceFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Payment.
+   * The delegate class that acts as a "Promise-like" for Invoice.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__PaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     lease<T extends LeaseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LeaseDefaultArgs<ExtArgs>>): Prisma__LeaseClient<$Result.GetResult<Prisma.$LeasePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     /**
@@ -9477,427 +9502,428 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Payment model
+   * Fields of the Invoice model
    */ 
-  interface PaymentFieldRefs {
-    readonly id: FieldRef<"Payment", 'Int'>
-    readonly amountDue: FieldRef<"Payment", 'Float'>
-    readonly amountPaid: FieldRef<"Payment", 'Float'>
-    readonly dueDate: FieldRef<"Payment", 'DateTime'>
-    readonly paymentDate: FieldRef<"Payment", 'DateTime'>
-    readonly paymentStatus: FieldRef<"Payment", 'PaymentStatus'>
-    readonly leaseId: FieldRef<"Payment", 'Int'>
+  interface InvoiceFieldRefs {
+    readonly id: FieldRef<"Invoice", 'Int'>
+    readonly amountDue: FieldRef<"Invoice", 'Float'>
+    readonly amountPaid: FieldRef<"Invoice", 'Float'>
+    readonly dueDate: FieldRef<"Invoice", 'DateTime'>
+    readonly paymentDate: FieldRef<"Invoice", 'DateTime'>
+    readonly status: FieldRef<"Invoice", 'InvoiceStatus'>
+    readonly stripePaymentIntentId: FieldRef<"Invoice", 'String'>
+    readonly leaseId: FieldRef<"Invoice", 'Int'>
   }
     
 
   // Custom InputTypes
   /**
-   * Payment findUnique
+   * Invoice findUnique
    */
-  export type PaymentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Payment
+     * Select specific fields to fetch from the Invoice
      */
-    select?: PaymentSelect<ExtArgs> | null
+    select?: InvoiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Payment
+     * Omit specific fields from the Invoice
      */
-    omit?: PaymentOmit<ExtArgs> | null
+    omit?: InvoiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentInclude<ExtArgs> | null
+    include?: InvoiceInclude<ExtArgs> | null
     /**
-     * Filter, which Payment to fetch.
+     * Filter, which Invoice to fetch.
      */
-    where: PaymentWhereUniqueInput
+    where: InvoiceWhereUniqueInput
   }
 
   /**
-   * Payment findUniqueOrThrow
+   * Invoice findUniqueOrThrow
    */
-  export type PaymentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Payment
+     * Select specific fields to fetch from the Invoice
      */
-    select?: PaymentSelect<ExtArgs> | null
+    select?: InvoiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Payment
+     * Omit specific fields from the Invoice
      */
-    omit?: PaymentOmit<ExtArgs> | null
+    omit?: InvoiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentInclude<ExtArgs> | null
+    include?: InvoiceInclude<ExtArgs> | null
     /**
-     * Filter, which Payment to fetch.
+     * Filter, which Invoice to fetch.
      */
-    where: PaymentWhereUniqueInput
+    where: InvoiceWhereUniqueInput
   }
 
   /**
-   * Payment findFirst
+   * Invoice findFirst
    */
-  export type PaymentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Payment
+     * Select specific fields to fetch from the Invoice
      */
-    select?: PaymentSelect<ExtArgs> | null
+    select?: InvoiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Payment
+     * Omit specific fields from the Invoice
      */
-    omit?: PaymentOmit<ExtArgs> | null
+    omit?: InvoiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentInclude<ExtArgs> | null
+    include?: InvoiceInclude<ExtArgs> | null
     /**
-     * Filter, which Payment to fetch.
+     * Filter, which Invoice to fetch.
      */
-    where?: PaymentWhereInput
+    where?: InvoiceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Payments to fetch.
+     * Determine the order of Invoices to fetch.
      */
-    orderBy?: PaymentOrderByWithRelationInput | PaymentOrderByWithRelationInput[]
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Payments.
+     * Sets the position for searching for Invoices.
      */
-    cursor?: PaymentWhereUniqueInput
+    cursor?: InvoiceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Payments from the position of the cursor.
+     * Take `±n` Invoices from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Payments.
+     * Skip the first `n` Invoices.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Payments.
+     * Filter by unique combinations of Invoices.
      */
-    distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
   }
 
   /**
-   * Payment findFirstOrThrow
+   * Invoice findFirstOrThrow
    */
-  export type PaymentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Payment
+     * Select specific fields to fetch from the Invoice
      */
-    select?: PaymentSelect<ExtArgs> | null
+    select?: InvoiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Payment
+     * Omit specific fields from the Invoice
      */
-    omit?: PaymentOmit<ExtArgs> | null
+    omit?: InvoiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentInclude<ExtArgs> | null
+    include?: InvoiceInclude<ExtArgs> | null
     /**
-     * Filter, which Payment to fetch.
+     * Filter, which Invoice to fetch.
      */
-    where?: PaymentWhereInput
+    where?: InvoiceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Payments to fetch.
+     * Determine the order of Invoices to fetch.
      */
-    orderBy?: PaymentOrderByWithRelationInput | PaymentOrderByWithRelationInput[]
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Payments.
+     * Sets the position for searching for Invoices.
      */
-    cursor?: PaymentWhereUniqueInput
+    cursor?: InvoiceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Payments from the position of the cursor.
+     * Take `±n` Invoices from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Payments.
+     * Skip the first `n` Invoices.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Payments.
+     * Filter by unique combinations of Invoices.
      */
-    distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
   }
 
   /**
-   * Payment findMany
+   * Invoice findMany
    */
-  export type PaymentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Payment
+     * Select specific fields to fetch from the Invoice
      */
-    select?: PaymentSelect<ExtArgs> | null
+    select?: InvoiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Payment
+     * Omit specific fields from the Invoice
      */
-    omit?: PaymentOmit<ExtArgs> | null
+    omit?: InvoiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentInclude<ExtArgs> | null
+    include?: InvoiceInclude<ExtArgs> | null
     /**
-     * Filter, which Payments to fetch.
+     * Filter, which Invoices to fetch.
      */
-    where?: PaymentWhereInput
+    where?: InvoiceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Payments to fetch.
+     * Determine the order of Invoices to fetch.
      */
-    orderBy?: PaymentOrderByWithRelationInput | PaymentOrderByWithRelationInput[]
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Payments.
+     * Sets the position for listing Invoices.
      */
-    cursor?: PaymentWhereUniqueInput
+    cursor?: InvoiceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Payments from the position of the cursor.
+     * Take `±n` Invoices from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Payments.
+     * Skip the first `n` Invoices.
      */
     skip?: number
-    distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
   }
 
   /**
-   * Payment create
+   * Invoice create
    */
-  export type PaymentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Payment
+     * Select specific fields to fetch from the Invoice
      */
-    select?: PaymentSelect<ExtArgs> | null
+    select?: InvoiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Payment
+     * Omit specific fields from the Invoice
      */
-    omit?: PaymentOmit<ExtArgs> | null
+    omit?: InvoiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentInclude<ExtArgs> | null
+    include?: InvoiceInclude<ExtArgs> | null
     /**
-     * The data needed to create a Payment.
+     * The data needed to create a Invoice.
      */
-    data: XOR<PaymentCreateInput, PaymentUncheckedCreateInput>
+    data: XOR<InvoiceCreateInput, InvoiceUncheckedCreateInput>
   }
 
   /**
-   * Payment createMany
+   * Invoice createMany
    */
-  export type PaymentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Payments.
+     * The data used to create many Invoices.
      */
-    data: PaymentCreateManyInput | PaymentCreateManyInput[]
+    data: InvoiceCreateManyInput | InvoiceCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Payment createManyAndReturn
+   * Invoice createManyAndReturn
    */
-  export type PaymentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Payment
+     * Select specific fields to fetch from the Invoice
      */
-    select?: PaymentSelectCreateManyAndReturn<ExtArgs> | null
+    select?: InvoiceSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Payment
+     * Omit specific fields from the Invoice
      */
-    omit?: PaymentOmit<ExtArgs> | null
+    omit?: InvoiceOmit<ExtArgs> | null
     /**
-     * The data used to create many Payments.
+     * The data used to create many Invoices.
      */
-    data: PaymentCreateManyInput | PaymentCreateManyInput[]
+    data: InvoiceCreateManyInput | InvoiceCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: InvoiceIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Payment update
+   * Invoice update
    */
-  export type PaymentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Payment
+     * Select specific fields to fetch from the Invoice
      */
-    select?: PaymentSelect<ExtArgs> | null
+    select?: InvoiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Payment
+     * Omit specific fields from the Invoice
      */
-    omit?: PaymentOmit<ExtArgs> | null
+    omit?: InvoiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentInclude<ExtArgs> | null
+    include?: InvoiceInclude<ExtArgs> | null
     /**
-     * The data needed to update a Payment.
+     * The data needed to update a Invoice.
      */
-    data: XOR<PaymentUpdateInput, PaymentUncheckedUpdateInput>
+    data: XOR<InvoiceUpdateInput, InvoiceUncheckedUpdateInput>
     /**
-     * Choose, which Payment to update.
+     * Choose, which Invoice to update.
      */
-    where: PaymentWhereUniqueInput
+    where: InvoiceWhereUniqueInput
   }
 
   /**
-   * Payment updateMany
+   * Invoice updateMany
    */
-  export type PaymentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Payments.
+     * The data used to update Invoices.
      */
-    data: XOR<PaymentUpdateManyMutationInput, PaymentUncheckedUpdateManyInput>
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyInput>
     /**
-     * Filter which Payments to update
+     * Filter which Invoices to update
      */
-    where?: PaymentWhereInput
+    where?: InvoiceWhereInput
     /**
-     * Limit how many Payments to update.
+     * Limit how many Invoices to update.
      */
     limit?: number
   }
 
   /**
-   * Payment updateManyAndReturn
+   * Invoice updateManyAndReturn
    */
-  export type PaymentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Payment
+     * Select specific fields to fetch from the Invoice
      */
-    select?: PaymentSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: InvoiceSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Payment
+     * Omit specific fields from the Invoice
      */
-    omit?: PaymentOmit<ExtArgs> | null
+    omit?: InvoiceOmit<ExtArgs> | null
     /**
-     * The data used to update Payments.
+     * The data used to update Invoices.
      */
-    data: XOR<PaymentUpdateManyMutationInput, PaymentUncheckedUpdateManyInput>
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyInput>
     /**
-     * Filter which Payments to update
+     * Filter which Invoices to update
      */
-    where?: PaymentWhereInput
+    where?: InvoiceWhereInput
     /**
-     * Limit how many Payments to update.
+     * Limit how many Invoices to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: InvoiceIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Payment upsert
+   * Invoice upsert
    */
-  export type PaymentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Payment
+     * Select specific fields to fetch from the Invoice
      */
-    select?: PaymentSelect<ExtArgs> | null
+    select?: InvoiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Payment
+     * Omit specific fields from the Invoice
      */
-    omit?: PaymentOmit<ExtArgs> | null
+    omit?: InvoiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentInclude<ExtArgs> | null
+    include?: InvoiceInclude<ExtArgs> | null
     /**
-     * The filter to search for the Payment to update in case it exists.
+     * The filter to search for the Invoice to update in case it exists.
      */
-    where: PaymentWhereUniqueInput
+    where: InvoiceWhereUniqueInput
     /**
-     * In case the Payment found by the `where` argument doesn't exist, create a new Payment with this data.
+     * In case the Invoice found by the `where` argument doesn't exist, create a new Invoice with this data.
      */
-    create: XOR<PaymentCreateInput, PaymentUncheckedCreateInput>
+    create: XOR<InvoiceCreateInput, InvoiceUncheckedCreateInput>
     /**
-     * In case the Payment was found with the provided `where` argument, update it with this data.
+     * In case the Invoice was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<PaymentUpdateInput, PaymentUncheckedUpdateInput>
+    update: XOR<InvoiceUpdateInput, InvoiceUncheckedUpdateInput>
   }
 
   /**
-   * Payment delete
+   * Invoice delete
    */
-  export type PaymentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Payment
+     * Select specific fields to fetch from the Invoice
      */
-    select?: PaymentSelect<ExtArgs> | null
+    select?: InvoiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Payment
+     * Omit specific fields from the Invoice
      */
-    omit?: PaymentOmit<ExtArgs> | null
+    omit?: InvoiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentInclude<ExtArgs> | null
+    include?: InvoiceInclude<ExtArgs> | null
     /**
-     * Filter which Payment to delete.
+     * Filter which Invoice to delete.
      */
-    where: PaymentWhereUniqueInput
+    where: InvoiceWhereUniqueInput
   }
 
   /**
-   * Payment deleteMany
+   * Invoice deleteMany
    */
-  export type PaymentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Payments to delete
+     * Filter which Invoices to delete
      */
-    where?: PaymentWhereInput
+    where?: InvoiceWhereInput
     /**
-     * Limit how many Payments to delete.
+     * Limit how many Invoices to delete.
      */
     limit?: number
   }
 
   /**
-   * Payment without action
+   * Invoice without action
    */
-  export type PaymentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InvoiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Payment
+     * Select specific fields to fetch from the Invoice
      */
-    select?: PaymentSelect<ExtArgs> | null
+    select?: InvoiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Payment
+     * Omit specific fields from the Invoice
      */
-    omit?: PaymentOmit<ExtArgs> | null
+    omit?: InvoiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PaymentInclude<ExtArgs> | null
+    include?: InvoiceInclude<ExtArgs> | null
   }
 
 
@@ -9957,7 +9983,8 @@ export namespace Prisma {
     cognitoId: 'cognitoId',
     name: 'name',
     email: 'email',
-    phoneNumber: 'phoneNumber'
+    phoneNumber: 'phoneNumber',
+    stripeCustomerId: 'stripeCustomerId'
   };
 
   export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]
@@ -10004,17 +10031,18 @@ export namespace Prisma {
   export type LeaseScalarFieldEnum = (typeof LeaseScalarFieldEnum)[keyof typeof LeaseScalarFieldEnum]
 
 
-  export const PaymentScalarFieldEnum: {
+  export const InvoiceScalarFieldEnum: {
     id: 'id',
     amountDue: 'amountDue',
     amountPaid: 'amountPaid',
     dueDate: 'dueDate',
     paymentDate: 'paymentDate',
-    paymentStatus: 'paymentStatus',
+    status: 'status',
+    stripePaymentIntentId: 'stripePaymentIntentId',
     leaseId: 'leaseId'
   };
 
-  export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+  export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10166,16 +10194,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'PaymentStatus'
+   * Reference to a field of type 'InvoiceStatus'
    */
-  export type EnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus'>
+  export type EnumInvoiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvoiceStatus'>
     
 
 
   /**
-   * Reference to a field of type 'PaymentStatus[]'
+   * Reference to a field of type 'InvoiceStatus[]'
    */
-  export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
+  export type ListEnumInvoiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvoiceStatus[]'>
     
   /**
    * Deep Input Types
@@ -10395,6 +10423,7 @@ export namespace Prisma {
     name?: StringFilter<"Tenant"> | string
     email?: StringFilter<"Tenant"> | string
     phoneNumber?: StringFilter<"Tenant"> | string
+    stripeCustomerId?: StringNullableFilter<"Tenant"> | string | null
     properties?: PropertyListRelationFilter
     favorites?: PropertyListRelationFilter
     applications?: ApplicationListRelationFilter
@@ -10407,6 +10436,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    stripeCustomerId?: SortOrderInput | SortOrder
     properties?: PropertyOrderByRelationAggregateInput
     favorites?: PropertyOrderByRelationAggregateInput
     applications?: ApplicationOrderByRelationAggregateInput
@@ -10422,6 +10452,7 @@ export namespace Prisma {
     name?: StringFilter<"Tenant"> | string
     email?: StringFilter<"Tenant"> | string
     phoneNumber?: StringFilter<"Tenant"> | string
+    stripeCustomerId?: StringNullableFilter<"Tenant"> | string | null
     properties?: PropertyListRelationFilter
     favorites?: PropertyListRelationFilter
     applications?: ApplicationListRelationFilter
@@ -10434,6 +10465,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    stripeCustomerId?: SortOrderInput | SortOrder
     _count?: TenantCountOrderByAggregateInput
     _avg?: TenantAvgOrderByAggregateInput
     _max?: TenantMaxOrderByAggregateInput
@@ -10450,6 +10482,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Tenant"> | string
     email?: StringWithAggregatesFilter<"Tenant"> | string
     phoneNumber?: StringWithAggregatesFilter<"Tenant"> | string
+    stripeCustomerId?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
   }
 
   export type LocationWhereInput = {
@@ -10616,7 +10649,7 @@ export namespace Prisma {
     property?: XOR<PropertyScalarRelationFilter, PropertyWhereInput>
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     application?: XOR<ApplicationNullableScalarRelationFilter, ApplicationWhereInput> | null
-    payments?: PaymentListRelationFilter
+    invoices?: InvoiceListRelationFilter
   }
 
   export type LeaseOrderByWithRelationInput = {
@@ -10630,7 +10663,7 @@ export namespace Prisma {
     property?: PropertyOrderByWithRelationInput
     tenant?: TenantOrderByWithRelationInput
     application?: ApplicationOrderByWithRelationInput
-    payments?: PaymentOrderByRelationAggregateInput
+    invoices?: InvoiceOrderByRelationAggregateInput
   }
 
   export type LeaseWhereUniqueInput = Prisma.AtLeast<{
@@ -10647,7 +10680,7 @@ export namespace Prisma {
     property?: XOR<PropertyScalarRelationFilter, PropertyWhereInput>
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     application?: XOR<ApplicationNullableScalarRelationFilter, ApplicationWhereInput> | null
-    payments?: PaymentListRelationFilter
+    invoices?: InvoiceListRelationFilter
   }, "id">
 
   export type LeaseOrderByWithAggregationInput = {
@@ -10678,71 +10711,76 @@ export namespace Prisma {
     tenantCognitoId?: StringWithAggregatesFilter<"Lease"> | string
   }
 
-  export type PaymentWhereInput = {
-    AND?: PaymentWhereInput | PaymentWhereInput[]
-    OR?: PaymentWhereInput[]
-    NOT?: PaymentWhereInput | PaymentWhereInput[]
-    id?: IntFilter<"Payment"> | number
-    amountDue?: FloatFilter<"Payment"> | number
-    amountPaid?: FloatFilter<"Payment"> | number
-    dueDate?: DateTimeFilter<"Payment"> | Date | string
-    paymentDate?: DateTimeFilter<"Payment"> | Date | string
-    paymentStatus?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
-    leaseId?: IntFilter<"Payment"> | number
+  export type InvoiceWhereInput = {
+    AND?: InvoiceWhereInput | InvoiceWhereInput[]
+    OR?: InvoiceWhereInput[]
+    NOT?: InvoiceWhereInput | InvoiceWhereInput[]
+    id?: IntFilter<"Invoice"> | number
+    amountDue?: FloatFilter<"Invoice"> | number
+    amountPaid?: FloatFilter<"Invoice"> | number
+    dueDate?: DateTimeFilter<"Invoice"> | Date | string
+    paymentDate?: DateTimeNullableFilter<"Invoice"> | Date | string | null
+    status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    stripePaymentIntentId?: StringNullableFilter<"Invoice"> | string | null
+    leaseId?: IntFilter<"Invoice"> | number
     lease?: XOR<LeaseScalarRelationFilter, LeaseWhereInput>
   }
 
-  export type PaymentOrderByWithRelationInput = {
+  export type InvoiceOrderByWithRelationInput = {
     id?: SortOrder
     amountDue?: SortOrder
     amountPaid?: SortOrder
     dueDate?: SortOrder
-    paymentDate?: SortOrder
-    paymentStatus?: SortOrder
+    paymentDate?: SortOrderInput | SortOrder
+    status?: SortOrder
+    stripePaymentIntentId?: SortOrderInput | SortOrder
     leaseId?: SortOrder
     lease?: LeaseOrderByWithRelationInput
   }
 
-  export type PaymentWhereUniqueInput = Prisma.AtLeast<{
+  export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    AND?: PaymentWhereInput | PaymentWhereInput[]
-    OR?: PaymentWhereInput[]
-    NOT?: PaymentWhereInput | PaymentWhereInput[]
-    amountDue?: FloatFilter<"Payment"> | number
-    amountPaid?: FloatFilter<"Payment"> | number
-    dueDate?: DateTimeFilter<"Payment"> | Date | string
-    paymentDate?: DateTimeFilter<"Payment"> | Date | string
-    paymentStatus?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
-    leaseId?: IntFilter<"Payment"> | number
+    AND?: InvoiceWhereInput | InvoiceWhereInput[]
+    OR?: InvoiceWhereInput[]
+    NOT?: InvoiceWhereInput | InvoiceWhereInput[]
+    amountDue?: FloatFilter<"Invoice"> | number
+    amountPaid?: FloatFilter<"Invoice"> | number
+    dueDate?: DateTimeFilter<"Invoice"> | Date | string
+    paymentDate?: DateTimeNullableFilter<"Invoice"> | Date | string | null
+    status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    stripePaymentIntentId?: StringNullableFilter<"Invoice"> | string | null
+    leaseId?: IntFilter<"Invoice"> | number
     lease?: XOR<LeaseScalarRelationFilter, LeaseWhereInput>
   }, "id">
 
-  export type PaymentOrderByWithAggregationInput = {
+  export type InvoiceOrderByWithAggregationInput = {
     id?: SortOrder
     amountDue?: SortOrder
     amountPaid?: SortOrder
     dueDate?: SortOrder
-    paymentDate?: SortOrder
-    paymentStatus?: SortOrder
+    paymentDate?: SortOrderInput | SortOrder
+    status?: SortOrder
+    stripePaymentIntentId?: SortOrderInput | SortOrder
     leaseId?: SortOrder
-    _count?: PaymentCountOrderByAggregateInput
-    _avg?: PaymentAvgOrderByAggregateInput
-    _max?: PaymentMaxOrderByAggregateInput
-    _min?: PaymentMinOrderByAggregateInput
-    _sum?: PaymentSumOrderByAggregateInput
+    _count?: InvoiceCountOrderByAggregateInput
+    _avg?: InvoiceAvgOrderByAggregateInput
+    _max?: InvoiceMaxOrderByAggregateInput
+    _min?: InvoiceMinOrderByAggregateInput
+    _sum?: InvoiceSumOrderByAggregateInput
   }
 
-  export type PaymentScalarWhereWithAggregatesInput = {
-    AND?: PaymentScalarWhereWithAggregatesInput | PaymentScalarWhereWithAggregatesInput[]
-    OR?: PaymentScalarWhereWithAggregatesInput[]
-    NOT?: PaymentScalarWhereWithAggregatesInput | PaymentScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Payment"> | number
-    amountDue?: FloatWithAggregatesFilter<"Payment"> | number
-    amountPaid?: FloatWithAggregatesFilter<"Payment"> | number
-    dueDate?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
-    paymentDate?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
-    paymentStatus?: EnumPaymentStatusWithAggregatesFilter<"Payment"> | $Enums.PaymentStatus
-    leaseId?: IntWithAggregatesFilter<"Payment"> | number
+  export type InvoiceScalarWhereWithAggregatesInput = {
+    AND?: InvoiceScalarWhereWithAggregatesInput | InvoiceScalarWhereWithAggregatesInput[]
+    OR?: InvoiceScalarWhereWithAggregatesInput[]
+    NOT?: InvoiceScalarWhereWithAggregatesInput | InvoiceScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Invoice"> | number
+    amountDue?: FloatWithAggregatesFilter<"Invoice"> | number
+    amountPaid?: FloatWithAggregatesFilter<"Invoice"> | number
+    dueDate?: DateTimeWithAggregatesFilter<"Invoice"> | Date | string
+    paymentDate?: DateTimeNullableWithAggregatesFilter<"Invoice"> | Date | string | null
+    status?: EnumInvoiceStatusWithAggregatesFilter<"Invoice"> | $Enums.InvoiceStatus
+    stripePaymentIntentId?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    leaseId?: IntWithAggregatesFilter<"Invoice"> | number
   }
 
   export type PropertyCreateInput = {
@@ -10979,6 +11017,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeCustomerId?: string | null
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
@@ -10991,6 +11030,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeCustomerId?: string | null
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
@@ -11002,6 +11042,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
@@ -11014,6 +11055,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
@@ -11026,6 +11068,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeCustomerId?: string | null
   }
 
   export type TenantUpdateManyMutationInput = {
@@ -11033,6 +11076,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TenantUncheckedUpdateManyInput = {
@@ -11041,6 +11085,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LocationUpdateInput = {
@@ -11172,7 +11217,7 @@ export namespace Prisma {
     property: PropertyCreateNestedOneWithoutLeasesInput
     tenant: TenantCreateNestedOneWithoutLeasesInput
     application?: ApplicationCreateNestedOneWithoutLeaseInput
-    payments?: PaymentCreateNestedManyWithoutLeaseInput
+    invoices?: InvoiceCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseUncheckedCreateInput = {
@@ -11184,7 +11229,7 @@ export namespace Prisma {
     propertyId: number
     tenantCognitoId: string
     application?: ApplicationUncheckedCreateNestedOneWithoutLeaseInput
-    payments?: PaymentUncheckedCreateNestedManyWithoutLeaseInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseUpdateInput = {
@@ -11195,7 +11240,7 @@ export namespace Prisma {
     property?: PropertyUpdateOneRequiredWithoutLeasesNestedInput
     tenant?: TenantUpdateOneRequiredWithoutLeasesNestedInput
     application?: ApplicationUpdateOneWithoutLeaseNestedInput
-    payments?: PaymentUpdateManyWithoutLeaseNestedInput
+    invoices?: InvoiceUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseUncheckedUpdateInput = {
@@ -11207,7 +11252,7 @@ export namespace Prisma {
     propertyId?: IntFieldUpdateOperationsInput | number
     tenantCognitoId?: StringFieldUpdateOperationsInput | string
     application?: ApplicationUncheckedUpdateOneWithoutLeaseNestedInput
-    payments?: PaymentUncheckedUpdateManyWithoutLeaseNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseCreateManyInput = {
@@ -11237,69 +11282,76 @@ export namespace Prisma {
     tenantCognitoId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type PaymentCreateInput = {
+  export type InvoiceCreateInput = {
     amountDue: number
     amountPaid: number
     dueDate: Date | string
-    paymentDate: Date | string
-    paymentStatus: $Enums.PaymentStatus
-    lease: LeaseCreateNestedOneWithoutPaymentsInput
+    paymentDate?: Date | string | null
+    status: $Enums.InvoiceStatus
+    stripePaymentIntentId?: string | null
+    lease: LeaseCreateNestedOneWithoutInvoicesInput
   }
 
-  export type PaymentUncheckedCreateInput = {
+  export type InvoiceUncheckedCreateInput = {
     id?: number
     amountDue: number
     amountPaid: number
     dueDate: Date | string
-    paymentDate: Date | string
-    paymentStatus: $Enums.PaymentStatus
+    paymentDate?: Date | string | null
+    status: $Enums.InvoiceStatus
+    stripePaymentIntentId?: string | null
     leaseId: number
   }
 
-  export type PaymentUpdateInput = {
+  export type InvoiceUpdateInput = {
     amountDue?: FloatFieldUpdateOperationsInput | number
     amountPaid?: FloatFieldUpdateOperationsInput | number
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
-    lease?: LeaseUpdateOneRequiredWithoutPaymentsNestedInput
+    paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    stripePaymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
+    lease?: LeaseUpdateOneRequiredWithoutInvoicesNestedInput
   }
 
-  export type PaymentUncheckedUpdateInput = {
+  export type InvoiceUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     amountDue?: FloatFieldUpdateOperationsInput | number
     amountPaid?: FloatFieldUpdateOperationsInput | number
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    stripePaymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: IntFieldUpdateOperationsInput | number
   }
 
-  export type PaymentCreateManyInput = {
+  export type InvoiceCreateManyInput = {
     id?: number
     amountDue: number
     amountPaid: number
     dueDate: Date | string
-    paymentDate: Date | string
-    paymentStatus: $Enums.PaymentStatus
+    paymentDate?: Date | string | null
+    status: $Enums.InvoiceStatus
+    stripePaymentIntentId?: string | null
     leaseId: number
   }
 
-  export type PaymentUpdateManyMutationInput = {
+  export type InvoiceUpdateManyMutationInput = {
     amountDue?: FloatFieldUpdateOperationsInput | number
     amountPaid?: FloatFieldUpdateOperationsInput | number
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    stripePaymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type PaymentUncheckedUpdateManyInput = {
+  export type InvoiceUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     amountDue?: FloatFieldUpdateOperationsInput | number
     amountPaid?: FloatFieldUpdateOperationsInput | number
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    stripePaymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -11699,12 +11751,28 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type TenantCountOrderByAggregateInput = {
     id?: SortOrder
     cognitoId?: SortOrder
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    stripeCustomerId?: SortOrder
   }
 
   export type TenantAvgOrderByAggregateInput = {
@@ -11717,6 +11785,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    stripeCustomerId?: SortOrder
   }
 
   export type TenantMinOrderByAggregateInput = {
@@ -11725,10 +11794,29 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    stripeCustomerId?: SortOrder
   }
 
   export type TenantSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type LocationCountOrderByAggregateInput = {
@@ -11771,21 +11859,6 @@ export namespace Prisma {
     in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type PropertyScalarRelationFilter = {
@@ -11864,36 +11937,18 @@ export namespace Prisma {
     _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type ApplicationNullableScalarRelationFilter = {
     is?: ApplicationWhereInput | null
     isNot?: ApplicationWhereInput | null
   }
 
-  export type PaymentListRelationFilter = {
-    every?: PaymentWhereInput
-    some?: PaymentWhereInput
-    none?: PaymentWhereInput
+  export type InvoiceListRelationFilter = {
+    every?: InvoiceWhereInput
+    some?: InvoiceWhereInput
+    none?: InvoiceWhereInput
   }
 
-  export type PaymentOrderByRelationAggregateInput = {
+  export type InvoiceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11941,11 +11996,22 @@ export namespace Prisma {
     propertyId?: SortOrder
   }
 
-  export type EnumPaymentStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type EnumInvoiceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvoiceStatus | EnumInvoiceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvoiceStatusFilter<$PrismaModel> | $Enums.InvoiceStatus
   }
 
   export type LeaseScalarRelationFilter = {
@@ -11953,58 +12019,75 @@ export namespace Prisma {
     isNot?: LeaseWhereInput
   }
 
-  export type PaymentCountOrderByAggregateInput = {
+  export type InvoiceCountOrderByAggregateInput = {
     id?: SortOrder
     amountDue?: SortOrder
     amountPaid?: SortOrder
     dueDate?: SortOrder
     paymentDate?: SortOrder
-    paymentStatus?: SortOrder
+    status?: SortOrder
+    stripePaymentIntentId?: SortOrder
     leaseId?: SortOrder
   }
 
-  export type PaymentAvgOrderByAggregateInput = {
+  export type InvoiceAvgOrderByAggregateInput = {
     id?: SortOrder
     amountDue?: SortOrder
     amountPaid?: SortOrder
     leaseId?: SortOrder
   }
 
-  export type PaymentMaxOrderByAggregateInput = {
-    id?: SortOrder
-    amountDue?: SortOrder
-    amountPaid?: SortOrder
-    dueDate?: SortOrder
-    paymentDate?: SortOrder
-    paymentStatus?: SortOrder
-    leaseId?: SortOrder
-  }
-
-  export type PaymentMinOrderByAggregateInput = {
+  export type InvoiceMaxOrderByAggregateInput = {
     id?: SortOrder
     amountDue?: SortOrder
     amountPaid?: SortOrder
     dueDate?: SortOrder
     paymentDate?: SortOrder
-    paymentStatus?: SortOrder
+    status?: SortOrder
+    stripePaymentIntentId?: SortOrder
     leaseId?: SortOrder
   }
 
-  export type PaymentSumOrderByAggregateInput = {
+  export type InvoiceMinOrderByAggregateInput = {
+    id?: SortOrder
+    amountDue?: SortOrder
+    amountPaid?: SortOrder
+    dueDate?: SortOrder
+    paymentDate?: SortOrder
+    status?: SortOrder
+    stripePaymentIntentId?: SortOrder
+    leaseId?: SortOrder
+  }
+
+  export type InvoiceSumOrderByAggregateInput = {
     id?: SortOrder
     amountDue?: SortOrder
     amountPaid?: SortOrder
     leaseId?: SortOrder
   }
 
-  export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel> | $Enums.PaymentStatus
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumInvoiceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvoiceStatus | EnumInvoiceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvoiceStatusWithAggregatesFilter<$PrismaModel> | $Enums.InvoiceStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPaymentStatusFilter<$PrismaModel>
-    _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
+    _min?: NestedEnumInvoiceStatusFilter<$PrismaModel>
+    _max?: NestedEnumInvoiceStatusFilter<$PrismaModel>
   }
 
   export type PropertyCreatephotoUrlsInput = {
@@ -12359,6 +12442,10 @@ export namespace Prisma {
     connect?: LeaseWhereUniqueInput | LeaseWhereUniqueInput[]
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type PropertyUpdateManyWithoutTenantsNestedInput = {
     create?: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput> | PropertyCreateWithoutTenantsInput[] | PropertyUncheckedCreateWithoutTenantsInput[]
     connectOrCreate?: PropertyCreateOrConnectWithoutTenantsInput | PropertyCreateOrConnectWithoutTenantsInput[]
@@ -12517,10 +12604,6 @@ export namespace Prisma {
     set?: $Enums.ApplicationStatus
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type PropertyUpdateOneRequiredWithoutApplicationsNestedInput = {
     create?: XOR<PropertyCreateWithoutApplicationsInput, PropertyUncheckedCreateWithoutApplicationsInput>
     connectOrCreate?: PropertyCreateOrConnectWithoutApplicationsInput
@@ -12565,11 +12648,11 @@ export namespace Prisma {
     connect?: ApplicationWhereUniqueInput
   }
 
-  export type PaymentCreateNestedManyWithoutLeaseInput = {
-    create?: XOR<PaymentCreateWithoutLeaseInput, PaymentUncheckedCreateWithoutLeaseInput> | PaymentCreateWithoutLeaseInput[] | PaymentUncheckedCreateWithoutLeaseInput[]
-    connectOrCreate?: PaymentCreateOrConnectWithoutLeaseInput | PaymentCreateOrConnectWithoutLeaseInput[]
-    createMany?: PaymentCreateManyLeaseInputEnvelope
-    connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+  export type InvoiceCreateNestedManyWithoutLeaseInput = {
+    create?: XOR<InvoiceCreateWithoutLeaseInput, InvoiceUncheckedCreateWithoutLeaseInput> | InvoiceCreateWithoutLeaseInput[] | InvoiceUncheckedCreateWithoutLeaseInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutLeaseInput | InvoiceCreateOrConnectWithoutLeaseInput[]
+    createMany?: InvoiceCreateManyLeaseInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
   }
 
   export type ApplicationUncheckedCreateNestedOneWithoutLeaseInput = {
@@ -12578,11 +12661,11 @@ export namespace Prisma {
     connect?: ApplicationWhereUniqueInput
   }
 
-  export type PaymentUncheckedCreateNestedManyWithoutLeaseInput = {
-    create?: XOR<PaymentCreateWithoutLeaseInput, PaymentUncheckedCreateWithoutLeaseInput> | PaymentCreateWithoutLeaseInput[] | PaymentUncheckedCreateWithoutLeaseInput[]
-    connectOrCreate?: PaymentCreateOrConnectWithoutLeaseInput | PaymentCreateOrConnectWithoutLeaseInput[]
-    createMany?: PaymentCreateManyLeaseInputEnvelope
-    connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+  export type InvoiceUncheckedCreateNestedManyWithoutLeaseInput = {
+    create?: XOR<InvoiceCreateWithoutLeaseInput, InvoiceUncheckedCreateWithoutLeaseInput> | InvoiceCreateWithoutLeaseInput[] | InvoiceUncheckedCreateWithoutLeaseInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutLeaseInput | InvoiceCreateOrConnectWithoutLeaseInput[]
+    createMany?: InvoiceCreateManyLeaseInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
   }
 
   export type PropertyUpdateOneRequiredWithoutLeasesNestedInput = {
@@ -12611,18 +12694,18 @@ export namespace Prisma {
     update?: XOR<XOR<ApplicationUpdateToOneWithWhereWithoutLeaseInput, ApplicationUpdateWithoutLeaseInput>, ApplicationUncheckedUpdateWithoutLeaseInput>
   }
 
-  export type PaymentUpdateManyWithoutLeaseNestedInput = {
-    create?: XOR<PaymentCreateWithoutLeaseInput, PaymentUncheckedCreateWithoutLeaseInput> | PaymentCreateWithoutLeaseInput[] | PaymentUncheckedCreateWithoutLeaseInput[]
-    connectOrCreate?: PaymentCreateOrConnectWithoutLeaseInput | PaymentCreateOrConnectWithoutLeaseInput[]
-    upsert?: PaymentUpsertWithWhereUniqueWithoutLeaseInput | PaymentUpsertWithWhereUniqueWithoutLeaseInput[]
-    createMany?: PaymentCreateManyLeaseInputEnvelope
-    set?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    disconnect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    delete?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    update?: PaymentUpdateWithWhereUniqueWithoutLeaseInput | PaymentUpdateWithWhereUniqueWithoutLeaseInput[]
-    updateMany?: PaymentUpdateManyWithWhereWithoutLeaseInput | PaymentUpdateManyWithWhereWithoutLeaseInput[]
-    deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
+  export type InvoiceUpdateManyWithoutLeaseNestedInput = {
+    create?: XOR<InvoiceCreateWithoutLeaseInput, InvoiceUncheckedCreateWithoutLeaseInput> | InvoiceCreateWithoutLeaseInput[] | InvoiceUncheckedCreateWithoutLeaseInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutLeaseInput | InvoiceCreateOrConnectWithoutLeaseInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutLeaseInput | InvoiceUpsertWithWhereUniqueWithoutLeaseInput[]
+    createMany?: InvoiceCreateManyLeaseInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutLeaseInput | InvoiceUpdateWithWhereUniqueWithoutLeaseInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutLeaseInput | InvoiceUpdateManyWithWhereWithoutLeaseInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
   export type ApplicationUncheckedUpdateOneWithoutLeaseNestedInput = {
@@ -12635,36 +12718,40 @@ export namespace Prisma {
     update?: XOR<XOR<ApplicationUpdateToOneWithWhereWithoutLeaseInput, ApplicationUpdateWithoutLeaseInput>, ApplicationUncheckedUpdateWithoutLeaseInput>
   }
 
-  export type PaymentUncheckedUpdateManyWithoutLeaseNestedInput = {
-    create?: XOR<PaymentCreateWithoutLeaseInput, PaymentUncheckedCreateWithoutLeaseInput> | PaymentCreateWithoutLeaseInput[] | PaymentUncheckedCreateWithoutLeaseInput[]
-    connectOrCreate?: PaymentCreateOrConnectWithoutLeaseInput | PaymentCreateOrConnectWithoutLeaseInput[]
-    upsert?: PaymentUpsertWithWhereUniqueWithoutLeaseInput | PaymentUpsertWithWhereUniqueWithoutLeaseInput[]
-    createMany?: PaymentCreateManyLeaseInputEnvelope
-    set?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    disconnect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    delete?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    update?: PaymentUpdateWithWhereUniqueWithoutLeaseInput | PaymentUpdateWithWhereUniqueWithoutLeaseInput[]
-    updateMany?: PaymentUpdateManyWithWhereWithoutLeaseInput | PaymentUpdateManyWithWhereWithoutLeaseInput[]
-    deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
+  export type InvoiceUncheckedUpdateManyWithoutLeaseNestedInput = {
+    create?: XOR<InvoiceCreateWithoutLeaseInput, InvoiceUncheckedCreateWithoutLeaseInput> | InvoiceCreateWithoutLeaseInput[] | InvoiceUncheckedCreateWithoutLeaseInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutLeaseInput | InvoiceCreateOrConnectWithoutLeaseInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutLeaseInput | InvoiceUpsertWithWhereUniqueWithoutLeaseInput[]
+    createMany?: InvoiceCreateManyLeaseInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutLeaseInput | InvoiceUpdateWithWhereUniqueWithoutLeaseInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutLeaseInput | InvoiceUpdateManyWithWhereWithoutLeaseInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
-  export type LeaseCreateNestedOneWithoutPaymentsInput = {
-    create?: XOR<LeaseCreateWithoutPaymentsInput, LeaseUncheckedCreateWithoutPaymentsInput>
-    connectOrCreate?: LeaseCreateOrConnectWithoutPaymentsInput
+  export type LeaseCreateNestedOneWithoutInvoicesInput = {
+    create?: XOR<LeaseCreateWithoutInvoicesInput, LeaseUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: LeaseCreateOrConnectWithoutInvoicesInput
     connect?: LeaseWhereUniqueInput
   }
 
-  export type EnumPaymentStatusFieldUpdateOperationsInput = {
-    set?: $Enums.PaymentStatus
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
-  export type LeaseUpdateOneRequiredWithoutPaymentsNestedInput = {
-    create?: XOR<LeaseCreateWithoutPaymentsInput, LeaseUncheckedCreateWithoutPaymentsInput>
-    connectOrCreate?: LeaseCreateOrConnectWithoutPaymentsInput
-    upsert?: LeaseUpsertWithoutPaymentsInput
+  export type EnumInvoiceStatusFieldUpdateOperationsInput = {
+    set?: $Enums.InvoiceStatus
+  }
+
+  export type LeaseUpdateOneRequiredWithoutInvoicesNestedInput = {
+    create?: XOR<LeaseCreateWithoutInvoicesInput, LeaseUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: LeaseCreateOrConnectWithoutInvoicesInput
+    upsert?: LeaseUpsertWithoutInvoicesInput
     connect?: LeaseWhereUniqueInput
-    update?: XOR<XOR<LeaseUpdateToOneWithWhereWithoutPaymentsInput, LeaseUpdateWithoutPaymentsInput>, LeaseUncheckedUpdateWithoutPaymentsInput>
+    update?: XOR<XOR<LeaseUpdateToOneWithWhereWithoutInvoicesInput, LeaseUpdateWithoutInvoicesInput>, LeaseUncheckedUpdateWithoutInvoicesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -12861,13 +12948,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumApplicationStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -12880,16 +12960,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
-    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12909,21 +12979,63 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
+  export type NestedEnumApplicationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
   }
 
-  export type NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel> | $Enums.PaymentStatus
+  export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPaymentStatusFilter<$PrismaModel>
-    _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
+    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
+    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedEnumInvoiceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvoiceStatus | EnumInvoiceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvoiceStatusFilter<$PrismaModel> | $Enums.InvoiceStatus
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumInvoiceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvoiceStatus | EnumInvoiceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvoiceStatusWithAggregatesFilter<$PrismaModel> | $Enums.InvoiceStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumInvoiceStatusFilter<$PrismaModel>
+    _max?: NestedEnumInvoiceStatusFilter<$PrismaModel>
   }
 
   export type ManagerCreateWithoutManagedPropertiesInput = {
@@ -12953,7 +13065,7 @@ export namespace Prisma {
     deposit: number
     tenant: TenantCreateNestedOneWithoutLeasesInput
     application?: ApplicationCreateNestedOneWithoutLeaseInput
-    payments?: PaymentCreateNestedManyWithoutLeaseInput
+    invoices?: InvoiceCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseUncheckedCreateWithoutPropertyInput = {
@@ -12964,7 +13076,7 @@ export namespace Prisma {
     deposit: number
     tenantCognitoId: string
     application?: ApplicationUncheckedCreateNestedOneWithoutLeaseInput
-    payments?: PaymentUncheckedCreateNestedManyWithoutLeaseInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseCreateOrConnectWithoutPropertyInput = {
@@ -13015,6 +13127,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeCustomerId?: string | null
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
@@ -13026,6 +13139,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeCustomerId?: string | null
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
@@ -13041,6 +13155,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeCustomerId?: string | null
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
@@ -13052,6 +13167,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeCustomerId?: string | null
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
@@ -13196,6 +13312,7 @@ export namespace Prisma {
     name?: StringFilter<"Tenant"> | string
     email?: StringFilter<"Tenant"> | string
     phoneNumber?: StringFilter<"Tenant"> | string
+    stripeCustomerId?: StringNullableFilter<"Tenant"> | string | null
   }
 
   export type TenantUpsertWithWhereUniqueWithoutPropertiesInput = {
@@ -13469,7 +13586,7 @@ export namespace Prisma {
     deposit: number
     property: PropertyCreateNestedOneWithoutLeasesInput
     application?: ApplicationCreateNestedOneWithoutLeaseInput
-    payments?: PaymentCreateNestedManyWithoutLeaseInput
+    invoices?: InvoiceCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseUncheckedCreateWithoutTenantInput = {
@@ -13480,7 +13597,7 @@ export namespace Prisma {
     deposit: number
     propertyId: number
     application?: ApplicationUncheckedCreateNestedOneWithoutLeaseInput
-    payments?: PaymentUncheckedCreateNestedManyWithoutLeaseInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseCreateOrConnectWithoutTenantInput = {
@@ -13695,6 +13812,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeCustomerId?: string | null
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
@@ -13706,6 +13824,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeCustomerId?: string | null
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
@@ -13723,7 +13842,7 @@ export namespace Prisma {
     deposit: number
     property: PropertyCreateNestedOneWithoutLeasesInput
     tenant: TenantCreateNestedOneWithoutLeasesInput
-    payments?: PaymentCreateNestedManyWithoutLeaseInput
+    invoices?: InvoiceCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseUncheckedCreateWithoutApplicationInput = {
@@ -13734,7 +13853,7 @@ export namespace Prisma {
     deposit: number
     propertyId: number
     tenantCognitoId: string
-    payments?: PaymentUncheckedCreateNestedManyWithoutLeaseInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseCreateOrConnectWithoutApplicationInput = {
@@ -13820,6 +13939,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
@@ -13831,6 +13951,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
@@ -13854,7 +13975,7 @@ export namespace Prisma {
     deposit?: FloatFieldUpdateOperationsInput | number
     property?: PropertyUpdateOneRequiredWithoutLeasesNestedInput
     tenant?: TenantUpdateOneRequiredWithoutLeasesNestedInput
-    payments?: PaymentUpdateManyWithoutLeaseNestedInput
+    invoices?: InvoiceUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseUncheckedUpdateWithoutApplicationInput = {
@@ -13865,7 +13986,7 @@ export namespace Prisma {
     deposit?: FloatFieldUpdateOperationsInput | number
     propertyId?: IntFieldUpdateOperationsInput | number
     tenantCognitoId?: StringFieldUpdateOperationsInput | string
-    payments?: PaymentUncheckedUpdateManyWithoutLeaseNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutLeaseNestedInput
   }
 
   export type PropertyCreateWithoutLeasesInput = {
@@ -13929,6 +14050,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeCustomerId?: string | null
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
@@ -13940,6 +14062,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeCustomerId?: string | null
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
@@ -13978,30 +14101,32 @@ export namespace Prisma {
     create: XOR<ApplicationCreateWithoutLeaseInput, ApplicationUncheckedCreateWithoutLeaseInput>
   }
 
-  export type PaymentCreateWithoutLeaseInput = {
+  export type InvoiceCreateWithoutLeaseInput = {
     amountDue: number
     amountPaid: number
     dueDate: Date | string
-    paymentDate: Date | string
-    paymentStatus: $Enums.PaymentStatus
+    paymentDate?: Date | string | null
+    status: $Enums.InvoiceStatus
+    stripePaymentIntentId?: string | null
   }
 
-  export type PaymentUncheckedCreateWithoutLeaseInput = {
+  export type InvoiceUncheckedCreateWithoutLeaseInput = {
     id?: number
     amountDue: number
     amountPaid: number
     dueDate: Date | string
-    paymentDate: Date | string
-    paymentStatus: $Enums.PaymentStatus
+    paymentDate?: Date | string | null
+    status: $Enums.InvoiceStatus
+    stripePaymentIntentId?: string | null
   }
 
-  export type PaymentCreateOrConnectWithoutLeaseInput = {
-    where: PaymentWhereUniqueInput
-    create: XOR<PaymentCreateWithoutLeaseInput, PaymentUncheckedCreateWithoutLeaseInput>
+  export type InvoiceCreateOrConnectWithoutLeaseInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutLeaseInput, InvoiceUncheckedCreateWithoutLeaseInput>
   }
 
-  export type PaymentCreateManyLeaseInputEnvelope = {
-    data: PaymentCreateManyLeaseInput | PaymentCreateManyLeaseInput[]
+  export type InvoiceCreateManyLeaseInputEnvelope = {
+    data: InvoiceCreateManyLeaseInput | InvoiceCreateManyLeaseInput[]
     skipDuplicates?: boolean
   }
 
@@ -14083,6 +14208,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
@@ -14094,6 +14220,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
@@ -14133,36 +14260,37 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type PaymentUpsertWithWhereUniqueWithoutLeaseInput = {
-    where: PaymentWhereUniqueInput
-    update: XOR<PaymentUpdateWithoutLeaseInput, PaymentUncheckedUpdateWithoutLeaseInput>
-    create: XOR<PaymentCreateWithoutLeaseInput, PaymentUncheckedCreateWithoutLeaseInput>
+  export type InvoiceUpsertWithWhereUniqueWithoutLeaseInput = {
+    where: InvoiceWhereUniqueInput
+    update: XOR<InvoiceUpdateWithoutLeaseInput, InvoiceUncheckedUpdateWithoutLeaseInput>
+    create: XOR<InvoiceCreateWithoutLeaseInput, InvoiceUncheckedCreateWithoutLeaseInput>
   }
 
-  export type PaymentUpdateWithWhereUniqueWithoutLeaseInput = {
-    where: PaymentWhereUniqueInput
-    data: XOR<PaymentUpdateWithoutLeaseInput, PaymentUncheckedUpdateWithoutLeaseInput>
+  export type InvoiceUpdateWithWhereUniqueWithoutLeaseInput = {
+    where: InvoiceWhereUniqueInput
+    data: XOR<InvoiceUpdateWithoutLeaseInput, InvoiceUncheckedUpdateWithoutLeaseInput>
   }
 
-  export type PaymentUpdateManyWithWhereWithoutLeaseInput = {
-    where: PaymentScalarWhereInput
-    data: XOR<PaymentUpdateManyMutationInput, PaymentUncheckedUpdateManyWithoutLeaseInput>
+  export type InvoiceUpdateManyWithWhereWithoutLeaseInput = {
+    where: InvoiceScalarWhereInput
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutLeaseInput>
   }
 
-  export type PaymentScalarWhereInput = {
-    AND?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
-    OR?: PaymentScalarWhereInput[]
-    NOT?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
-    id?: IntFilter<"Payment"> | number
-    amountDue?: FloatFilter<"Payment"> | number
-    amountPaid?: FloatFilter<"Payment"> | number
-    dueDate?: DateTimeFilter<"Payment"> | Date | string
-    paymentDate?: DateTimeFilter<"Payment"> | Date | string
-    paymentStatus?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
-    leaseId?: IntFilter<"Payment"> | number
+  export type InvoiceScalarWhereInput = {
+    AND?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+    OR?: InvoiceScalarWhereInput[]
+    NOT?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+    id?: IntFilter<"Invoice"> | number
+    amountDue?: FloatFilter<"Invoice"> | number
+    amountPaid?: FloatFilter<"Invoice"> | number
+    dueDate?: DateTimeFilter<"Invoice"> | Date | string
+    paymentDate?: DateTimeNullableFilter<"Invoice"> | Date | string | null
+    status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    stripePaymentIntentId?: StringNullableFilter<"Invoice"> | string | null
+    leaseId?: IntFilter<"Invoice"> | number
   }
 
-  export type LeaseCreateWithoutPaymentsInput = {
+  export type LeaseCreateWithoutInvoicesInput = {
     startDate: Date | string
     endDate: Date | string
     rent: number
@@ -14172,7 +14300,7 @@ export namespace Prisma {
     application?: ApplicationCreateNestedOneWithoutLeaseInput
   }
 
-  export type LeaseUncheckedCreateWithoutPaymentsInput = {
+  export type LeaseUncheckedCreateWithoutInvoicesInput = {
     id?: number
     startDate: Date | string
     endDate: Date | string
@@ -14183,23 +14311,23 @@ export namespace Prisma {
     application?: ApplicationUncheckedCreateNestedOneWithoutLeaseInput
   }
 
-  export type LeaseCreateOrConnectWithoutPaymentsInput = {
+  export type LeaseCreateOrConnectWithoutInvoicesInput = {
     where: LeaseWhereUniqueInput
-    create: XOR<LeaseCreateWithoutPaymentsInput, LeaseUncheckedCreateWithoutPaymentsInput>
+    create: XOR<LeaseCreateWithoutInvoicesInput, LeaseUncheckedCreateWithoutInvoicesInput>
   }
 
-  export type LeaseUpsertWithoutPaymentsInput = {
-    update: XOR<LeaseUpdateWithoutPaymentsInput, LeaseUncheckedUpdateWithoutPaymentsInput>
-    create: XOR<LeaseCreateWithoutPaymentsInput, LeaseUncheckedCreateWithoutPaymentsInput>
+  export type LeaseUpsertWithoutInvoicesInput = {
+    update: XOR<LeaseUpdateWithoutInvoicesInput, LeaseUncheckedUpdateWithoutInvoicesInput>
+    create: XOR<LeaseCreateWithoutInvoicesInput, LeaseUncheckedCreateWithoutInvoicesInput>
     where?: LeaseWhereInput
   }
 
-  export type LeaseUpdateToOneWithWhereWithoutPaymentsInput = {
+  export type LeaseUpdateToOneWithWhereWithoutInvoicesInput = {
     where?: LeaseWhereInput
-    data: XOR<LeaseUpdateWithoutPaymentsInput, LeaseUncheckedUpdateWithoutPaymentsInput>
+    data: XOR<LeaseUpdateWithoutInvoicesInput, LeaseUncheckedUpdateWithoutInvoicesInput>
   }
 
-  export type LeaseUpdateWithoutPaymentsInput = {
+  export type LeaseUpdateWithoutInvoicesInput = {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     rent?: FloatFieldUpdateOperationsInput | number
@@ -14209,7 +14337,7 @@ export namespace Prisma {
     application?: ApplicationUpdateOneWithoutLeaseNestedInput
   }
 
-  export type LeaseUncheckedUpdateWithoutPaymentsInput = {
+  export type LeaseUncheckedUpdateWithoutInvoicesInput = {
     id?: IntFieldUpdateOperationsInput | number
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14248,7 +14376,7 @@ export namespace Prisma {
     deposit?: FloatFieldUpdateOperationsInput | number
     tenant?: TenantUpdateOneRequiredWithoutLeasesNestedInput
     application?: ApplicationUpdateOneWithoutLeaseNestedInput
-    payments?: PaymentUpdateManyWithoutLeaseNestedInput
+    invoices?: InvoiceUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseUncheckedUpdateWithoutPropertyInput = {
@@ -14259,7 +14387,7 @@ export namespace Prisma {
     deposit?: FloatFieldUpdateOperationsInput | number
     tenantCognitoId?: StringFieldUpdateOperationsInput | string
     application?: ApplicationUncheckedUpdateOneWithoutLeaseNestedInput
-    payments?: PaymentUncheckedUpdateManyWithoutLeaseNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseUncheckedUpdateManyWithoutPropertyInput = {
@@ -14311,6 +14439,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
@@ -14322,6 +14451,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
@@ -14333,6 +14463,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TenantUpdateWithoutPropertiesInput = {
@@ -14340,6 +14471,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
@@ -14351,6 +14483,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
@@ -14362,6 +14495,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PropertyCreateManyManagerInput = {
@@ -14670,7 +14804,7 @@ export namespace Prisma {
     deposit?: FloatFieldUpdateOperationsInput | number
     property?: PropertyUpdateOneRequiredWithoutLeasesNestedInput
     application?: ApplicationUpdateOneWithoutLeaseNestedInput
-    payments?: PaymentUpdateManyWithoutLeaseNestedInput
+    invoices?: InvoiceUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseUncheckedUpdateWithoutTenantInput = {
@@ -14681,7 +14815,7 @@ export namespace Prisma {
     deposit?: FloatFieldUpdateOperationsInput | number
     propertyId?: IntFieldUpdateOperationsInput | number
     application?: ApplicationUncheckedUpdateOneWithoutLeaseNestedInput
-    payments?: PaymentUncheckedUpdateManyWithoutLeaseNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseUncheckedUpdateManyWithoutTenantInput = {
@@ -14788,39 +14922,43 @@ export namespace Prisma {
     managerCognitoId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type PaymentCreateManyLeaseInput = {
+  export type InvoiceCreateManyLeaseInput = {
     id?: number
     amountDue: number
     amountPaid: number
     dueDate: Date | string
-    paymentDate: Date | string
-    paymentStatus: $Enums.PaymentStatus
+    paymentDate?: Date | string | null
+    status: $Enums.InvoiceStatus
+    stripePaymentIntentId?: string | null
   }
 
-  export type PaymentUpdateWithoutLeaseInput = {
+  export type InvoiceUpdateWithoutLeaseInput = {
     amountDue?: FloatFieldUpdateOperationsInput | number
     amountPaid?: FloatFieldUpdateOperationsInput | number
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    stripePaymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type PaymentUncheckedUpdateWithoutLeaseInput = {
+  export type InvoiceUncheckedUpdateWithoutLeaseInput = {
     id?: IntFieldUpdateOperationsInput | number
     amountDue?: FloatFieldUpdateOperationsInput | number
     amountPaid?: FloatFieldUpdateOperationsInput | number
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    stripePaymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type PaymentUncheckedUpdateManyWithoutLeaseInput = {
+  export type InvoiceUncheckedUpdateManyWithoutLeaseInput = {
     id?: IntFieldUpdateOperationsInput | number
     amountDue?: FloatFieldUpdateOperationsInput | number
     amountPaid?: FloatFieldUpdateOperationsInput | number
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    stripePaymentIntentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
