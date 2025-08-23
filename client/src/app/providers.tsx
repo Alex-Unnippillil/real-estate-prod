@@ -1,12 +1,19 @@
 "use client";
 
-import StoreProvider from "@/state/redux";
+import StoreProvider, { RootState } from "@/state/redux";
 import { Authenticator } from "@aws-amplify/ui-react";
 import Auth from "./(auth)/authProvider";
+import { PreloadedState } from "@reduxjs/toolkit";
 
-const Providers = ({ children }: { children: React.ReactNode }) => {
+const Providers = ({
+  children,
+  initialState,
+}: {
+  children: React.ReactNode;
+  initialState?: PreloadedState<RootState>;
+}) => {
   return (
-    <StoreProvider>
+    <StoreProvider initialState={initialState}>
       <Authenticator.Provider>
         <Auth>{children}</Auth>
       </Authenticator.Provider>
