@@ -8,7 +8,8 @@
     "dev": "npm run build && concurrently \"npx tsc -w\" \"nodemon --exec ts-node src/index.ts\"",
     "seed": "ts-node prisma/seed.ts",
     "prisma:generate": "prisma generate",
-    "postprisma:generate": "shx cp -r node_modules/.prisma/client/index.d.ts ../client/src/types/prismaTypes.d.ts"
+    "postprisma:generate": "shx cp -r node_modules/.prisma/client/index.d.ts ../client/src/types/prismaTypes.d.ts",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
+    "@types/jest": "^30.0.0",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/morgan": "^1.9.9",
     "@types/multer": "^1.4.12",
@@ -40,9 +42,11 @@
     "@types/terraformer__wkt": "^2.0.3",
     "@types/uuid": "^10.0.0",
     "concurrently": "^9.1.2",
+    "jest": "^30.0.5",
     "nodemon": "^3.1.9",
     "rimraf": "^6.0.1",
     "shx": "^0.3.4",
+    "ts-jest": "^29.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   }
