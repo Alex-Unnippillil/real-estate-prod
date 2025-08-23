@@ -3159,6 +3159,7 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
+    stripeAccountId: string | null
   }
 
   export type ManagerMaxAggregateOutputType = {
@@ -3167,6 +3168,7 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
+    stripeAccountId: string | null
   }
 
   export type ManagerCountAggregateOutputType = {
@@ -3175,6 +3177,7 @@ export namespace Prisma {
     name: number
     email: number
     phoneNumber: number
+    stripeAccountId: number
     _all: number
   }
 
@@ -3193,6 +3196,7 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    stripeAccountId?: true
   }
 
   export type ManagerMaxAggregateInputType = {
@@ -3201,6 +3205,7 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    stripeAccountId?: true
   }
 
   export type ManagerCountAggregateInputType = {
@@ -3209,6 +3214,7 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    stripeAccountId?: true
     _all?: true
   }
 
@@ -3304,6 +3310,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeAccountId: string | null
     _count: ManagerCountAggregateOutputType | null
     _avg: ManagerAvgAggregateOutputType | null
     _sum: ManagerSumAggregateOutputType | null
@@ -3331,6 +3338,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    stripeAccountId?: boolean
     managedProperties?: boolean | Manager$managedPropertiesArgs<ExtArgs>
     _count?: boolean | ManagerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["manager"]>
@@ -3341,6 +3349,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    stripeAccountId?: boolean
   }, ExtArgs["result"]["manager"]>
 
   export type ManagerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3349,6 +3358,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    stripeAccountId?: boolean
   }, ExtArgs["result"]["manager"]>
 
   export type ManagerSelectScalar = {
@@ -3357,9 +3367,10 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    stripeAccountId?: boolean
   }
 
-  export type ManagerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cognitoId" | "name" | "email" | "phoneNumber", ExtArgs["result"]["manager"]>
+  export type ManagerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cognitoId" | "name" | "email" | "phoneNumber" | "stripeAccountId", ExtArgs["result"]["manager"]>
   export type ManagerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     managedProperties?: boolean | Manager$managedPropertiesArgs<ExtArgs>
     _count?: boolean | ManagerCountOutputTypeDefaultArgs<ExtArgs>
@@ -3378,6 +3389,7 @@ export namespace Prisma {
       name: string
       email: string
       phoneNumber: string
+      stripeAccountId: string | null
     }, ExtArgs["result"]["manager"]>
     composites: {}
   }
@@ -3807,6 +3819,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Manager", 'String'>
     readonly email: FieldRef<"Manager", 'String'>
     readonly phoneNumber: FieldRef<"Manager", 'String'>
+    readonly stripeAccountId: FieldRef<"Manager", 'String'>
   }
     
 
@@ -9946,7 +9959,8 @@ export namespace Prisma {
     cognitoId: 'cognitoId',
     name: 'name',
     email: 'email',
-    phoneNumber: 'phoneNumber'
+    phoneNumber: 'phoneNumber',
+    stripeAccountId: 'stripeAccountId'
   };
 
   export type ManagerScalarFieldEnum = (typeof ManagerScalarFieldEnum)[keyof typeof ManagerScalarFieldEnum]
@@ -10338,6 +10352,7 @@ export namespace Prisma {
     name?: StringFilter<"Manager"> | string
     email?: StringFilter<"Manager"> | string
     phoneNumber?: StringFilter<"Manager"> | string
+    stripeAccountId?: StringNullableFilter<"Manager"> | string | null
     managedProperties?: PropertyListRelationFilter
   }
 
@@ -10347,6 +10362,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    stripeAccountId?: SortOrderInput | SortOrder
     managedProperties?: PropertyOrderByRelationAggregateInput
   }
 
@@ -10359,6 +10375,7 @@ export namespace Prisma {
     name?: StringFilter<"Manager"> | string
     email?: StringFilter<"Manager"> | string
     phoneNumber?: StringFilter<"Manager"> | string
+    stripeAccountId?: StringNullableFilter<"Manager"> | string | null
     managedProperties?: PropertyListRelationFilter
   }, "id" | "cognitoId">
 
@@ -10368,6 +10385,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    stripeAccountId?: SortOrderInput | SortOrder
     _count?: ManagerCountOrderByAggregateInput
     _avg?: ManagerAvgOrderByAggregateInput
     _max?: ManagerMaxOrderByAggregateInput
@@ -10384,6 +10402,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Manager"> | string
     email?: StringWithAggregatesFilter<"Manager"> | string
     phoneNumber?: StringWithAggregatesFilter<"Manager"> | string
+    stripeAccountId?: StringNullableWithAggregatesFilter<"Manager"> | string | null
   }
 
   export type TenantWhereInput = {
@@ -10922,6 +10941,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeAccountId?: string | null
     managedProperties?: PropertyCreateNestedManyWithoutManagerInput
   }
 
@@ -10931,6 +10951,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeAccountId?: string | null
     managedProperties?: PropertyUncheckedCreateNestedManyWithoutManagerInput
   }
 
@@ -10939,6 +10960,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     managedProperties?: PropertyUpdateManyWithoutManagerNestedInput
   }
 
@@ -10948,6 +10970,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     managedProperties?: PropertyUncheckedUpdateManyWithoutManagerNestedInput
   }
 
@@ -10957,6 +10980,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeAccountId?: string | null
   }
 
   export type ManagerUpdateManyMutationInput = {
@@ -10964,6 +10988,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ManagerUncheckedUpdateManyInput = {
@@ -10972,6 +10997,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TenantCreateInput = {
@@ -11657,6 +11683,21 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type PropertyListRelationFilter = {
     every?: PropertyWhereInput
     some?: PropertyWhereInput
@@ -11673,6 +11714,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    stripeAccountId?: SortOrder
   }
 
   export type ManagerAvgOrderByAggregateInput = {
@@ -11685,6 +11727,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    stripeAccountId?: SortOrder
   }
 
   export type ManagerMinOrderByAggregateInput = {
@@ -11693,10 +11736,29 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    stripeAccountId?: SortOrder
   }
 
   export type ManagerSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type TenantCountOrderByAggregateInput = {
@@ -11773,21 +11835,6 @@ export namespace Prisma {
     not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type PropertyScalarRelationFilter = {
     is?: PropertyWhereInput
     isNot?: PropertyWhereInput
@@ -11862,24 +11909,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
     _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type ApplicationNullableScalarRelationFilter = {
@@ -12279,6 +12308,10 @@ export namespace Prisma {
     connect?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type PropertyUpdateManyWithoutManagerNestedInput = {
     create?: XOR<PropertyCreateWithoutManagerInput, PropertyUncheckedCreateWithoutManagerInput> | PropertyCreateWithoutManagerInput[] | PropertyUncheckedCreateWithoutManagerInput[]
     connectOrCreate?: PropertyCreateOrConnectWithoutManagerInput | PropertyCreateOrConnectWithoutManagerInput[]
@@ -12515,10 +12548,6 @@ export namespace Prisma {
 
   export type EnumApplicationStatusFieldUpdateOperationsInput = {
     set?: $Enums.ApplicationStatus
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type PropertyUpdateOneRequiredWithoutApplicationsNestedInput = {
@@ -12861,13 +12890,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumApplicationStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -12880,16 +12902,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
-    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12907,6 +12919,23 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumApplicationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
+  }
+
+  export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
+    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
@@ -12931,6 +12960,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeAccountId?: string | null
   }
 
   export type ManagerUncheckedCreateWithoutManagedPropertiesInput = {
@@ -12939,6 +12969,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    stripeAccountId?: string | null
   }
 
   export type ManagerCreateOrConnectWithoutManagedPropertiesInput = {
@@ -13100,6 +13131,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ManagerUncheckedUpdateWithoutManagedPropertiesInput = {
@@ -13108,6 +13140,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LeaseUpsertWithWhereUniqueWithoutPropertyInput = {

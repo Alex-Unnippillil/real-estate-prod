@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import Stripe from "stripe";
 
 const prisma = new PrismaClient();
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 export const listApplications = async (
   req: Request,
@@ -101,7 +103,12 @@ export const createApplication = async (
 
     const property = await prisma.property.findUnique({
       where: { id: propertyId },
-      select: { pricePerMonth: true, securityDeposit: true },
+      select: {
+        pricePerMonth: true,
+        securityDeposit: true,
+        applicationFee: true,
+        manager: { select: { stripeAccountId: true } },
+      },
     });
 
     if (!property) {
@@ -156,8 +163,21 @@ export const createApplication = async (
 
       return application;
     });
+    let clientSecret: string | undefined;
+    if (
+      process.env.MANAGER_PAYOUTS_ENABLED === "true" &&
+      property.manager?.stripeAccountId
+    ) {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: Math.round(property.applicationFee * 100),
+        currency: "usd",
+        automatic_payment_methods: { enabled: true },
+        transfer_data: { destination: property.manager.stripeAccountId },
+      });
+      clientSecret = paymentIntent.client_secret ?? undefined;
+    }
 
-    res.status(201).json(newApplication);
+    res.status(201).json({ ...newApplication, clientSecret });
   } catch (error: any) {
     res
       .status(500)
