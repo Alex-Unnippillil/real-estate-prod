@@ -65,6 +65,11 @@ enum PaymentStatus {
   Overdue
 }
 
+enum TourStatus {
+  Scheduled
+  Cancelled
+}
+
 model Property {
   id                Int          @id @default(autoincrement())
   name              String
@@ -93,6 +98,7 @@ model Property {
   applications Application[]
   favoritedBy  Tenant[]      @relation("TenantFavorites")
   tenants      Tenant[]      @relation("TenantProperties")
+  tours        Tour[]
 }
 
 model Manager {
@@ -172,4 +178,19 @@ model Payment {
   leaseId       Int
 
   lease Lease @relation(fields: [leaseId], references: [id])
+}
+
+model Tour {
+  id          Int        @id @default(autoincrement())
+  propertyId  Int
+  name        String
+  email       String
+  phoneNumber String?
+  start       DateTime
+  end         DateTime
+  status      TourStatus @default(Scheduled)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  property Property @relation(fields: [propertyId], references: [id])
 }
