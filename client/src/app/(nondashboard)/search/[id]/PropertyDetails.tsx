@@ -4,6 +4,7 @@ import { formatEnumString } from "@/lib/utils";
 import { useGetPropertyQuery } from "@/state/api";
 import { HelpCircle } from "lucide-react";
 import React from "react";
+import PropertyDetailsSkeleton from "./PropertyDetailsSkeleton";
 
 const PropertyDetails = ({ propertyId }: PropertyDetailsProps) => {
   const {
@@ -12,7 +13,7 @@ const PropertyDetails = ({ propertyId }: PropertyDetailsProps) => {
     isLoading,
   } = useGetPropertyQuery(propertyId);
 
-  if (isLoading) return <>Loading...</>;
+  if (isLoading) return <PropertyDetailsSkeleton />;
   if (isError || !property) {
     return <>Property not Found</>;
   }

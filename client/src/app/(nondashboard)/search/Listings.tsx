@@ -10,6 +10,7 @@ import { Property } from "@/types/prismaTypes";
 import Card from "@/components/Card";
 import React from "react";
 import CardCompact from "@/components/CardCompact";
+import ListingsSkeleton from "./ListingsSkeleton";
 
 const Listings = () => {
   const { data: authUser } = useGetAuthUserQuery();
@@ -50,7 +51,7 @@ const Listings = () => {
     }
   };
 
-  if (isLoading) return <>Loading...</>;
+  if (isLoading) return <ListingsSkeleton />;
   if (isError || !properties) return <div>Failed to fetch properties</div>;
 
   return (

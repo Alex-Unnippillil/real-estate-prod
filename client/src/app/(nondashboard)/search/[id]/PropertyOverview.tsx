@@ -1,6 +1,7 @@
 import { useGetPropertyQuery } from "@/state/api";
 import { MapPin, Star } from "lucide-react";
 import React from "react";
+import PropertyOverviewSkeleton from "./PropertyOverviewSkeleton";
 
 const PropertyOverview = ({ propertyId }: PropertyOverviewProps) => {
   const {
@@ -9,7 +10,7 @@ const PropertyOverview = ({ propertyId }: PropertyOverviewProps) => {
     isLoading,
   } = useGetPropertyQuery(propertyId);
 
-  if (isLoading) return <>Loading...</>;
+  if (isLoading) return <PropertyOverviewSkeleton />;
   if (isError || !property) {
     return <>Property not Found</>;
   }
