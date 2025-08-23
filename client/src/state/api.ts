@@ -1,4 +1,4 @@
-import { cleanParams, createNewUserInDatabase, withToast } from "@/lib/utils";
+import { cleanParams, createNewUserInDatabase, withToast } from "@client/lib/utils";
 import {
   Application,
   Lease,
@@ -6,7 +6,7 @@ import {
   Payment,
   Property,
   Tenant,
-} from "@/types/prismaTypes";
+} from "@client/types/prismaTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 import { FiltersState } from ".";

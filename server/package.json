@@ -4,9 +4,9 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && npx tsc",
-    "start": "npm run build && node dist/index.js",
-    "dev": "npm run build && concurrently \"npx tsc -w\" \"nodemon --exec ts-node src/index.ts\"",
-    "seed": "ts-node prisma/seed.ts",
+    "start": "npm run build && node -r tsconfig-paths/register dist/index.js",
+    "dev": "npm run build && concurrently \"npx tsc -w\" \"nodemon --exec node -r ts-node/register -r tsconfig-paths/register src/index.ts\"",
+    "seed": "ts-node -r tsconfig-paths/register prisma/seed.ts",
     "prisma:generate": "prisma generate",
     "postprisma:generate": "shx cp -r node_modules/.prisma/client/index.d.ts ../client/src/types/prismaTypes.d.ts"
   },
@@ -44,6 +44,7 @@
     "rimraf": "^6.0.1",
     "shx": "^0.3.4",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3"
   }
 }

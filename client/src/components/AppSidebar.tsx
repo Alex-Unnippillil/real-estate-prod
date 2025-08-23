@@ -8,7 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "./ui/sidebar";
+} from "@client/components/ui/sidebar";
 import {
   Building,
   FileText,
@@ -18,8 +18,8 @@ import {
   Settings,
   X,
 } from "lucide-react";
-import { NAVBAR_HEIGHT } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+import { NAVBAR_HEIGHT } from "@client/lib/constants";
+import { cn } from "@client/lib/utils";
 import Link from "next/link";
 
 const AppSidebar = ({ userType }: AppSidebarProps) => {

@@ -1,15 +1,15 @@
 "use client";
 
-import { CustomFormField } from "@/components/FormField";
-import Header from "@/components/Header";
-import { Form } from "@/components/ui/form";
-import { PropertyFormData, propertySchema } from "@/lib/schemas";
-import { useCreatePropertyMutation, useGetAuthUserQuery } from "@/state/api";
-import { AmenityEnum, HighlightEnum, PropertyTypeEnum } from "@/lib/constants";
+import { CustomFormField } from "@client/components/FormField";
+import Header from "@client/components/Header";
+import { Form } from "@client/components/ui/form";
+import { PropertyFormData, propertySchema } from "@client/lib/schemas";
+import { useCreatePropertyMutation, useGetAuthUserQuery } from "@client/state/api";
+import { AmenityEnum, HighlightEnum, PropertyTypeEnum } from "@client/lib/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+import { Button } from "@client/components/ui/button";
 
 const NewProperty = () => {
   const [createProperty] = useCreatePropertyMutation();

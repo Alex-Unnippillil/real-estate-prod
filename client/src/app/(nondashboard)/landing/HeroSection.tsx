@@ -3,11 +3,11 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from "@client/components/ui/input";
+import { Button } from "@client/components/ui/button";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { setFilters } from "@/state";
+import { setFilters } from "@client/state";
 
 const HeroSection = () => {
   const dispatch = useDispatch();

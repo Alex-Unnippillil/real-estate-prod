@@ -1,23 +1,23 @@
-import { FiltersState, initialState, setFilters } from "@/state";
-import { useAppSelector } from "@/state/redux";
+import { FiltersState, initialState, setFilters } from "@client/state";
+import { useAppSelector } from "@client/state/redux";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { debounce } from "lodash";
-import { cleanParams, cn, formatEnumString } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { cleanParams, cn, formatEnumString } from "@client/lib/utils";
+import { Input } from "@client/components/ui/input";
+import { Button } from "@client/components/ui/button";
 import { Search } from "lucide-react";
-import { AmenityIcons, PropertyTypeIcons } from "@/lib/constants";
-import { Slider } from "@/components/ui/slider";
+import { AmenityIcons, PropertyTypeIcons } from "@client/lib/constants";
+import { Slider } from "@client/components/ui/slider";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
+} from "@client/components/ui/select";
+import { Label } from "@client/components/ui/label";
 
 const FiltersFull = () => {
   const dispatch = useDispatch();

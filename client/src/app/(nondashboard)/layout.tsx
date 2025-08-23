@@ -1,8 +1,8 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
-import { NAVBAR_HEIGHT } from "@/lib/constants";
-import { useGetAuthUserQuery } from "@/state/api";
+import Navbar from "@client/components/Navbar";
+import { NAVBAR_HEIGHT } from "@client/lib/constants";
+import { useGetAuthUserQuery } from "@client/state/api";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 

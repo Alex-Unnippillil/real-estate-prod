@@ -17,8 +17,10 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@client/*": ["./src/*"],
+      "@server/*": ["../server/src/*"]
     },
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "types": [],

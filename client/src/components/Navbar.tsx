@@ -1,11 +1,11 @@
 "use client";
 
-import { NAVBAR_HEIGHT } from "@/lib/constants";
+import { NAVBAR_HEIGHT } from "@client/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Button } from "./ui/button";
-import { useGetAuthUserQuery } from "@/state/api";
+import { Button } from "@client/components/ui/button";
+import { useGetAuthUserQuery } from "@client/state/api";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "aws-amplify/auth";
 import { Bell, MessageCircle, Plus, Search } from "lucide-react";
@@ -15,9 +15,9 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { SidebarTrigger } from "./ui/sidebar";
+} from "@client/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@client/components/ui/avatar";
+import { SidebarTrigger } from "@client/components/ui/sidebar";
 
 const Navbar = () => {
   const { data: authUser } = useGetAuthUserQuery();

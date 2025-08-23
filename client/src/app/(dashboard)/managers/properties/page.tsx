@@ -1,9 +1,9 @@
 "use client";
 
-import Card from "@/components/Card";
-import Header from "@/components/Header";
-import Loading from "@/components/Loading";
-import { useGetAuthUserQuery, useGetManagerPropertiesQuery } from "@/state/api";
+import Card from "@client/components/Card";
+import Header from "@client/components/Header";
+import Loading from "@client/components/Loading";
+import { useGetAuthUserQuery, useGetManagerPropertiesQuery } from "@client/state/api";
 import React from "react";
 
 const Properties = () => {
