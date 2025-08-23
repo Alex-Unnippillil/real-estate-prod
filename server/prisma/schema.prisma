@@ -101,6 +101,7 @@ model Manager {
   name        String
   email       String
   phoneNumber String
+  deletedAt   DateTime?
 
   managedProperties Property[]
 }
@@ -111,6 +112,7 @@ model Tenant {
   name        String
   email       String
   phoneNumber String
+  deletedAt   DateTime?
 
   properties   Property[]    @relation("TenantProperties")
   favorites    Property[]    @relation("TenantFavorites")
@@ -172,4 +174,11 @@ model Payment {
   leaseId       Int
 
   lease Lease @relation(fields: [leaseId], references: [id])
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  actor     String
+  action    String
+  timestamp DateTime @default(now())
 }
