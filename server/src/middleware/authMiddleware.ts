@@ -4,6 +4,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 interface DecodedToken extends JwtPayload {
   sub: string;
   "custom:role"?: string;
+  "cognito:groups"?: string[];
 }
 
 declare global {
@@ -11,7 +12,7 @@ declare global {
     interface Request {
       user?: {
         id: string;
-        role: string;
+        roles: string[];
       };
     }
   }
@@ -28,13 +29,18 @@ export const authMiddleware = (allowedRoles: string[]) => {
 
     try {
       const decoded = jwt.decode(token) as DecodedToken;
-      const userRole = decoded["custom:role"] || "";
+      const roles =
+        decoded["cognito:groups"] ||
+        (decoded["custom:role"] ? [decoded["custom:role"]] : []);
       req.user = {
         id: decoded.sub,
-        role: userRole,
+        roles,
       };
 
-      const hasAccess = allowedRoles.includes(userRole.toLowerCase());
+      const userRolesLower = roles.map((r) => r.toLowerCase());
+      const hasAccess = allowedRoles.some((role) =>
+        userRolesLower.includes(role.toLowerCase())
+      );
       if (!hasAccess) {
         res.status(403).json({ message: "Access Denied" });
         return;
