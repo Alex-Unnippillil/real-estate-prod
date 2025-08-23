@@ -48,6 +48,11 @@ export type Lease = $Result.DefaultSelection<Prisma.$LeasePayload>
  * 
  */
 export type Payment = $Result.DefaultSelection<Prisma.$PaymentPayload>
+/**
+ * Model SavedSearch
+ * 
+ */
+export type SavedSearch = $Result.DefaultSelection<Prisma.$SavedSearchPayload>
 
 /**
  * Enums
@@ -339,6 +344,16 @@ export class PrismaClient<
     * ```
     */
   get payment(): Prisma.PaymentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.savedSearch`: Exposes CRUD operations for the **SavedSearch** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SavedSearches
+    * const savedSearches = await prisma.savedSearch.findMany()
+    * ```
+    */
+  get savedSearch(): Prisma.SavedSearchDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -785,7 +800,8 @@ export namespace Prisma {
     Location: 'Location',
     Application: 'Application',
     Lease: 'Lease',
-    Payment: 'Payment'
+    Payment: 'Payment',
+    SavedSearch: 'SavedSearch'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -801,7 +817,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "property" | "manager" | "tenant" | "location" | "application" | "lease" | "payment"
+      modelProps: "property" | "manager" | "tenant" | "location" | "application" | "lease" | "payment" | "savedSearch"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1307,6 +1323,80 @@ export namespace Prisma {
           }
         }
       }
+      SavedSearch: {
+        payload: Prisma.$SavedSearchPayload<ExtArgs>
+        fields: Prisma.SavedSearchFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SavedSearchFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SavedSearchFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>
+          }
+          findFirst: {
+            args: Prisma.SavedSearchFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SavedSearchFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>
+          }
+          findMany: {
+            args: Prisma.SavedSearchFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>[]
+          }
+          create: {
+            args: Prisma.SavedSearchCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>
+          }
+          createMany: {
+            args: Prisma.SavedSearchCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SavedSearchCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>[]
+          }
+          delete: {
+            args: Prisma.SavedSearchDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>
+          }
+          update: {
+            args: Prisma.SavedSearchUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>
+          }
+          deleteMany: {
+            args: Prisma.SavedSearchDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SavedSearchUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SavedSearchUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>[]
+          }
+          upsert: {
+            args: Prisma.SavedSearchUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedSearchPayload>
+          }
+          aggregate: {
+            args: Prisma.SavedSearchAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSavedSearch>
+          }
+          groupBy: {
+            args: Prisma.SavedSearchGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SavedSearchGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SavedSearchCountArgs<ExtArgs>
+            result: $Utils.Optional<SavedSearchCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1398,6 +1488,7 @@ export namespace Prisma {
     application?: ApplicationOmit
     lease?: LeaseOmit
     payment?: PaymentOmit
+    savedSearch?: SavedSearchOmit
   }
 
   /* Types for Logging */
@@ -1585,6 +1676,7 @@ export namespace Prisma {
     favorites: number
     applications: number
     leases: number
+    savedSearches: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1592,6 +1684,7 @@ export namespace Prisma {
     favorites?: boolean | TenantCountOutputTypeCountFavoritesArgs
     applications?: boolean | TenantCountOutputTypeCountApplicationsArgs
     leases?: boolean | TenantCountOutputTypeCountLeasesArgs
+    savedSearches?: boolean | TenantCountOutputTypeCountSavedSearchesArgs
   }
 
   // Custom InputTypes
@@ -1631,6 +1724,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountLeasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LeaseWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountSavedSearchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavedSearchWhereInput
   }
 
 
@@ -4439,6 +4539,7 @@ export namespace Prisma {
     favorites?: boolean | Tenant$favoritesArgs<ExtArgs>
     applications?: boolean | Tenant$applicationsArgs<ExtArgs>
     leases?: boolean | Tenant$leasesArgs<ExtArgs>
+    savedSearches?: boolean | Tenant$savedSearchesArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -4472,6 +4573,7 @@ export namespace Prisma {
     favorites?: boolean | Tenant$favoritesArgs<ExtArgs>
     applications?: boolean | Tenant$applicationsArgs<ExtArgs>
     leases?: boolean | Tenant$leasesArgs<ExtArgs>
+    savedSearches?: boolean | Tenant$savedSearchesArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4484,6 +4586,7 @@ export namespace Prisma {
       favorites: Prisma.$PropertyPayload<ExtArgs>[]
       applications: Prisma.$ApplicationPayload<ExtArgs>[]
       leases: Prisma.$LeasePayload<ExtArgs>[]
+      savedSearches: Prisma.$SavedSearchPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4889,6 +4992,7 @@ export namespace Prisma {
     favorites<T extends Tenant$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     applications<T extends Tenant$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     leases<T extends Tenant$leasesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$leasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeasePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    savedSearches<T extends Tenant$savedSearchesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$savedSearchesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5404,6 +5508,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LeaseScalarFieldEnum | LeaseScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.savedSearches
+   */
+  export type Tenant$savedSearchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+    where?: SavedSearchWhereInput
+    orderBy?: SavedSearchOrderByWithRelationInput | SavedSearchOrderByWithRelationInput[]
+    cursor?: SavedSearchWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SavedSearchScalarFieldEnum | SavedSearchScalarFieldEnum[]
   }
 
   /**
@@ -9902,6 +10030,1081 @@ export namespace Prisma {
 
 
   /**
+   * Model SavedSearch
+   */
+
+  export type AggregateSavedSearch = {
+    _count: SavedSearchCountAggregateOutputType | null
+    _avg: SavedSearchAvgAggregateOutputType | null
+    _sum: SavedSearchSumAggregateOutputType | null
+    _min: SavedSearchMinAggregateOutputType | null
+    _max: SavedSearchMaxAggregateOutputType | null
+  }
+
+  export type SavedSearchAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type SavedSearchSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type SavedSearchMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    tenantCognitoId: string | null
+  }
+
+  export type SavedSearchMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    tenantCognitoId: string | null
+  }
+
+  export type SavedSearchCountAggregateOutputType = {
+    id: number
+    name: number
+    filterCriteria: number
+    tenantCognitoId: number
+    _all: number
+  }
+
+
+  export type SavedSearchAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type SavedSearchSumAggregateInputType = {
+    id?: true
+  }
+
+  export type SavedSearchMinAggregateInputType = {
+    id?: true
+    name?: true
+    tenantCognitoId?: true
+  }
+
+  export type SavedSearchMaxAggregateInputType = {
+    id?: true
+    name?: true
+    tenantCognitoId?: true
+  }
+
+  export type SavedSearchCountAggregateInputType = {
+    id?: true
+    name?: true
+    filterCriteria?: true
+    tenantCognitoId?: true
+    _all?: true
+  }
+
+  export type SavedSearchAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SavedSearch to aggregate.
+     */
+    where?: SavedSearchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedSearches to fetch.
+     */
+    orderBy?: SavedSearchOrderByWithRelationInput | SavedSearchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SavedSearchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedSearches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedSearches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SavedSearches
+    **/
+    _count?: true | SavedSearchCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SavedSearchAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SavedSearchSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SavedSearchMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SavedSearchMaxAggregateInputType
+  }
+
+  export type GetSavedSearchAggregateType<T extends SavedSearchAggregateArgs> = {
+        [P in keyof T & keyof AggregateSavedSearch]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSavedSearch[P]>
+      : GetScalarType<T[P], AggregateSavedSearch[P]>
+  }
+
+
+
+
+  export type SavedSearchGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavedSearchWhereInput
+    orderBy?: SavedSearchOrderByWithAggregationInput | SavedSearchOrderByWithAggregationInput[]
+    by: SavedSearchScalarFieldEnum[] | SavedSearchScalarFieldEnum
+    having?: SavedSearchScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SavedSearchCountAggregateInputType | true
+    _avg?: SavedSearchAvgAggregateInputType
+    _sum?: SavedSearchSumAggregateInputType
+    _min?: SavedSearchMinAggregateInputType
+    _max?: SavedSearchMaxAggregateInputType
+  }
+
+  export type SavedSearchGroupByOutputType = {
+    id: number
+    name: string
+    filterCriteria: JsonValue
+    tenantCognitoId: string
+    _count: SavedSearchCountAggregateOutputType | null
+    _avg: SavedSearchAvgAggregateOutputType | null
+    _sum: SavedSearchSumAggregateOutputType | null
+    _min: SavedSearchMinAggregateOutputType | null
+    _max: SavedSearchMaxAggregateOutputType | null
+  }
+
+  type GetSavedSearchGroupByPayload<T extends SavedSearchGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SavedSearchGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SavedSearchGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SavedSearchGroupByOutputType[P]>
+            : GetScalarType<T[P], SavedSearchGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SavedSearchSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    filterCriteria?: boolean
+    tenantCognitoId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["savedSearch"]>
+
+  export type SavedSearchSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    filterCriteria?: boolean
+    tenantCognitoId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["savedSearch"]>
+
+  export type SavedSearchSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    filterCriteria?: boolean
+    tenantCognitoId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["savedSearch"]>
+
+  export type SavedSearchSelectScalar = {
+    id?: boolean
+    name?: boolean
+    filterCriteria?: boolean
+    tenantCognitoId?: boolean
+  }
+
+  export type SavedSearchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "filterCriteria" | "tenantCognitoId", ExtArgs["result"]["savedSearch"]>
+  export type SavedSearchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type SavedSearchIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type SavedSearchIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $SavedSearchPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SavedSearch"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      filterCriteria: Prisma.JsonValue
+      tenantCognitoId: string
+    }, ExtArgs["result"]["savedSearch"]>
+    composites: {}
+  }
+
+  type SavedSearchGetPayload<S extends boolean | null | undefined | SavedSearchDefaultArgs> = $Result.GetResult<Prisma.$SavedSearchPayload, S>
+
+  type SavedSearchCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SavedSearchFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SavedSearchCountAggregateInputType | true
+    }
+
+  export interface SavedSearchDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SavedSearch'], meta: { name: 'SavedSearch' } }
+    /**
+     * Find zero or one SavedSearch that matches the filter.
+     * @param {SavedSearchFindUniqueArgs} args - Arguments to find a SavedSearch
+     * @example
+     * // Get one SavedSearch
+     * const savedSearch = await prisma.savedSearch.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SavedSearchFindUniqueArgs>(args: SelectSubset<T, SavedSearchFindUniqueArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one SavedSearch that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SavedSearchFindUniqueOrThrowArgs} args - Arguments to find a SavedSearch
+     * @example
+     * // Get one SavedSearch
+     * const savedSearch = await prisma.savedSearch.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SavedSearchFindUniqueOrThrowArgs>(args: SelectSubset<T, SavedSearchFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first SavedSearch that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedSearchFindFirstArgs} args - Arguments to find a SavedSearch
+     * @example
+     * // Get one SavedSearch
+     * const savedSearch = await prisma.savedSearch.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SavedSearchFindFirstArgs>(args?: SelectSubset<T, SavedSearchFindFirstArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first SavedSearch that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedSearchFindFirstOrThrowArgs} args - Arguments to find a SavedSearch
+     * @example
+     * // Get one SavedSearch
+     * const savedSearch = await prisma.savedSearch.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SavedSearchFindFirstOrThrowArgs>(args?: SelectSubset<T, SavedSearchFindFirstOrThrowArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more SavedSearches that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedSearchFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SavedSearches
+     * const savedSearches = await prisma.savedSearch.findMany()
+     * 
+     * // Get first 10 SavedSearches
+     * const savedSearches = await prisma.savedSearch.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const savedSearchWithIdOnly = await prisma.savedSearch.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SavedSearchFindManyArgs>(args?: SelectSubset<T, SavedSearchFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a SavedSearch.
+     * @param {SavedSearchCreateArgs} args - Arguments to create a SavedSearch.
+     * @example
+     * // Create one SavedSearch
+     * const SavedSearch = await prisma.savedSearch.create({
+     *   data: {
+     *     // ... data to create a SavedSearch
+     *   }
+     * })
+     * 
+     */
+    create<T extends SavedSearchCreateArgs>(args: SelectSubset<T, SavedSearchCreateArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many SavedSearches.
+     * @param {SavedSearchCreateManyArgs} args - Arguments to create many SavedSearches.
+     * @example
+     * // Create many SavedSearches
+     * const savedSearch = await prisma.savedSearch.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SavedSearchCreateManyArgs>(args?: SelectSubset<T, SavedSearchCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SavedSearches and returns the data saved in the database.
+     * @param {SavedSearchCreateManyAndReturnArgs} args - Arguments to create many SavedSearches.
+     * @example
+     * // Create many SavedSearches
+     * const savedSearch = await prisma.savedSearch.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SavedSearches and only return the `id`
+     * const savedSearchWithIdOnly = await prisma.savedSearch.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SavedSearchCreateManyAndReturnArgs>(args?: SelectSubset<T, SavedSearchCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a SavedSearch.
+     * @param {SavedSearchDeleteArgs} args - Arguments to delete one SavedSearch.
+     * @example
+     * // Delete one SavedSearch
+     * const SavedSearch = await prisma.savedSearch.delete({
+     *   where: {
+     *     // ... filter to delete one SavedSearch
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SavedSearchDeleteArgs>(args: SelectSubset<T, SavedSearchDeleteArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one SavedSearch.
+     * @param {SavedSearchUpdateArgs} args - Arguments to update one SavedSearch.
+     * @example
+     * // Update one SavedSearch
+     * const savedSearch = await prisma.savedSearch.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SavedSearchUpdateArgs>(args: SelectSubset<T, SavedSearchUpdateArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more SavedSearches.
+     * @param {SavedSearchDeleteManyArgs} args - Arguments to filter SavedSearches to delete.
+     * @example
+     * // Delete a few SavedSearches
+     * const { count } = await prisma.savedSearch.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SavedSearchDeleteManyArgs>(args?: SelectSubset<T, SavedSearchDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SavedSearches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedSearchUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SavedSearches
+     * const savedSearch = await prisma.savedSearch.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SavedSearchUpdateManyArgs>(args: SelectSubset<T, SavedSearchUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SavedSearches and returns the data updated in the database.
+     * @param {SavedSearchUpdateManyAndReturnArgs} args - Arguments to update many SavedSearches.
+     * @example
+     * // Update many SavedSearches
+     * const savedSearch = await prisma.savedSearch.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SavedSearches and only return the `id`
+     * const savedSearchWithIdOnly = await prisma.savedSearch.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SavedSearchUpdateManyAndReturnArgs>(args: SelectSubset<T, SavedSearchUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one SavedSearch.
+     * @param {SavedSearchUpsertArgs} args - Arguments to update or create a SavedSearch.
+     * @example
+     * // Update or create a SavedSearch
+     * const savedSearch = await prisma.savedSearch.upsert({
+     *   create: {
+     *     // ... data to create a SavedSearch
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SavedSearch we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SavedSearchUpsertArgs>(args: SelectSubset<T, SavedSearchUpsertArgs<ExtArgs>>): Prisma__SavedSearchClient<$Result.GetResult<Prisma.$SavedSearchPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of SavedSearches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedSearchCountArgs} args - Arguments to filter SavedSearches to count.
+     * @example
+     * // Count the number of SavedSearches
+     * const count = await prisma.savedSearch.count({
+     *   where: {
+     *     // ... the filter for the SavedSearches we want to count
+     *   }
+     * })
+    **/
+    count<T extends SavedSearchCountArgs>(
+      args?: Subset<T, SavedSearchCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SavedSearchCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SavedSearch.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedSearchAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SavedSearchAggregateArgs>(args: Subset<T, SavedSearchAggregateArgs>): Prisma.PrismaPromise<GetSavedSearchAggregateType<T>>
+
+    /**
+     * Group by SavedSearch.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedSearchGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SavedSearchGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SavedSearchGroupByArgs['orderBy'] }
+        : { orderBy?: SavedSearchGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SavedSearchGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSavedSearchGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SavedSearch model
+   */
+  readonly fields: SavedSearchFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SavedSearch.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SavedSearchClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SavedSearch model
+   */ 
+  interface SavedSearchFieldRefs {
+    readonly id: FieldRef<"SavedSearch", 'Int'>
+    readonly name: FieldRef<"SavedSearch", 'String'>
+    readonly filterCriteria: FieldRef<"SavedSearch", 'Json'>
+    readonly tenantCognitoId: FieldRef<"SavedSearch", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SavedSearch findUnique
+   */
+  export type SavedSearchFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedSearch to fetch.
+     */
+    where: SavedSearchWhereUniqueInput
+  }
+
+  /**
+   * SavedSearch findUniqueOrThrow
+   */
+  export type SavedSearchFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedSearch to fetch.
+     */
+    where: SavedSearchWhereUniqueInput
+  }
+
+  /**
+   * SavedSearch findFirst
+   */
+  export type SavedSearchFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedSearch to fetch.
+     */
+    where?: SavedSearchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedSearches to fetch.
+     */
+    orderBy?: SavedSearchOrderByWithRelationInput | SavedSearchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SavedSearches.
+     */
+    cursor?: SavedSearchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedSearches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedSearches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SavedSearches.
+     */
+    distinct?: SavedSearchScalarFieldEnum | SavedSearchScalarFieldEnum[]
+  }
+
+  /**
+   * SavedSearch findFirstOrThrow
+   */
+  export type SavedSearchFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedSearch to fetch.
+     */
+    where?: SavedSearchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedSearches to fetch.
+     */
+    orderBy?: SavedSearchOrderByWithRelationInput | SavedSearchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SavedSearches.
+     */
+    cursor?: SavedSearchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedSearches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedSearches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SavedSearches.
+     */
+    distinct?: SavedSearchScalarFieldEnum | SavedSearchScalarFieldEnum[]
+  }
+
+  /**
+   * SavedSearch findMany
+   */
+  export type SavedSearchFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedSearches to fetch.
+     */
+    where?: SavedSearchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedSearches to fetch.
+     */
+    orderBy?: SavedSearchOrderByWithRelationInput | SavedSearchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SavedSearches.
+     */
+    cursor?: SavedSearchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedSearches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedSearches.
+     */
+    skip?: number
+    distinct?: SavedSearchScalarFieldEnum | SavedSearchScalarFieldEnum[]
+  }
+
+  /**
+   * SavedSearch create
+   */
+  export type SavedSearchCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SavedSearch.
+     */
+    data: XOR<SavedSearchCreateInput, SavedSearchUncheckedCreateInput>
+  }
+
+  /**
+   * SavedSearch createMany
+   */
+  export type SavedSearchCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SavedSearches.
+     */
+    data: SavedSearchCreateManyInput | SavedSearchCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SavedSearch createManyAndReturn
+   */
+  export type SavedSearchCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * The data used to create many SavedSearches.
+     */
+    data: SavedSearchCreateManyInput | SavedSearchCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SavedSearch update
+   */
+  export type SavedSearchUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SavedSearch.
+     */
+    data: XOR<SavedSearchUpdateInput, SavedSearchUncheckedUpdateInput>
+    /**
+     * Choose, which SavedSearch to update.
+     */
+    where: SavedSearchWhereUniqueInput
+  }
+
+  /**
+   * SavedSearch updateMany
+   */
+  export type SavedSearchUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SavedSearches.
+     */
+    data: XOR<SavedSearchUpdateManyMutationInput, SavedSearchUncheckedUpdateManyInput>
+    /**
+     * Filter which SavedSearches to update
+     */
+    where?: SavedSearchWhereInput
+    /**
+     * Limit how many SavedSearches to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SavedSearch updateManyAndReturn
+   */
+  export type SavedSearchUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * The data used to update SavedSearches.
+     */
+    data: XOR<SavedSearchUpdateManyMutationInput, SavedSearchUncheckedUpdateManyInput>
+    /**
+     * Filter which SavedSearches to update
+     */
+    where?: SavedSearchWhereInput
+    /**
+     * Limit how many SavedSearches to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SavedSearch upsert
+   */
+  export type SavedSearchUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SavedSearch to update in case it exists.
+     */
+    where: SavedSearchWhereUniqueInput
+    /**
+     * In case the SavedSearch found by the `where` argument doesn't exist, create a new SavedSearch with this data.
+     */
+    create: XOR<SavedSearchCreateInput, SavedSearchUncheckedCreateInput>
+    /**
+     * In case the SavedSearch was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SavedSearchUpdateInput, SavedSearchUncheckedUpdateInput>
+  }
+
+  /**
+   * SavedSearch delete
+   */
+  export type SavedSearchDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+    /**
+     * Filter which SavedSearch to delete.
+     */
+    where: SavedSearchWhereUniqueInput
+  }
+
+  /**
+   * SavedSearch deleteMany
+   */
+  export type SavedSearchDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SavedSearches to delete
+     */
+    where?: SavedSearchWhereInput
+    /**
+     * Limit how many SavedSearches to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SavedSearch without action
+   */
+  export type SavedSearchDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedSearch
+     */
+    select?: SavedSearchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedSearch
+     */
+    omit?: SavedSearchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedSearchInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -10017,12 +11220,29 @@ export namespace Prisma {
   export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
+  export const SavedSearchScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    filterCriteria: 'filterCriteria',
+    tenantCognitoId: 'tenantCognitoId'
+  };
+
+  export type SavedSearchScalarFieldEnum = (typeof SavedSearchScalarFieldEnum)[keyof typeof SavedSearchScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -10039,6 +11259,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -10176,6 +11405,13 @@ export namespace Prisma {
    * Reference to a field of type 'PaymentStatus[]'
    */
   export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
   /**
    * Deep Input Types
@@ -10399,6 +11635,7 @@ export namespace Prisma {
     favorites?: PropertyListRelationFilter
     applications?: ApplicationListRelationFilter
     leases?: LeaseListRelationFilter
+    savedSearches?: SavedSearchListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -10411,6 +11648,7 @@ export namespace Prisma {
     favorites?: PropertyOrderByRelationAggregateInput
     applications?: ApplicationOrderByRelationAggregateInput
     leases?: LeaseOrderByRelationAggregateInput
+    savedSearches?: SavedSearchOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -10426,6 +11664,7 @@ export namespace Prisma {
     favorites?: PropertyListRelationFilter
     applications?: ApplicationListRelationFilter
     leases?: LeaseListRelationFilter
+    savedSearches?: SavedSearchListRelationFilter
   }, "id" | "cognitoId">
 
   export type TenantOrderByWithAggregationInput = {
@@ -10745,6 +11984,59 @@ export namespace Prisma {
     leaseId?: IntWithAggregatesFilter<"Payment"> | number
   }
 
+  export type SavedSearchWhereInput = {
+    AND?: SavedSearchWhereInput | SavedSearchWhereInput[]
+    OR?: SavedSearchWhereInput[]
+    NOT?: SavedSearchWhereInput | SavedSearchWhereInput[]
+    id?: IntFilter<"SavedSearch"> | number
+    name?: StringFilter<"SavedSearch"> | string
+    filterCriteria?: JsonFilter<"SavedSearch">
+    tenantCognitoId?: StringFilter<"SavedSearch"> | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }
+
+  export type SavedSearchOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    filterCriteria?: SortOrder
+    tenantCognitoId?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type SavedSearchWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    tenantCognitoId_name?: SavedSearchTenantCognitoIdNameCompoundUniqueInput
+    AND?: SavedSearchWhereInput | SavedSearchWhereInput[]
+    OR?: SavedSearchWhereInput[]
+    NOT?: SavedSearchWhereInput | SavedSearchWhereInput[]
+    name?: StringFilter<"SavedSearch"> | string
+    filterCriteria?: JsonFilter<"SavedSearch">
+    tenantCognitoId?: StringFilter<"SavedSearch"> | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }, "id" | "tenantCognitoId_name">
+
+  export type SavedSearchOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    filterCriteria?: SortOrder
+    tenantCognitoId?: SortOrder
+    _count?: SavedSearchCountOrderByAggregateInput
+    _avg?: SavedSearchAvgOrderByAggregateInput
+    _max?: SavedSearchMaxOrderByAggregateInput
+    _min?: SavedSearchMinOrderByAggregateInput
+    _sum?: SavedSearchSumOrderByAggregateInput
+  }
+
+  export type SavedSearchScalarWhereWithAggregatesInput = {
+    AND?: SavedSearchScalarWhereWithAggregatesInput | SavedSearchScalarWhereWithAggregatesInput[]
+    OR?: SavedSearchScalarWhereWithAggregatesInput[]
+    NOT?: SavedSearchScalarWhereWithAggregatesInput | SavedSearchScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"SavedSearch"> | number
+    name?: StringWithAggregatesFilter<"SavedSearch"> | string
+    filterCriteria?: JsonWithAggregatesFilter<"SavedSearch">
+    tenantCognitoId?: StringWithAggregatesFilter<"SavedSearch"> | string
+  }
+
   export type PropertyCreateInput = {
     name: string
     description: string
@@ -10983,6 +12275,7 @@ export namespace Prisma {
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
+    savedSearches?: SavedSearchCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -10995,6 +12288,7 @@ export namespace Prisma {
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
+    savedSearches?: SavedSearchUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -11006,6 +12300,7 @@ export namespace Prisma {
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
+    savedSearches?: SavedSearchUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -11018,6 +12313,7 @@ export namespace Prisma {
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
+    savedSearches?: SavedSearchUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -11301,6 +12597,51 @@ export namespace Prisma {
     paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     leaseId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SavedSearchCreateInput = {
+    name: string
+    filterCriteria: JsonNullValueInput | InputJsonValue
+    tenant: TenantCreateNestedOneWithoutSavedSearchesInput
+  }
+
+  export type SavedSearchUncheckedCreateInput = {
+    id?: number
+    name: string
+    filterCriteria: JsonNullValueInput | InputJsonValue
+    tenantCognitoId: string
+  }
+
+  export type SavedSearchUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    filterCriteria?: JsonNullValueInput | InputJsonValue
+    tenant?: TenantUpdateOneRequiredWithoutSavedSearchesNestedInput
+  }
+
+  export type SavedSearchUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    filterCriteria?: JsonNullValueInput | InputJsonValue
+    tenantCognitoId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SavedSearchCreateManyInput = {
+    id?: number
+    name: string
+    filterCriteria: JsonNullValueInput | InputJsonValue
+    tenantCognitoId: string
+  }
+
+  export type SavedSearchUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    filterCriteria?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type SavedSearchUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    filterCriteria?: JsonNullValueInput | InputJsonValue
+    tenantCognitoId?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -11699,6 +13040,16 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type SavedSearchListRelationFilter = {
+    every?: SavedSearchWhereInput
+    some?: SavedSearchWhereInput
+    none?: SavedSearchWhereInput
+  }
+
+  export type SavedSearchOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type TenantCountOrderByAggregateInput = {
     id?: SortOrder
     cognitoId?: SortOrder
@@ -12005,6 +13356,85 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPaymentStatusFilter<$PrismaModel>
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
+  }
+  export type JsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type SavedSearchTenantCognitoIdNameCompoundUniqueInput = {
+    tenantCognitoId: string
+    name: string
+  }
+
+  export type SavedSearchCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    filterCriteria?: SortOrder
+    tenantCognitoId?: SortOrder
+  }
+
+  export type SavedSearchAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type SavedSearchMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    tenantCognitoId?: SortOrder
+  }
+
+  export type SavedSearchMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    tenantCognitoId?: SortOrder
+  }
+
+  export type SavedSearchSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type PropertyCreatephotoUrlsInput = {
@@ -12333,6 +13763,13 @@ export namespace Prisma {
     connect?: LeaseWhereUniqueInput | LeaseWhereUniqueInput[]
   }
 
+  export type SavedSearchCreateNestedManyWithoutTenantInput = {
+    create?: XOR<SavedSearchCreateWithoutTenantInput, SavedSearchUncheckedCreateWithoutTenantInput> | SavedSearchCreateWithoutTenantInput[] | SavedSearchUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SavedSearchCreateOrConnectWithoutTenantInput | SavedSearchCreateOrConnectWithoutTenantInput[]
+    createMany?: SavedSearchCreateManyTenantInputEnvelope
+    connect?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+  }
+
   export type PropertyUncheckedCreateNestedManyWithoutTenantsInput = {
     create?: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput> | PropertyCreateWithoutTenantsInput[] | PropertyUncheckedCreateWithoutTenantsInput[]
     connectOrCreate?: PropertyCreateOrConnectWithoutTenantsInput | PropertyCreateOrConnectWithoutTenantsInput[]
@@ -12357,6 +13794,13 @@ export namespace Prisma {
     connectOrCreate?: LeaseCreateOrConnectWithoutTenantInput | LeaseCreateOrConnectWithoutTenantInput[]
     createMany?: LeaseCreateManyTenantInputEnvelope
     connect?: LeaseWhereUniqueInput | LeaseWhereUniqueInput[]
+  }
+
+  export type SavedSearchUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<SavedSearchCreateWithoutTenantInput, SavedSearchUncheckedCreateWithoutTenantInput> | SavedSearchCreateWithoutTenantInput[] | SavedSearchUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SavedSearchCreateOrConnectWithoutTenantInput | SavedSearchCreateOrConnectWithoutTenantInput[]
+    createMany?: SavedSearchCreateManyTenantInputEnvelope
+    connect?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
   }
 
   export type PropertyUpdateManyWithoutTenantsNestedInput = {
@@ -12413,6 +13857,20 @@ export namespace Prisma {
     deleteMany?: LeaseScalarWhereInput | LeaseScalarWhereInput[]
   }
 
+  export type SavedSearchUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<SavedSearchCreateWithoutTenantInput, SavedSearchUncheckedCreateWithoutTenantInput> | SavedSearchCreateWithoutTenantInput[] | SavedSearchUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SavedSearchCreateOrConnectWithoutTenantInput | SavedSearchCreateOrConnectWithoutTenantInput[]
+    upsert?: SavedSearchUpsertWithWhereUniqueWithoutTenantInput | SavedSearchUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: SavedSearchCreateManyTenantInputEnvelope
+    set?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    disconnect?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    delete?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    connect?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    update?: SavedSearchUpdateWithWhereUniqueWithoutTenantInput | SavedSearchUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: SavedSearchUpdateManyWithWhereWithoutTenantInput | SavedSearchUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: SavedSearchScalarWhereInput | SavedSearchScalarWhereInput[]
+  }
+
   export type PropertyUncheckedUpdateManyWithoutTenantsNestedInput = {
     create?: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput> | PropertyCreateWithoutTenantsInput[] | PropertyUncheckedCreateWithoutTenantsInput[]
     connectOrCreate?: PropertyCreateOrConnectWithoutTenantsInput | PropertyCreateOrConnectWithoutTenantsInput[]
@@ -12465,6 +13923,20 @@ export namespace Prisma {
     update?: LeaseUpdateWithWhereUniqueWithoutTenantInput | LeaseUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: LeaseUpdateManyWithWhereWithoutTenantInput | LeaseUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: LeaseScalarWhereInput | LeaseScalarWhereInput[]
+  }
+
+  export type SavedSearchUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<SavedSearchCreateWithoutTenantInput, SavedSearchUncheckedCreateWithoutTenantInput> | SavedSearchCreateWithoutTenantInput[] | SavedSearchUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: SavedSearchCreateOrConnectWithoutTenantInput | SavedSearchCreateOrConnectWithoutTenantInput[]
+    upsert?: SavedSearchUpsertWithWhereUniqueWithoutTenantInput | SavedSearchUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: SavedSearchCreateManyTenantInputEnvelope
+    set?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    disconnect?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    delete?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    connect?: SavedSearchWhereUniqueInput | SavedSearchWhereUniqueInput[]
+    update?: SavedSearchUpdateWithWhereUniqueWithoutTenantInput | SavedSearchUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: SavedSearchUpdateManyWithWhereWithoutTenantInput | SavedSearchUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: SavedSearchScalarWhereInput | SavedSearchScalarWhereInput[]
   }
 
   export type PropertyUpdateManyWithoutLocationNestedInput = {
@@ -12665,6 +14137,20 @@ export namespace Prisma {
     upsert?: LeaseUpsertWithoutPaymentsInput
     connect?: LeaseWhereUniqueInput
     update?: XOR<XOR<LeaseUpdateToOneWithWhereWithoutPaymentsInput, LeaseUpdateWithoutPaymentsInput>, LeaseUncheckedUpdateWithoutPaymentsInput>
+  }
+
+  export type TenantCreateNestedOneWithoutSavedSearchesInput = {
+    create?: XOR<TenantCreateWithoutSavedSearchesInput, TenantUncheckedCreateWithoutSavedSearchesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutSavedSearchesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutSavedSearchesNestedInput = {
+    create?: XOR<TenantCreateWithoutSavedSearchesInput, TenantUncheckedCreateWithoutSavedSearchesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutSavedSearchesInput
+    upsert?: TenantUpsertWithoutSavedSearchesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutSavedSearchesInput, TenantUpdateWithoutSavedSearchesInput>, TenantUncheckedUpdateWithoutSavedSearchesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -12925,6 +14411,28 @@ export namespace Prisma {
     _min?: NestedEnumPaymentStatusFilter<$PrismaModel>
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
   }
+  export type NestedJsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type ManagerCreateWithoutManagedPropertiesInput = {
     cognitoId: string
@@ -13018,6 +14526,7 @@ export namespace Prisma {
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
+    savedSearches?: SavedSearchCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFavoritesInput = {
@@ -13029,6 +14538,7 @@ export namespace Prisma {
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
+    savedSearches?: SavedSearchUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFavoritesInput = {
@@ -13044,6 +14554,7 @@ export namespace Prisma {
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
+    savedSearches?: SavedSearchCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPropertiesInput = {
@@ -13055,6 +14566,7 @@ export namespace Prisma {
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
+    savedSearches?: SavedSearchUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPropertiesInput = {
@@ -13493,6 +15005,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SavedSearchCreateWithoutTenantInput = {
+    name: string
+    filterCriteria: JsonNullValueInput | InputJsonValue
+  }
+
+  export type SavedSearchUncheckedCreateWithoutTenantInput = {
+    id?: number
+    name: string
+    filterCriteria: JsonNullValueInput | InputJsonValue
+  }
+
+  export type SavedSearchCreateOrConnectWithoutTenantInput = {
+    where: SavedSearchWhereUniqueInput
+    create: XOR<SavedSearchCreateWithoutTenantInput, SavedSearchUncheckedCreateWithoutTenantInput>
+  }
+
+  export type SavedSearchCreateManyTenantInputEnvelope = {
+    data: SavedSearchCreateManyTenantInput | SavedSearchCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PropertyUpsertWithWhereUniqueWithoutTenantsInput = {
     where: PropertyWhereUniqueInput
     update: XOR<PropertyUpdateWithoutTenantsInput, PropertyUncheckedUpdateWithoutTenantsInput>
@@ -13555,6 +15088,32 @@ export namespace Prisma {
   export type LeaseUpdateManyWithWhereWithoutTenantInput = {
     where: LeaseScalarWhereInput
     data: XOR<LeaseUpdateManyMutationInput, LeaseUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type SavedSearchUpsertWithWhereUniqueWithoutTenantInput = {
+    where: SavedSearchWhereUniqueInput
+    update: XOR<SavedSearchUpdateWithoutTenantInput, SavedSearchUncheckedUpdateWithoutTenantInput>
+    create: XOR<SavedSearchCreateWithoutTenantInput, SavedSearchUncheckedCreateWithoutTenantInput>
+  }
+
+  export type SavedSearchUpdateWithWhereUniqueWithoutTenantInput = {
+    where: SavedSearchWhereUniqueInput
+    data: XOR<SavedSearchUpdateWithoutTenantInput, SavedSearchUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type SavedSearchUpdateManyWithWhereWithoutTenantInput = {
+    where: SavedSearchScalarWhereInput
+    data: XOR<SavedSearchUpdateManyMutationInput, SavedSearchUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type SavedSearchScalarWhereInput = {
+    AND?: SavedSearchScalarWhereInput | SavedSearchScalarWhereInput[]
+    OR?: SavedSearchScalarWhereInput[]
+    NOT?: SavedSearchScalarWhereInput | SavedSearchScalarWhereInput[]
+    id?: IntFilter<"SavedSearch"> | number
+    name?: StringFilter<"SavedSearch"> | string
+    filterCriteria?: JsonFilter<"SavedSearch">
+    tenantCognitoId?: StringFilter<"SavedSearch"> | string
   }
 
   export type PropertyCreateWithoutLocationInput = {
@@ -13698,6 +15257,7 @@ export namespace Prisma {
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
+    savedSearches?: SavedSearchCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutApplicationsInput = {
@@ -13709,6 +15269,7 @@ export namespace Prisma {
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
+    savedSearches?: SavedSearchUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutApplicationsInput = {
@@ -13823,6 +15384,7 @@ export namespace Prisma {
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
+    savedSearches?: SavedSearchUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutApplicationsInput = {
@@ -13834,6 +15396,7 @@ export namespace Prisma {
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
+    savedSearches?: SavedSearchUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type LeaseUpsertWithoutApplicationInput = {
@@ -13932,6 +15495,7 @@ export namespace Prisma {
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
+    savedSearches?: SavedSearchCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLeasesInput = {
@@ -13943,6 +15507,7 @@ export namespace Prisma {
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
+    savedSearches?: SavedSearchUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLeasesInput = {
@@ -14086,6 +15651,7 @@ export namespace Prisma {
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
+    savedSearches?: SavedSearchUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLeasesInput = {
@@ -14097,6 +15663,7 @@ export namespace Prisma {
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    savedSearches?: SavedSearchUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ApplicationUpsertWithoutLeaseInput = {
@@ -14220,6 +15787,68 @@ export namespace Prisma {
     application?: ApplicationUncheckedUpdateOneWithoutLeaseNestedInput
   }
 
+  export type TenantCreateWithoutSavedSearchesInput = {
+    cognitoId: string
+    name: string
+    email: string
+    phoneNumber: string
+    properties?: PropertyCreateNestedManyWithoutTenantsInput
+    favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
+    applications?: ApplicationCreateNestedManyWithoutTenantInput
+    leases?: LeaseCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutSavedSearchesInput = {
+    id?: number
+    cognitoId: string
+    name: string
+    email: string
+    phoneNumber: string
+    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
+    favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
+    applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
+    leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutSavedSearchesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutSavedSearchesInput, TenantUncheckedCreateWithoutSavedSearchesInput>
+  }
+
+  export type TenantUpsertWithoutSavedSearchesInput = {
+    update: XOR<TenantUpdateWithoutSavedSearchesInput, TenantUncheckedUpdateWithoutSavedSearchesInput>
+    create: XOR<TenantCreateWithoutSavedSearchesInput, TenantUncheckedCreateWithoutSavedSearchesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutSavedSearchesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutSavedSearchesInput, TenantUncheckedUpdateWithoutSavedSearchesInput>
+  }
+
+  export type TenantUpdateWithoutSavedSearchesInput = {
+    cognitoId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    properties?: PropertyUpdateManyWithoutTenantsNestedInput
+    favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
+    applications?: ApplicationUpdateManyWithoutTenantNestedInput
+    leases?: LeaseUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutSavedSearchesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cognitoId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
+    favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
+    applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
   export type LeaseCreateManyPropertyInput = {
     id?: number
     startDate: Date | string
@@ -14314,6 +15943,7 @@ export namespace Prisma {
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
+    savedSearches?: SavedSearchUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFavoritesInput = {
@@ -14325,6 +15955,7 @@ export namespace Prisma {
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
+    savedSearches?: SavedSearchUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutFavoritesInput = {
@@ -14343,6 +15974,7 @@ export namespace Prisma {
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
+    savedSearches?: SavedSearchUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPropertiesInput = {
@@ -14354,6 +15986,7 @@ export namespace Prisma {
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
+    savedSearches?: SavedSearchUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutPropertiesInput = {
@@ -14478,6 +16111,12 @@ export namespace Prisma {
     rent: number
     deposit: number
     propertyId: number
+  }
+
+  export type SavedSearchCreateManyTenantInput = {
+    id?: number
+    name: string
+    filterCriteria: JsonNullValueInput | InputJsonValue
   }
 
   export type PropertyUpdateWithoutTenantsInput = {
@@ -14691,6 +16330,23 @@ export namespace Prisma {
     rent?: FloatFieldUpdateOperationsInput | number
     deposit?: FloatFieldUpdateOperationsInput | number
     propertyId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SavedSearchUpdateWithoutTenantInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    filterCriteria?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type SavedSearchUncheckedUpdateWithoutTenantInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    filterCriteria?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type SavedSearchUncheckedUpdateManyWithoutTenantInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    filterCriteria?: JsonNullValueInput | InputJsonValue
   }
 
   export type PropertyUpdateWithoutLocationInput = {
