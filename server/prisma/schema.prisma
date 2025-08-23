@@ -93,6 +93,7 @@ model Property {
   applications Application[]
   favoritedBy  Tenant[]      @relation("TenantFavorites")
   tenants      Tenant[]      @relation("TenantProperties")
+  alertLogs    AlertLog[]
 }
 
 model Manager {
@@ -116,6 +117,8 @@ model Tenant {
   favorites    Property[]    @relation("TenantFavorites")
   applications Application[]
   leases       Lease[]
+  savedSearches SavedSearch[]
+  alertLogs     AlertLog[]
 }
 
 model Location {
@@ -172,4 +175,26 @@ model Payment {
   leaseId       Int
 
   lease Lease @relation(fields: [leaseId], references: [id])
+}
+
+model SavedSearch {
+  id              Int           @id @default(autoincrement())
+  tenantCognitoId String
+  minPrice        Float?
+  maxPrice        Float?
+  propertyType    PropertyType?
+  createdAt       DateTime      @default(now())
+
+  tenant Tenant @relation(fields: [tenantCognitoId], references: [cognitoId])
+}
+
+model AlertLog {
+  id              Int      @id @default(autoincrement())
+  tenantCognitoId String
+  propertyId      Int
+  method          String
+  sentAt          DateTime @default(now())
+
+  tenant   Tenant   @relation(fields: [tenantCognitoId], references: [cognitoId])
+  property Property @relation(fields: [propertyId], references: [id])
 }
