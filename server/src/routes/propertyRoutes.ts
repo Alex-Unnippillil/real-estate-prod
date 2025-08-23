@@ -3,6 +3,7 @@ import {
   getProperties,
   getProperty,
   createProperty,
+  uploadProperties,
 } from "../controllers/propertyControllers";
 import multer from "multer";
 import { authMiddleware } from "../middleware/authMiddleware";
@@ -19,6 +20,13 @@ router.post(
   authMiddleware(["manager"]),
   upload.array("photos"),
   createProperty
+);
+
+router.post(
+  "/upload",
+  authMiddleware(["manager"]),
+  upload.single("file"),
+  uploadProperties
 );
 
 export default router;
