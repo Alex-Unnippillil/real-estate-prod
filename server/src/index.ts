@@ -11,6 +11,7 @@ import managerRoutes from "./routes/managerRoutes";
 import propertyRoutes from "./routes/propertyRoutes";
 import leaseRoutes from "./routes/leaseRoutes";
 import applicationRoutes from "./routes/applicationRoutes";
+import { startListingAlertJob } from "./jobs/listingAlertJob";
 
 /* CONFIGURATIONS */
 dotenv.config();
@@ -33,6 +34,9 @@ app.use("/properties", propertyRoutes);
 app.use("/leases", leaseRoutes);
 app.use("/tenants", authMiddleware(["tenant"]), tenantRoutes);
 app.use("/managers", authMiddleware(["manager"]), managerRoutes);
+
+// start background jobs
+startListingAlertJob();
 
 /* SERVER */
 const port = Number(process.env.PORT) || 3002;
