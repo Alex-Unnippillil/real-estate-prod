@@ -21,4 +21,6 @@ server/dist/
 client/.env
 server/.env
 client/.next/
+client/playwright-report/
+client/test-results/
 node_modules
