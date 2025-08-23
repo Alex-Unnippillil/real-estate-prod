@@ -183,3 +183,43 @@ export const removeFavoriteProperty = async (
       .json({ message: `Error removing favorite property: ${err.message}` });
   }
 };
+
+export const getTenantDashboard = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { cognitoId } = req.params;
+
+    const tenantPromise = prisma.tenant.findUnique({
+      where: { cognitoId },
+      include: { favorites: true },
+    });
+
+    const applicationsPromise = prisma.application.findMany({
+      where: { tenantCognitoId: cognitoId },
+      include: { property: true },
+    });
+
+    const [tenant, applications] = await Promise.all([
+      tenantPromise,
+      applicationsPromise,
+    ]);
+
+    if (!tenant) {
+      res.status(404).json({ message: "Tenant not found" });
+      return;
+    }
+
+    res.json({
+      favorites: tenant.favorites,
+      applications,
+      tourRequests: [],
+      messages: [],
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: `Error retrieving tenant dashboard: ${error.message}`,
+    });
+  }
+};

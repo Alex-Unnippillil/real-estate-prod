@@ -11,10 +11,12 @@ import {
 } from "./ui/sidebar";
 import {
   Building,
+  Calendar,
   FileText,
   Heart,
   Home,
   Menu,
+  MessageSquare,
   Settings,
   X,
 } from "lucide-react";
@@ -43,6 +45,16 @@ const AppSidebar = ({ userType }: AppSidebarProps) => {
             icon: FileText,
             label: "Applications",
             href: "/tenants/applications",
+          },
+          {
+            icon: Calendar,
+            label: "Tour Requests",
+            href: "/tenants/tour-requests",
+          },
+          {
+            icon: MessageSquare,
+            label: "Messages",
+            href: "/tenants/messages",
           },
           { icon: Home, label: "Residences", href: "/tenants/residences" },
           { icon: Settings, label: "Settings", href: "/tenants/settings" },

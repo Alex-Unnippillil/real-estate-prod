@@ -24,7 +24,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         router.push(
           userRole === "manager"
             ? "/managers/properties"
-            : "/tenants/favorites",
+            : "/tenants",
           { scroll: false }
         );
       } else {

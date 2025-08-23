@@ -134,6 +134,23 @@ export const api = createApi({
       },
     }),
 
+    getTenantDashboard: build.query<
+      {
+        favorites: Property[];
+        applications: Application[];
+        tourRequests: unknown[];
+        messages: unknown[];
+      },
+      string
+    >({
+      query: (cognitoId) => `tenants/${cognitoId}/dashboard`,
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          error: "Failed to load dashboard data.",
+        });
+      },
+    }),
+
     getCurrentResidences: build.query<Property[], string>({
       query: (cognitoId) => `tenants/${cognitoId}/current-residences`,
       providesTags: (result) =>
@@ -361,6 +378,7 @@ export const {
   useGetManagerPropertiesQuery,
   useCreatePropertyMutation,
   useGetTenantQuery,
+  useGetTenantDashboardQuery,
   useAddFavoritePropertyMutation,
   useRemoveFavoritePropertyMutation,
   useGetLeasesQuery,
