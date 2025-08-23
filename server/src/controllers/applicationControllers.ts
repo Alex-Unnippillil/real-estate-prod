@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
+const s3Client = new S3Client({ region: process.env.AWS_REGION });
 
 export const listApplications = async (
   req: Request,
@@ -97,6 +101,8 @@ export const createApplication = async (
       email,
       phoneNumber,
       message,
+      documentUrls = [],
+      draftId,
     } = req.body;
 
     const property = await prisma.property.findUnique({
@@ -137,6 +143,7 @@ export const createApplication = async (
           email,
           phoneNumber,
           message,
+          documentUrls,
           property: {
             connect: { id: propertyId },
           },
@@ -156,6 +163,10 @@ export const createApplication = async (
 
       return application;
     });
+
+    if (draftId) {
+      await prisma.applicationDraft.delete({ where: { id: Number(draftId) } });
+    }
 
     res.status(201).json(newApplication);
   } catch (error: any) {
@@ -244,5 +255,75 @@ export const updateApplicationStatus = async (
     res
       .status(500)
       .json({ message: `Error updating application status: ${error.message}` });
+  }
+};
+
+export const saveApplicationDraft = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { draftId, propertyId, tenantCognitoId, data, currentStep, documentUrls = [] } = req.body;
+
+    let draft;
+    if (draftId) {
+      draft = await prisma.applicationDraft.update({
+        where: { id: Number(draftId) },
+        data: { data, currentStep, documentUrls },
+      });
+    } else {
+      draft = await prisma.applicationDraft.create({
+        data: {
+          propertyId,
+          tenantCognitoId,
+          data,
+          currentStep,
+          documentUrls,
+        },
+      });
+    }
+
+    res.json(draft);
+  } catch (error: any) {
+    res.status(500).json({ message: `Error saving draft: ${error.message}` });
+  }
+};
+
+export const getApplicationDraft = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { propertyId, tenantCognitoId } = req.query;
+    const draft = await prisma.applicationDraft.findFirst({
+      where: {
+        propertyId: Number(propertyId),
+        tenantCognitoId: String(tenantCognitoId),
+      },
+    });
+    res.json(draft);
+  } catch (error: any) {
+    res.status(500).json({ message: `Error retrieving draft: ${error.message}` });
+  }
+};
+
+export const generatePresignedUrl = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { fileName, fileType } = req.body;
+    const key = `applications/${uuidv4()}-${fileName}`;
+    const command = new PutObjectCommand({
+      Bucket: process.env.S3_BUCKET_NAME!,
+      Key: key,
+      ContentType: fileType,
+    });
+    const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+    res.json({ url, key });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: `Error generating presigned URL: ${error.message}` });
   }
 };

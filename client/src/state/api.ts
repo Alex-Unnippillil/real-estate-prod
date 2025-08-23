@@ -348,6 +348,33 @@ export const api = createApi({
         });
       },
     }),
+
+    getApplicationDraft: build.query<
+      any,
+      { propertyId: number; tenantCognitoId: string }
+    >({
+      query: ({ propertyId, tenantCognitoId }) =>
+        `applications/draft?propertyId=${propertyId}&tenantCognitoId=${tenantCognitoId}`,
+    }),
+
+    saveApplicationDraft: build.mutation<any, any>({
+      query: (body) => ({
+        url: `applications/draft`,
+        method: "POST",
+        body,
+      }),
+    }),
+
+    generatePresignedUrl: build.mutation<
+      { url: string; key: string },
+      { fileName: string; fileType: string }
+    >({
+      query: (body) => ({
+        url: `applications/presigned-url`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -369,4 +396,7 @@ export const {
   useGetApplicationsQuery,
   useUpdateApplicationStatusMutation,
   useCreateApplicationMutation,
+  useGetApplicationDraftQuery,
+  useSaveApplicationDraftMutation,
+  useGeneratePresignedUrlMutation,
 } = api;
