@@ -22,3 +22,6 @@ client/.env
 server/.env
 client/.next/
 node_modules
+
+# Terraform directories
+.terraform/
