@@ -1,6 +1,7 @@
 import { cleanParams, createNewUserInDatabase, withToast } from "@/lib/utils";
 import {
   Application,
+  Company,
   Lease,
   Manager,
   Payment,
@@ -32,6 +33,7 @@ export const api = createApi({
     "Leases",
     "Payments",
     "Applications",
+    "Companies",
   ],
   endpoints: (build) => ({
     getAuthUser: build.query<User, void>({
@@ -243,6 +245,23 @@ export const api = createApi({
       },
     }),
 
+    createCompany: build.mutation<
+      Company,
+      { name: string; address: string; preferences?: any; managerCognitoId: string }
+    >({
+      query: (newCompany) => ({
+        url: `companies`,
+        method: "POST",
+        body: newCompany,
+      }),
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: "Company created successfully!",
+          error: "Failed to create company.",
+        });
+      },
+    }),
+
     createProperty: build.mutation<Property, FormData>({
       query: (newProperty) => ({
         url: `properties`,
@@ -355,6 +374,7 @@ export const {
   useGetAuthUserQuery,
   useUpdateTenantSettingsMutation,
   useUpdateManagerSettingsMutation,
+  useCreateCompanyMutation,
   useGetPropertiesQuery,
   useGetPropertyQuery,
   useGetCurrentResidencesQuery,

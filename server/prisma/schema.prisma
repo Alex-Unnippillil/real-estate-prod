@@ -103,6 +103,17 @@ model Manager {
   phoneNumber String
 
   managedProperties Property[]
+  company          Company?
+}
+
+model Company {
+  id               Int    @id @default(autoincrement())
+  name             String
+  address          String
+  preferences      Json?
+  managerCognitoId String @unique
+
+  manager Manager @relation(fields: [managerCognitoId], references: [cognitoId])
 }
 
 model Tenant {
