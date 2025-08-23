@@ -22,3 +22,7 @@ client/.env
 server/.env
 client/.next/
 node_modules
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
