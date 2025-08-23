@@ -12,10 +12,10 @@ import {
 import {
   useGetAuthUserQuery,
   useGetLeasesQuery,
-  useGetPaymentsQuery,
+  useGetLeaseInvoicesQuery,
   useGetPropertyQuery,
 } from "@/state/api";
-import { Lease, Payment, Property } from "@/types/prismaTypes";
+import { Lease, Invoice, Property } from "@/types/prismaTypes";
 import {
   ArrowDownToLineIcon,
   Check,
@@ -150,7 +150,7 @@ const ResidenceCard = ({
   );
 };
 
-const BillingHistory = ({ payments }: { payments: Payment[] }) => {
+const BillingHistory = ({ payments }: { payments: Invoice[] }) => {
   return (
     <div className="mt-8 bg-white rounded-xl shadow-md overflow-hidden p-6">
       {/* Header */}
@@ -187,7 +187,7 @@ const BillingHistory = ({ payments }: { payments: Payment[] }) => {
                   <div className="flex items-center">
                     <FileText className="w-4 h-4 mr-2" />
                     Invoice #{payment.id} -{" "}
-                    {new Date(payment.paymentDate).toLocaleString("default", {
+                    {new Date(payment.dueDate).toLocaleString("default", {
                       month: "short",
                       year: "numeric",
                     })}
@@ -196,21 +196,23 @@ const BillingHistory = ({ payments }: { payments: Payment[] }) => {
                 <TableCell>
                   <span
                     className={`px-2 py-1 rounded-full text-xs font-semibold border ${
-                      payment.paymentStatus === "Paid"
+                      payment.status === "Paid"
                         ? "bg-green-100 text-green-800 border-green-300"
                         : "bg-yellow-100 text-yellow-800 border-yellow-300"
                     }`}
                   >
-                    {payment.paymentStatus === "Paid" ? (
+                    {payment.status === "Paid" ? (
                       <Check className="w-4 h-4 inline-block mr-1" />
                     ) : null}
-                    {payment.paymentStatus}
+                    {payment.status}
                   </span>
                 </TableCell>
                 <TableCell>
-                  {new Date(payment.paymentDate).toLocaleDateString()}
+                  {payment.paymentDate
+                    ? new Date(payment.paymentDate).toLocaleDateString()
+                    : "-"}
                 </TableCell>
-                <TableCell>${payment.amountPaid.toFixed(2)}</TableCell>
+                <TableCell>${payment.amountDue.toFixed(2)}</TableCell>
                 <TableCell>
                   <button className="border border-gray-300 text-gray-700 py-2 px-4 rounded-md flex items-center justify-center font-semibold hover:bg-primary-700 hover:text-primary-50">
                     <ArrowDownToLineIcon className="w-4 h-4 mr-1" />
@@ -239,7 +241,7 @@ const Residence = () => {
     parseInt(authUser?.cognitoInfo?.userId || "0"),
     { skip: !authUser?.cognitoInfo?.userId }
   );
-  const { data: payments, isLoading: paymentsLoading } = useGetPaymentsQuery(
+  const { data: payments, isLoading: paymentsLoading } = useGetLeaseInvoicesQuery(
     leases?.[0]?.id || 0,
     { skip: !leases?.[0]?.id }
   );

@@ -3,7 +3,7 @@ import {
   Application,
   Lease,
   Manager,
-  Payment,
+  Invoice,
   Property,
   Tenant,
 } from "@/types/prismaTypes";
@@ -30,7 +30,7 @@ export const api = createApi({
     "Properties",
     "PropertyDetails",
     "Leases",
-    "Payments",
+    "Invoices",
     "Applications",
   ],
   endpoints: (build) => ({
@@ -282,12 +282,43 @@ export const api = createApi({
       },
     }),
 
-    getPayments: build.query<Payment[], number>({
-      query: (leaseId) => `leases/${leaseId}/payments`,
-      providesTags: ["Payments"],
+    getLeaseInvoices: build.query<Invoice[], number>({
+      query: (leaseId) => `leases/${leaseId}/invoices`,
+      providesTags: ["Invoices"],
       async onQueryStarted(_, { queryFulfilled }) {
         await withToast(queryFulfilled, {
-          error: "Failed to fetch payment info.",
+          error: "Failed to fetch invoice info.",
+        });
+      },
+    }),
+
+    getPropertyInvoices: build.query<Invoice[], number>({
+      query: (propertyId) => `properties/${propertyId}/invoices`,
+      providesTags: ["Invoices"],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          error: "Failed to fetch invoice info.",
+        });
+      },
+    }),
+
+    getTenantInvoices: build.query<Invoice[], void>({
+      query: () => `invoices`,
+      providesTags: ["Invoices"],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          error: "Failed to fetch invoices.",
+        });
+      },
+    }),
+
+    payInvoice: build.mutation<{ url: string }, number>({
+      query: (id) => ({ url: `invoices/${id}/pay`, method: "POST" }),
+      invalidatesTags: ["Invoices"],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: "Invoice paid!",
+          error: "Failed to pay invoice.",
         });
       },
     }),
@@ -365,7 +396,10 @@ export const {
   useRemoveFavoritePropertyMutation,
   useGetLeasesQuery,
   useGetPropertyLeasesQuery,
-  useGetPaymentsQuery,
+  useGetLeaseInvoicesQuery,
+  useGetPropertyInvoicesQuery,
+  useGetTenantInvoicesQuery,
+  usePayInvoiceMutation,
   useGetApplicationsQuery,
   useUpdateApplicationStatusMutation,
   useCreateApplicationMutation,

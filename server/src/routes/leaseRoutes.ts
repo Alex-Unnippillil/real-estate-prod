@@ -1,14 +1,14 @@
 import express from "express";
 import { authMiddleware } from "../middleware/authMiddleware";
-import { getLeasePayments, getLeases } from "../controllers/leaseControllers";
+import { getLeaseInvoices, getLeases } from "../controllers/leaseControllers";
 
 const router = express.Router();
 
 router.get("/", authMiddleware(["manager", "tenant"]), getLeases);
 router.get(
-  "/:id/payments",
+  "/:id/invoices",
   authMiddleware(["manager", "tenant"]),
-  getLeasePayments
+  getLeaseInvoices
 );
 
 export default router;

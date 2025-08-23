@@ -14,6 +14,7 @@ import {
   FileText,
   Heart,
   Home,
+  Receipt,
   Menu,
   Settings,
   X,
@@ -45,6 +46,7 @@ const AppSidebar = ({ userType }: AppSidebarProps) => {
             href: "/tenants/applications",
           },
           { icon: Home, label: "Residences", href: "/tenants/residences" },
+          { icon: Receipt, label: "Invoices", href: "/tenants/invoices" },
           { icon: Settings, label: "Settings", href: "/tenants/settings" },
         ];
 
