@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "@/components/Loading";
+import Loading from "@client/components/Loading";
 import {
   Table,
   TableBody,
@@ -8,14 +8,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@client/components/ui/table";
 import {
   useGetAuthUserQuery,
   useGetLeasesQuery,
   useGetPaymentsQuery,
   useGetPropertyQuery,
-} from "@/state/api";
-import { Lease, Payment, Property } from "@/types/prismaTypes";
+} from "@client/state/api";
+import { Lease, Payment, Property } from "@client/types/prismaTypes";
 import {
   ArrowDownToLineIcon,
   Check,

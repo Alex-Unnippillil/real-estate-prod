@@ -1,9 +1,9 @@
 "use client";
 
-import ApplicationCard from "@/components/ApplicationCard";
-import Header from "@/components/Header";
-import Loading from "@/components/Loading";
-import { useGetApplicationsQuery, useGetAuthUserQuery } from "@/state/api";
+import ApplicationCard from "@client/components/ApplicationCard";
+import Header from "@client/components/Header";
+import Loading from "@client/components/Loading";
+import { useGetApplicationsQuery, useGetAuthUserQuery } from "@client/state/api";
 import { CircleCheckBig, Clock, Download, XCircle } from "lucide-react";
 import React from "react";
 

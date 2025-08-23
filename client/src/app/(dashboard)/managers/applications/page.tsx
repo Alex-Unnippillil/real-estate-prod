@@ -1,14 +1,14 @@
 "use client";
 
-import ApplicationCard from "@/components/ApplicationCard";
-import Header from "@/components/Header";
-import Loading from "@/components/Loading";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ApplicationCard from "@client/components/ApplicationCard";
+import Header from "@client/components/Header";
+import Loading from "@client/components/Loading";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@client/components/ui/tabs";
 import {
   useGetApplicationsQuery,
   useGetAuthUserQuery,
   useUpdateApplicationStatusMutation,
-} from "@/state/api";
+} from "@client/state/api";
 import { CircleCheckBig, Download, File, Hospital } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";

@@ -4,12 +4,12 @@ import {
   useGetPropertiesQuery,
   useGetTenantQuery,
   useRemoveFavoritePropertyMutation,
-} from "@/state/api";
-import { useAppSelector } from "@/state/redux";
-import { Property } from "@/types/prismaTypes";
-import Card from "@/components/Card";
+} from "@client/state/api";
+import { useAppSelector } from "@client/state/redux";
+import { Property } from "@client/types/prismaTypes";
+import Card from "@client/components/Card";
 import React from "react";
-import CardCompact from "@/components/CardCompact";
+import CardCompact from "@client/components/CardCompact";
 
 const Listings = () => {
   const { data: authUser } = useGetAuthUserQuery();

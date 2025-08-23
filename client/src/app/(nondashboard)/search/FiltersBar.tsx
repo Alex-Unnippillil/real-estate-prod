@@ -3,24 +3,24 @@ import {
   setFilters,
   setViewMode,
   toggleFiltersFullOpen,
-} from "@/state";
-import { useAppSelector } from "@/state/redux";
+} from "@client/state";
+import { useAppSelector } from "@client/state/redux";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { debounce } from "lodash";
-import { cleanParams, cn, formatPriceValue } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { cleanParams, cn, formatPriceValue } from "@client/lib/utils";
+import { Button } from "@client/components/ui/button";
 import { Filter, Grid, List, Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Input } from "@client/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { PropertyTypeIcons } from "@/lib/constants";
+} from "@client/components/ui/select";
+import { PropertyTypeIcons } from "@client/lib/constants";
 
 const FiltersBar = () => {
   const dispatch = useDispatch();

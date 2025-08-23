@@ -1,11 +1,11 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import Sidebar from "@/components/AppSidebar";
-import { NAVBAR_HEIGHT } from "@/lib/constants";
+import Navbar from "@client/components/Navbar";
+import { SidebarProvider } from "@client/components/ui/sidebar";
+import Sidebar from "@client/components/AppSidebar";
+import { NAVBAR_HEIGHT } from "@client/lib/constants";
 import React, { useEffect, useState } from "react";
-import { useGetAuthUserQuery } from "@/state/api";
+import { useGetAuthUserQuery } from "@client/state/api";
 import { usePathname, useRouter } from "next/navigation";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {

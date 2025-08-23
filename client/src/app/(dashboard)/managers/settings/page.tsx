@@ -1,10 +1,10 @@
 "use client";
 
-import SettingsForm from "@/components/SettingsForm";
+import SettingsForm from "@client/components/SettingsForm";
 import {
   useGetAuthUserQuery,
   useUpdateManagerSettingsMutation,
-} from "@/state/api";
+} from "@client/state/api";
 import React from "react";
 
 const ManagerSettings = () => {

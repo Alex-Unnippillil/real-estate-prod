@@ -1,7 +1,7 @@
 "use client";
 
-import Header from "@/components/Header";
-import Loading from "@/components/Loading";
+import Header from "@client/components/Header";
+import Loading from "@client/components/Loading";
 import {
   Table,
   TableBody,
@@ -9,12 +9,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@client/components/ui/table";
 import {
   useGetPaymentsQuery,
   useGetPropertyLeasesQuery,
   useGetPropertyQuery,
-} from "@/state/api";
+} from "@client/state/api";
 import { ArrowDownToLine, ArrowLeft, Check, Download } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

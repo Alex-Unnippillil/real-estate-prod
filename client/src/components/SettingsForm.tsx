@@ -1,10 +1,10 @@
-import { SettingsFormData, settingsSchema } from "@/lib/schemas";
+import { SettingsFormData, settingsSchema } from "@client/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Form } from "./ui/form";
-import { CustomFormField } from "./FormField";
-import { Button } from "./ui/button";
+import { Form } from "@client/components/ui/form";
+import { CustomFormField } from "@client/components/FormField";
+import { Button } from "@client/components/ui/button";
 
 const SettingsForm = ({
   initialData,

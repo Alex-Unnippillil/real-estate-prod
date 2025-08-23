@@ -1,9 +1,9 @@
 import React from "react";
-import HeroSection from "./HeroSection";
-import FeaturesSection from "./FeaturesSection";
-import DiscoverSection from "./DiscoverSection";
-import CallToActionSection from "./CallToActionSection";
-import FooterSection from "./FooterSection";
+import HeroSection from "@client/app/(nondashboard)/landing/HeroSection";
+import FeaturesSection from "@client/app/(nondashboard)/landing/FeaturesSection";
+import DiscoverSection from "@client/app/(nondashboard)/landing/DiscoverSection";
+import CallToActionSection from "@client/app/(nondashboard)/landing/CallToActionSection";
+import FooterSection from "@client/app/(nondashboard)/landing/FooterSection";
 
 const Landing = () => {
   return (
