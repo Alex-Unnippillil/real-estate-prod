@@ -65,6 +65,11 @@ enum PaymentStatus {
   Overdue
 }
 
+enum UserRole {
+  MANAGER
+  TENANT
+}
+
 model Property {
   id                Int          @id @default(autoincrement())
   name              String
@@ -85,37 +90,29 @@ model Property {
   averageRating     Float?       @default(0)
   numberOfReviews   Int?         @default(0)
   locationId        Int
-  managerCognitoId  String
+  managerId         Int
 
-  location     Location      @relation(fields: [locationId], references: [id])
-  manager      Manager       @relation(fields: [managerCognitoId], references: [cognitoId])
+  location     Location   @relation(fields: [locationId], references: [id])
+  manager      User       @relation("PropertyManager", fields: [managerId], references: [id])
   leases       Lease[]
   applications Application[]
-  favoritedBy  Tenant[]      @relation("TenantFavorites")
-  tenants      Tenant[]      @relation("TenantProperties")
+  favoritedBy  User[]     @relation("UserFavorites")
+  tenants      User[]     @relation("UserProperties")
 }
 
-model Manager {
-  id          Int    @id @default(autoincrement())
-  cognitoId   String @unique
+model User {
+  id          Int      @id @default(autoincrement())
+  cognitoId   String   @unique
   name        String
-  email       String
+  email       String   @unique
   phoneNumber String
+  role        UserRole
 
-  managedProperties Property[]
-}
-
-model Tenant {
-  id          Int    @id @default(autoincrement())
-  cognitoId   String @unique
-  name        String
-  email       String
-  phoneNumber String
-
-  properties   Property[]    @relation("TenantProperties")
-  favorites    Property[]    @relation("TenantFavorites")
-  applications Application[]
-  leases       Lease[]
+  managedProperties Property[] @relation("PropertyManager")
+  applications      Application[]
+  leases            Lease[]
+  favorites         Property[] @relation("UserFavorites")
+  properties        Property[] @relation("UserProperties")
 }
 
 model Location {
@@ -128,6 +125,8 @@ model Location {
   coordinates Unsupported("geography(Point, 4326)")
 
   properties Property[]
+
+  @@index([coordinates], type: Gist)
 }
 
 model Application {
@@ -135,7 +134,7 @@ model Application {
   applicationDate DateTime
   status          ApplicationStatus
   propertyId      Int
-  tenantCognitoId String
+  userId          Int
   name            String
   email           String
   phoneNumber     String
@@ -143,7 +142,7 @@ model Application {
   leaseId         Int?              @unique
 
   property Property @relation(fields: [propertyId], references: [id])
-  tenant   Tenant   @relation(fields: [tenantCognitoId], references: [cognitoId])
+  user     User     @relation(fields: [userId], references: [id])
   lease    Lease?   @relation(fields: [leaseId], references: [id])
 }
 
@@ -154,10 +153,10 @@ model Lease {
   rent            Float
   deposit         Float
   propertyId      Int
-  tenantCognitoId String
+  tenantId        Int
 
   property    Property     @relation(fields: [propertyId], references: [id])
-  tenant      Tenant       @relation(fields: [tenantCognitoId], references: [cognitoId])
+  tenant      User         @relation(fields: [tenantId], references: [id])
   application Application?
   payments    Payment[]
 }
