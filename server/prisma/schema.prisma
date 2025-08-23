@@ -86,9 +86,10 @@ model Property {
   numberOfReviews   Int?         @default(0)
   locationId        Int
   managerCognitoId  String
+  deletedAt         DateTime?
 
-  location     Location      @relation(fields: [locationId], references: [id])
-  manager      Manager       @relation(fields: [managerCognitoId], references: [cognitoId])
+  location     Location      @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  manager      Manager       @relation(fields: [managerCognitoId], references: [cognitoId], onDelete: Cascade)
   leases       Lease[]
   applications Application[]
   favoritedBy  Tenant[]      @relation("TenantFavorites")
@@ -101,6 +102,7 @@ model Manager {
   name        String
   email       String
   phoneNumber String
+  deletedAt   DateTime?
 
   managedProperties Property[]
 }
@@ -111,6 +113,7 @@ model Tenant {
   name        String
   email       String
   phoneNumber String
+  deletedAt   DateTime?
 
   properties   Property[]    @relation("TenantProperties")
   favorites    Property[]    @relation("TenantFavorites")
@@ -126,6 +129,7 @@ model Location {
   country     String
   postalCode  String
   coordinates Unsupported("geography(Point, 4326)")
+  deletedAt   DateTime?
 
   properties Property[]
 }
@@ -141,10 +145,11 @@ model Application {
   phoneNumber     String
   message         String?
   leaseId         Int?              @unique
+  deletedAt       DateTime?
 
-  property Property @relation(fields: [propertyId], references: [id])
-  tenant   Tenant   @relation(fields: [tenantCognitoId], references: [cognitoId])
-  lease    Lease?   @relation(fields: [leaseId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  tenant   Tenant   @relation(fields: [tenantCognitoId], references: [cognitoId], onDelete: Cascade)
+  lease    Lease?   @relation(fields: [leaseId], references: [id], onDelete: Cascade)
 }
 
 model Lease {
@@ -155,9 +160,10 @@ model Lease {
   deposit         Float
   propertyId      Int
   tenantCognitoId String
+  deletedAt       DateTime?
 
-  property    Property     @relation(fields: [propertyId], references: [id])
-  tenant      Tenant       @relation(fields: [tenantCognitoId], references: [cognitoId])
+  property    Property     @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  tenant      Tenant       @relation(fields: [tenantCognitoId], references: [cognitoId], onDelete: Cascade)
   application Application?
   payments    Payment[]
 }
@@ -170,6 +176,7 @@ model Payment {
   paymentDate   DateTime
   paymentStatus PaymentStatus
   leaseId       Int
+  deletedAt     DateTime?
 
-  lease Lease @relation(fields: [leaseId], references: [id])
+  lease Lease @relation(fields: [leaseId], references: [id], onDelete: Cascade)
 }

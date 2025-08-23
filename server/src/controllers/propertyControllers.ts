@@ -32,7 +32,9 @@ export const getProperties = async (
       longitude,
     } = req.query;
 
-    let whereConditions: Prisma.Sql[] = [];
+    let whereConditions: Prisma.Sql[] = [
+      Prisma.sql`p."deletedAt" IS NULL`
+    ];
 
     if (favoriteIds) {
       const favoriteIdsArray = (favoriteIds as string).split(",").map(Number);
@@ -156,8 +158,8 @@ export const getProperty = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const property = await prisma.property.findUnique({
-      where: { id: Number(id) },
+    const property = await prisma.property.findFirst({
+      where: { id: Number(id), deletedAt: null },
       include: {
         location: true,
       },

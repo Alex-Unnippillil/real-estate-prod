@@ -10,8 +10,8 @@ export const getManager = async (
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
-    const manager = await prisma.manager.findUnique({
-      where: { cognitoId },
+    const manager = await prisma.manager.findFirst({
+      where: { cognitoId, deletedAt: null },
     });
 
     if (manager) {
@@ -82,7 +82,7 @@ export const getManagerProperties = async (
   try {
     const { cognitoId } = req.params;
     const properties = await prisma.property.findMany({
-      where: { managerCognitoId: cognitoId },
+      where: { managerCognitoId: cognitoId, deletedAt: null },
       include: {
         location: true,
       },
