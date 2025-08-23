@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Amplify } from "aws-amplify";
 import {
   Authenticator,
   Heading,
@@ -13,16 +12,7 @@ import {
 import "@aws-amplify/ui-react/styles.css";
 import { useRouter, usePathname } from "next/navigation";
 
-// https://docs.amplify.aws/gen1/javascript/tools/libraries/configure-categories/
-Amplify.configure({
-  Auth: {
-    Cognito: {
-      userPoolId: process.env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID!,
-      userPoolClientId:
-        process.env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID!,
-    },
-  },
-});
+// Amplify is configured globally in `pages/_app.tsx`.
 
 const components = {
   Header() {
@@ -142,7 +132,7 @@ const formFields = {
 const Auth = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuthenticator((context) => [context.user]);
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "";
 
   const isAuthPage = pathname.match(/^\/(signin|signup)$/);
   const isDashboardPage =

@@ -29,6 +29,19 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Cognito Configuration
+
+The app expects the following environment variables to configure AWS Cognito and Amplify:
+
+```bash
+NEXT_PUBLIC_AWS_COGNITO_REGION=<cognito-region>
+NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID=<user-pool-id>
+NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID=<app-client-id>
+NEXT_PUBLIC_AWS_COGNITO_COOKIE_DOMAIN=<cookie-domain>
+```
+
+These variables are used in `pages/_app.tsx` to initialize Amplify and to store authentication tokens in cookies for SSR.
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

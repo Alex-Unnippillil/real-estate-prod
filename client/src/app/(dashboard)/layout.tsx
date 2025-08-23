@@ -11,7 +11,7 @@ import { usePathname, useRouter } from "next/navigation";
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: authUser, isLoading: authLoading } = useGetAuthUserQuery();
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "";
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
