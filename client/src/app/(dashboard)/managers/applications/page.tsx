@@ -3,19 +3,19 @@
 import ApplicationCard from "@/components/ApplicationCard";
 import Header from "@/components/Header";
 import Loading from "@/components/Loading";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   useGetApplicationsQuery,
   useGetAuthUserQuery,
   useUpdateApplicationStatusMutation,
 } from "@/state/api";
-import { CircleCheckBig, Download, File, Hospital } from "lucide-react";
-import Link from "next/link";
-import React, { useState } from "react";
+import { Application } from "@/types/prismaTypes";
+import React, { useEffect, useState } from "react";
+
+const statusList = ["Pending", "Approved", "Denied"] as const;
+type Status = (typeof statusList)[number];
 
 const Applications = () => {
   const { data: authUser } = useGetAuthUserQuery();
-  const [activeTab, setActiveTab] = useState("all");
 
   const {
     data: applications,
@@ -28,149 +28,100 @@ const Applications = () => {
     },
     {
       skip: !authUser?.cognitoInfo?.userId,
+      pollingInterval: 5000,
     }
   );
   const [updateApplicationStatus] = useUpdateApplicationStatusMutation();
 
-  const handleStatusChange = async (id: number, status: string) => {
-    await updateApplicationStatus({ id, status });
+  const [columns, setColumns] = useState<Record<Status, Application[]>>({
+    Pending: [],
+    Approved: [],
+    Denied: [],
+  });
+
+  useEffect(() => {
+    if (applications) {
+      setColumns({
+        Pending: applications.filter((a) => a.status === "Pending"),
+        Approved: applications.filter((a) => a.status === "Approved"),
+        Denied: applications.filter((a) => a.status === "Denied"),
+      });
+    }
+  }, [applications]);
+
+  const handleDragStart = (
+    e: React.DragEvent<HTMLDivElement>,
+    id: number,
+    status: Status
+  ) => {
+    e.dataTransfer.setData("applicationId", id.toString());
+    e.dataTransfer.setData("sourceStatus", status);
   };
+
+  const handleDrop = async (
+    e: React.DragEvent<HTMLDivElement>,
+    destStatus: Status
+  ) => {
+    e.preventDefault();
+    const id = Number(e.dataTransfer.getData("applicationId"));
+    const sourceStatus = e.dataTransfer.getData("sourceStatus") as Status;
+    if (!id || sourceStatus === destStatus) return;
+
+    setColumns((prev) => {
+      const sourceItems = [...prev[sourceStatus]];
+      const destItems = [...prev[destStatus]];
+      const idx = sourceItems.findIndex((app) => app.id === id);
+      if (idx === -1) return prev;
+      const [moved] = sourceItems.splice(idx, 1);
+      moved.status = destStatus;
+      destItems.unshift(moved);
+      return { ...prev, [sourceStatus]: sourceItems, [destStatus]: destItems };
+    });
+
+    await updateApplicationStatus({ id, status: destStatus });
+  };
+
+  const allowDrop = (e: React.DragEvent<HTMLDivElement>) => e.preventDefault();
 
   if (isLoading) return <Loading />;
   if (isError || !applications) return <div>Error fetching applications</div>;
 
-  const filteredApplications = applications?.filter((application) => {
-    if (activeTab === "all") return true;
-    return application.status.toLowerCase() === activeTab;
-  });
-
   return (
     <div className="dashboard-container">
-      <Header
-        title="Applications"
-        subtitle="View and manage applications for your properties"
-      />
-      <Tabs
-        value={activeTab}
-        onValueChange={setActiveTab}
-        className="w-full my-5"
-      >
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="all">All</TabsTrigger>
-          <TabsTrigger value="pending">Pending</TabsTrigger>
-          <TabsTrigger value="approved">Approved</TabsTrigger>
-          <TabsTrigger value="denied">Denied</TabsTrigger>
-        </TabsList>
-        {["all", "pending", "approved", "denied"].map((tab) => (
-          <TabsContent key={tab} value={tab} className="mt-5 w-full">
-            {filteredApplications
-              .filter(
-                (application) =>
-                  tab === "all" || application.status.toLowerCase() === tab
-              )
-              .map((application) => (
-                <ApplicationCard
+      <Header title="Applications" subtitle="Drag cards to update status" />
+      <div className="flex gap-4">
+        {statusList.map((status) => (
+          <div
+            key={status}
+            className="flex-1 bg-gray-100 rounded p-4 min-h-[400px]"
+            onDragOver={allowDrop}
+            onDrop={(e) => handleDrop(e, status)}
+          >
+            <h3 className="text-lg font-semibold mb-4">{status}</h3>
+            <div className="space-y-4">
+              {columns[status].map((application) => (
+                <div
                   key={application.id}
-                  application={application}
-                  userType="manager"
+                  draggable
+                  onDragStart={(e) =>
+                    handleDragStart(e, application.id, status)
+                  }
                 >
-                  <div className="flex justify-between gap-5 w-full pb-4 px-4">
-                    {/* Colored Section Status */}
-                    <div
-                      className={`p-4 text-green-700 grow ${
-                        application.status === "Approved"
-                          ? "bg-green-100"
-                          : application.status === "Denied"
-                          ? "bg-red-100"
-                          : "bg-yellow-100"
-                      }`}
-                    >
-                      <div className="flex flex-wrap items-center">
-                        <File className="w-5 h-5 mr-2 flex-shrink-0" />
-                        <span className="mr-2">
-                          Application submitted on{" "}
-                          {new Date(
-                            application.applicationDate
-                          ).toLocaleDateString()}
-                          .
-                        </span>
-                        <CircleCheckBig className="w-5 h-5 mr-2 flex-shrink-0" />
-                        <span
-                          className={`font-semibold ${
-                            application.status === "Approved"
-                              ? "text-green-800"
-                              : application.status === "Denied"
-                              ? "text-red-800"
-                              : "text-yellow-800"
-                          }`}
-                        >
-                          {application.status === "Approved" &&
-                            "This application has been approved."}
-                          {application.status === "Denied" &&
-                            "This application has been denied."}
-                          {application.status === "Pending" &&
-                            "This application is pending review."}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Right Buttons */}
-                    <div className="flex gap-2">
-                      <Link
-                        href={`/managers/properties/${application.property.id}`}
-                        className={`bg-white border border-gray-300 text-gray-700 py-2 px-4 
-                          rounded-md flex items-center justify-center hover:bg-primary-700 hover:text-primary-50`}
-                        scroll={false}
-                      >
-                        <Hospital className="w-5 h-5 mr-2" />
-                        Property Details
-                      </Link>
-                      {application.status === "Approved" && (
-                        <button
-                          className={`bg-white border border-gray-300 text-gray-700 py-2 px-4
-                          rounded-md flex items-center justify-center hover:bg-primary-700 hover:text-primary-50`}
-                        >
-                          <Download className="w-5 h-5 mr-2" />
-                          Download Agreement
-                        </button>
-                      )}
-                      {application.status === "Pending" && (
-                        <>
-                          <button
-                            className="px-4 py-2 text-sm text-white bg-green-600 rounded hover:bg-green-500"
-                            onClick={() =>
-                              handleStatusChange(application.id, "Approved")
-                            }
-                          >
-                            Approve
-                          </button>
-                          <button
-                            className="px-4 py-2 text-sm text-white bg-red-600 rounded hover:bg-red-500"
-                            onClick={() =>
-                              handleStatusChange(application.id, "Denied")
-                            }
-                          >
-                            Deny
-                          </button>
-                        </>
-                      )}
-                      {application.status === "Denied" && (
-                        <button
-                          className={`bg-gray-800 text-white py-2 px-4 rounded-md flex items-center
-                          justify-center hover:bg-secondary-500 hover:text-primary-50`}
-                        >
-                          Contact User
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </ApplicationCard>
+                  <ApplicationCard
+                    application={application}
+                    userType="manager"
+                  >
+                    {null}
+                  </ApplicationCard>
+                </div>
               ))}
-          </TabsContent>
+            </div>
+          </div>
         ))}
-      </Tabs>
+      </div>
     </div>
   );
 };
 
 export default Applications;
+
