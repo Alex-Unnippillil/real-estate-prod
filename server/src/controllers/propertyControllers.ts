@@ -5,6 +5,7 @@ import { S3Client } from "@aws-sdk/client-s3";
 import { Location } from "@prisma/client";
 import { Upload } from "@aws-sdk/lib-storage";
 import axios from "axios";
+import crypto from "crypto";
 
 const prisma = new PrismaClient();
 
@@ -162,27 +163,45 @@ export const getProperty = async (
         location: true,
       },
     });
-
-    if (property) {
-      const coordinates: { coordinates: string }[] =
-        await prisma.$queryRaw`SELECT ST_asText(coordinates) as coordinates from "Location" where id = ${property.location.id}`;
-
-      const geoJSON: any = wktToGeoJSON(coordinates[0]?.coordinates || "");
-      const longitude = geoJSON.coordinates[0];
-      const latitude = geoJSON.coordinates[1];
-
-      const propertyWithCoordinates = {
-        ...property,
-        location: {
-          ...property.location,
-          coordinates: {
-            longitude,
-            latitude,
-          },
-        },
-      };
-      res.json(propertyWithCoordinates);
+    if (!property) {
+      res.status(404).json({ message: "Property not found" });
+      return;
     }
+
+    const coordinates: { coordinates: string }[] =
+      await prisma.$queryRaw`SELECT ST_asText(coordinates) as coordinates from "Location" where id = ${property.location.id}`;
+
+    const geoJSON: any = wktToGeoJSON(coordinates[0]?.coordinates || "");
+    const longitude = geoJSON.coordinates[0];
+    const latitude = geoJSON.coordinates[1];
+
+    const propertyWithCoordinates = {
+      ...property,
+      location: {
+        ...property.location,
+        coordinates: {
+          longitude,
+          latitude,
+        },
+      },
+    };
+
+    const etag = crypto
+      .createHash("sha1")
+      .update(JSON.stringify(propertyWithCoordinates))
+      .digest("hex");
+    const etagHeader = `"${etag}"`;
+
+    if (req.headers["if-none-match"] === etagHeader) {
+      res.setHeader("ETag", etagHeader);
+      res.setHeader("Cache-Control", "public, max-age=300");
+      res.status(304).end();
+      return;
+    }
+
+    res.setHeader("ETag", etagHeader);
+    res.setHeader("Cache-Control", "public, max-age=300");
+    res.json(propertyWithCoordinates);
   } catch (err: any) {
     res
       .status(500)
