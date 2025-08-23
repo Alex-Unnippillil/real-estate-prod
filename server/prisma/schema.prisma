@@ -101,6 +101,7 @@ model Manager {
   name        String
   email       String
   phoneNumber String
+  stripeAccountId String?  @db.VarChar(255)
 
   managedProperties Property[]
 }

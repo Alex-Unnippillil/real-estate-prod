@@ -243,6 +243,13 @@ export const api = createApi({
       },
     }),
 
+    createPayoutLink: build.mutation<{ url: string }, string>({
+      query: (cognitoId) => ({
+        url: `managers/${cognitoId}/payout/onboard`,
+        method: "POST",
+      }),
+    }),
+
     createProperty: build.mutation<Property, FormData>({
       query: (newProperty) => ({
         url: `properties`,
@@ -355,6 +362,7 @@ export const {
   useGetAuthUserQuery,
   useUpdateTenantSettingsMutation,
   useUpdateManagerSettingsMutation,
+  useCreatePayoutLinkMutation,
   useGetPropertiesQuery,
   useGetPropertyQuery,
   useGetCurrentResidencesQuery,
