@@ -183,3 +183,56 @@ export const removeFavoriteProperty = async (
       .json({ message: `Error removing favorite property: ${err.message}` });
   }
 };
+
+export const addPropertyView = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { cognitoId, propertyId } = req.params;
+    const view = await prisma.propertyView.create({
+      data: {
+        tenantCognitoId: cognitoId,
+        propertyId: Number(propertyId),
+      },
+    });
+
+    res.status(201).json(view);
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: `Error logging property view: ${error.message}` });
+  }
+};
+
+export const getRecentActivity = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { cognitoId } = req.params;
+    const tenant = await prisma.tenant.findUnique({
+      where: { cognitoId },
+      include: {
+        favorites: true,
+        views: {
+          orderBy: { viewedAt: "desc" },
+          take: 10,
+          include: { property: true },
+        },
+      },
+    });
+
+    if (!tenant) {
+      res.status(404).json({ message: "Tenant not found" });
+      return;
+    }
+
+    const recentViews = tenant.views.map((view) => view.property);
+    res.json({ favorites: tenant.favorites, recentViews });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: `Error retrieving tenant activity: ${error.message}` });
+  }
+};

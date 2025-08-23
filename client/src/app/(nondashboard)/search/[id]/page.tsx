@@ -1,8 +1,8 @@
 "use client";
 
-import { useGetAuthUserQuery } from "@/state/api";
+import { useAddPropertyViewMutation, useGetAuthUserQuery } from "@/state/api";
 import { useParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ImagePreviews from "./ImagePreviews";
 import PropertyOverview from "./PropertyOverview";
 import PropertyDetails from "./PropertyDetails";
@@ -15,6 +15,16 @@ const SingleListing = () => {
   const propertyId = Number(id);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: authUser } = useGetAuthUserQuery();
+  const [addView] = useAddPropertyViewMutation();
+
+  useEffect(() => {
+    if (authUser?.cognitoInfo?.userId && propertyId) {
+      addView({
+        cognitoId: authUser.cognitoInfo.userId,
+        propertyId,
+      });
+    }
+  }, [authUser?.cognitoInfo?.userId, propertyId, addView]);
 
   return (
     <div>

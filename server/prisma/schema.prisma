@@ -93,6 +93,7 @@ model Property {
   applications Application[]
   favoritedBy  Tenant[]      @relation("TenantFavorites")
   tenants      Tenant[]      @relation("TenantProperties")
+  views        PropertyView[]
 }
 
 model Manager {
@@ -116,6 +117,7 @@ model Tenant {
   favorites    Property[]    @relation("TenantFavorites")
   applications Application[]
   leases       Lease[]
+  views        PropertyView[]
 }
 
 model Location {
@@ -172,4 +174,14 @@ model Payment {
   leaseId       Int
 
   lease Lease @relation(fields: [leaseId], references: [id])
+}
+
+model PropertyView {
+  id              Int      @id @default(autoincrement())
+  tenantCognitoId String
+  propertyId      Int
+  viewedAt        DateTime @default(now())
+
+  tenant   Tenant   @relation(fields: [tenantCognitoId], references: [cognitoId])
+  property Property @relation(fields: [propertyId], references: [id])
 }
