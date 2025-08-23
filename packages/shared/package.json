@@ -1,0 +1,9 @@
+{
+  "name": "@real-estate/shared",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "zod": "^3.24.1"
+  }
+}
