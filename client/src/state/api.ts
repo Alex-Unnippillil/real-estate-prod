@@ -113,6 +113,16 @@ export const api = createApi({
       },
     }),
 
+    getPropertyClusters: build.query<
+      any[],
+      { bbox: number[]; zoom: number }
+    >({
+      query: ({ bbox, zoom }) => ({
+        url: "properties/clusters",
+        params: { bbox: bbox.join(","), zoom },
+      }),
+    }),
+
     getProperty: build.query<Property, number>({
       query: (id) => `properties/${id}`,
       providesTags: (result, error, id) => [{ type: "PropertyDetails", id }],
@@ -356,6 +366,7 @@ export const {
   useUpdateTenantSettingsMutation,
   useUpdateManagerSettingsMutation,
   useGetPropertiesQuery,
+  useGetPropertyClustersQuery,
   useGetPropertyQuery,
   useGetCurrentResidencesQuery,
   useGetManagerPropertiesQuery,

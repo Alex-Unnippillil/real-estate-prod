@@ -16,6 +16,7 @@ interface InitialStateTypes {
   filters: FiltersState;
   isFiltersFullOpen: boolean;
   viewMode: "grid" | "list";
+  hoveredPropertyId: number | null;
 }
 
 export const initialState: InitialStateTypes = {
@@ -32,6 +33,7 @@ export const initialState: InitialStateTypes = {
   },
   isFiltersFullOpen: false,
   viewMode: "grid",
+  hoveredPropertyId: null,
 };
 
 export const globalSlice = createSlice({
@@ -47,10 +49,20 @@ export const globalSlice = createSlice({
     setViewMode: (state, action: PayloadAction<"grid" | "list">) => {
       state.viewMode = action.payload;
     },
+    setHoveredPropertyId: (
+      state,
+      action: PayloadAction<number | null>
+    ) => {
+      state.hoveredPropertyId = action.payload;
+    },
   },
 });
 
-export const { setFilters, toggleFiltersFullOpen, setViewMode } =
-  globalSlice.actions;
+export const {
+  setFilters,
+  toggleFiltersFullOpen,
+  setViewMode,
+  setHoveredPropertyId,
+} = globalSlice.actions;
 
 export default globalSlice.reducer;

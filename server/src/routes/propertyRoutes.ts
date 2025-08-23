@@ -3,6 +3,7 @@ import {
   getProperties,
   getProperty,
   createProperty,
+  getPropertyClusters,
 } from "../controllers/propertyControllers";
 import multer from "multer";
 import { authMiddleware } from "../middleware/authMiddleware";
@@ -13,6 +14,7 @@ const upload = multer({ storage: storage });
 const router = express.Router();
 
 router.get("/", getProperties);
+router.get("/clusters", getPropertyClusters);
 router.get("/:id", getProperty);
 router.post(
   "/",

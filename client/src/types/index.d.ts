@@ -101,6 +101,7 @@ declare global {
     onFavoriteToggle: () => void;
     showFavoriteButton?: boolean;
     propertyLink?: string;
+    isHighlighted?: boolean;
   }
 
   interface CardCompactProps {
@@ -109,6 +110,7 @@ declare global {
     onFavoriteToggle: () => void;
     showFavoriteButton?: boolean;
     propertyLink?: string;
+    isHighlighted?: boolean;
   }
 
   interface HeaderProps {
