@@ -9,13 +9,18 @@ const Card = ({
   onFavoriteToggle,
   showFavoriteButton = true,
   propertyLink,
+  isHighlighted = false,
 }: CardProps) => {
   const [imgSrc, setImgSrc] = useState(
     property.photoUrls?.[0] || "/placeholder.jpg"
   );
 
   return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-lg w-full mb-5">
+    <div
+      className={`bg-white rounded-xl overflow-hidden shadow-lg w-full mb-5 ${
+        isHighlighted ? "ring-2 ring-blue-500" : ""
+      }`}
+    >
       <div className="relative">
         <div className="w-full h-48 relative">
           <Image

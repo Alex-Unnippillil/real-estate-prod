@@ -5,7 +5,8 @@ import {
   useGetTenantQuery,
   useRemoveFavoritePropertyMutation,
 } from "@/state/api";
-import { useAppSelector } from "@/state/redux";
+import { useAppDispatch, useAppSelector } from "@/state/redux";
+import { setHoveredPropertyId } from "@/state";
 import { Property } from "@/types/prismaTypes";
 import Card from "@/components/Card";
 import React from "react";
@@ -23,6 +24,10 @@ const Listings = () => {
   const [removeFavorite] = useRemoveFavoritePropertyMutation();
   const viewMode = useAppSelector((state) => state.global.viewMode);
   const filters = useAppSelector((state) => state.global.filters);
+  const hoveredPropertyId = useAppSelector(
+    (state) => state.global.hoveredPropertyId
+  );
+  const dispatch = useAppDispatch();
 
   const {
     data: properties,
@@ -63,35 +68,41 @@ const Listings = () => {
       </h3>
       <div className="flex">
         <div className="p-4 w-full">
-          {properties?.map((property) =>
-            viewMode === "grid" ? (
-              <Card
-                key={property.id}
-                property={property}
-                isFavorite={
-                  tenant?.favorites?.some(
-                    (fav: Property) => fav.id === property.id
-                  ) || false
-                }
-                onFavoriteToggle={() => handleFavoriteToggle(property.id)}
-                showFavoriteButton={!!authUser}
-                propertyLink={`/search/${property.id}`}
-              />
-            ) : (
-              <CardCompact
-                key={property.id}
-                property={property}
-                isFavorite={
-                  tenant?.favorites?.some(
-                    (fav: Property) => fav.id === property.id
-                  ) || false
-                }
-                onFavoriteToggle={() => handleFavoriteToggle(property.id)}
-                showFavoriteButton={!!authUser}
-                propertyLink={`/search/${property.id}`}
-              />
-            )
-          )}
+          {properties?.map((property) => (
+            <div
+              key={property.id}
+              onMouseEnter={() => dispatch(setHoveredPropertyId(property.id))}
+              onMouseLeave={() => dispatch(setHoveredPropertyId(null))}
+            >
+              {viewMode === "grid" ? (
+                <Card
+                  property={property}
+                  isFavorite={
+                    tenant?.favorites?.some(
+                      (fav: Property) => fav.id === property.id
+                    ) || false
+                  }
+                  onFavoriteToggle={() => handleFavoriteToggle(property.id)}
+                  showFavoriteButton={!!authUser}
+                  propertyLink={`/search/${property.id}`}
+                  isHighlighted={hoveredPropertyId === property.id}
+                />
+              ) : (
+                <CardCompact
+                  property={property}
+                  isFavorite={
+                    tenant?.favorites?.some(
+                      (fav: Property) => fav.id === property.id
+                    ) || false
+                  }
+                  onFavoriteToggle={() => handleFavoriteToggle(property.id)}
+                  showFavoriteButton={!!authUser}
+                  propertyLink={`/search/${property.id}`}
+                  isHighlighted={hoveredPropertyId === property.id}
+                />
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>

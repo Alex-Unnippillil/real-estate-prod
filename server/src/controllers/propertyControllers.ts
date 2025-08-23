@@ -5,6 +5,7 @@ import { S3Client } from "@aws-sdk/client-s3";
 import { Location } from "@prisma/client";
 import { Upload } from "@aws-sdk/lib-storage";
 import axios from "axios";
+import Supercluster from "supercluster";
 
 const prisma = new PrismaClient();
 
@@ -187,6 +188,74 @@ export const getProperty = async (
     res
       .status(500)
       .json({ message: `Error retrieving property: ${err.message}` });
+  }
+};
+
+export const getPropertyClusters = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { bbox, zoom } = req.query;
+
+    if (!bbox || !zoom) {
+      res.status(400).json({ message: "bbox and zoom are required" });
+      return;
+    }
+
+    const bounds = (bbox as string).split(",").map(Number);
+    const z = parseInt(zoom as string);
+
+    const properties: any[] = await prisma.$queryRaw`
+      SELECT
+        p.*, 
+        json_build_object(
+          'id', l.id,
+          'address', l.address,
+          'city', l.city,
+          'state', l.state,
+          'country', l.country,
+          'postalCode', l."postalCode",
+          'coordinates', json_build_object(
+            'longitude', ST_X(l."coordinates"::geometry),
+            'latitude', ST_Y(l."coordinates"::geometry)
+          )
+        ) as location
+      FROM "Property" p
+      JOIN "Location" l ON p."locationId" = l.id
+    `;
+
+    const points = properties.map((p) => ({
+      type: "Feature",
+      properties: p,
+      geometry: {
+        type: "Point",
+        coordinates: [
+          p.location.coordinates.longitude,
+          p.location.coordinates.latitude,
+        ],
+      },
+    }));
+
+    const index = new Supercluster({
+      radius: 40,
+      maxZoom: 16,
+    });
+
+    index.load(points as any);
+
+    const clusters = index.getClusters(
+      bounds as [number, number, number, number],
+      z
+    );
+
+    res.json(clusters);
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({
+        message: `Error retrieving property clusters: ${error.message}`,
+      });
   }
 };
 
