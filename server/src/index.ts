@@ -11,10 +11,14 @@ import managerRoutes from "./routes/managerRoutes";
 import propertyRoutes from "./routes/propertyRoutes";
 import leaseRoutes from "./routes/leaseRoutes";
 import applicationRoutes from "./routes/applicationRoutes";
+import stripeRoutes from "./routes/stripeRoutes";
 
 /* CONFIGURATIONS */
 dotenv.config();
 const app = express();
+// Stripe webhook must be registered before body parsing middleware
+app.use("/api/stripe", stripeRoutes);
+
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));

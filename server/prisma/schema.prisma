@@ -173,3 +173,8 @@ model Payment {
 
   lease Lease @relation(fields: [leaseId], references: [id])
 }
+
+model StripeEvent {
+  id        String   @id
+  createdAt DateTime @default(now())
+}
