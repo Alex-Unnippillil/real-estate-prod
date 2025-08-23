@@ -180,11 +180,23 @@ export const api = createApi({
         { type: "Tenants", id: result?.id },
         { type: "Properties", id: "LIST" },
       ],
-      async onQueryStarted(_, { queryFulfilled }) {
-        await withToast(queryFulfilled, {
-          success: "Added to favorites!!",
-          error: "Failed to add to favorites",
-        });
+      async onQueryStarted({ cognitoId, propertyId }, { queryFulfilled, dispatch }) {
+        const patchResult = dispatch(
+          api.util.updateQueryData("getTenant", cognitoId, (draft) => {
+            draft.favorites ||= [];
+            if (!draft.favorites.some((fav: any) => fav.id === propertyId)) {
+              draft.favorites.push({ id: propertyId } as any);
+            }
+          })
+        );
+        try {
+          await withToast(queryFulfilled, {
+            success: "Added to favorites!!",
+            error: "Failed to add to favorites",
+          });
+        } catch {
+          patchResult.undo();
+        }
       },
     }),
 
@@ -200,10 +212,43 @@ export const api = createApi({
         { type: "Tenants", id: result?.id },
         { type: "Properties", id: "LIST" },
       ],
+      async onQueryStarted({ cognitoId, propertyId }, { queryFulfilled, dispatch }) {
+        const patchResult = dispatch(
+          api.util.updateQueryData("getTenant", cognitoId, (draft) => {
+            draft.favorites = draft.favorites?.filter(
+              (fav: any) => fav.id !== propertyId
+            );
+          })
+        );
+        try {
+          await withToast(queryFulfilled, {
+            success: "Removed from favorites!",
+            error: "Failed to remove from favorites.",
+          });
+        } catch {
+          patchResult.undo();
+        }
+      },
+    }),
+
+    addPropertyView: build.mutation<
+      void,
+      { cognitoId: string; propertyId: number }
+    >({
+      query: ({ cognitoId, propertyId }) => ({
+        url: `tenants/${cognitoId}/views/${propertyId}`,
+        method: "POST",
+      }),
+    }),
+
+    getRecentActivity: build.query<
+      { favorites: Property[]; recentViews: Property[] },
+      string
+    >({
+      query: (cognitoId) => `tenants/${cognitoId}/recent-activity`,
       async onQueryStarted(_, { queryFulfilled }) {
         await withToast(queryFulfilled, {
-          success: "Removed from favorites!",
-          error: "Failed to remove from favorites.",
+          error: "Failed to load recent activity.",
         });
       },
     }),
@@ -363,6 +408,8 @@ export const {
   useGetTenantQuery,
   useAddFavoritePropertyMutation,
   useRemoveFavoritePropertyMutation,
+  useAddPropertyViewMutation,
+  useGetRecentActivityQuery,
   useGetLeasesQuery,
   useGetPropertyLeasesQuery,
   useGetPaymentsQuery,

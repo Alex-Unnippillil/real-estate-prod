@@ -48,6 +48,11 @@ export type Lease = $Result.DefaultSelection<Prisma.$LeasePayload>
  * 
  */
 export type Payment = $Result.DefaultSelection<Prisma.$PaymentPayload>
+/**
+ * Model PropertyView
+ * 
+ */
+export type PropertyView = $Result.DefaultSelection<Prisma.$PropertyViewPayload>
 
 /**
  * Enums
@@ -339,6 +344,16 @@ export class PrismaClient<
     * ```
     */
   get payment(): Prisma.PaymentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.propertyView`: Exposes CRUD operations for the **PropertyView** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PropertyViews
+    * const propertyViews = await prisma.propertyView.findMany()
+    * ```
+    */
+  get propertyView(): Prisma.PropertyViewDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -785,7 +800,8 @@ export namespace Prisma {
     Location: 'Location',
     Application: 'Application',
     Lease: 'Lease',
-    Payment: 'Payment'
+    Payment: 'Payment',
+    PropertyView: 'PropertyView'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -801,7 +817,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "property" | "manager" | "tenant" | "location" | "application" | "lease" | "payment"
+      modelProps: "property" | "manager" | "tenant" | "location" | "application" | "lease" | "payment" | "propertyView"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1307,6 +1323,80 @@ export namespace Prisma {
           }
         }
       }
+      PropertyView: {
+        payload: Prisma.$PropertyViewPayload<ExtArgs>
+        fields: Prisma.PropertyViewFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PropertyViewFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyViewPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PropertyViewFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyViewPayload>
+          }
+          findFirst: {
+            args: Prisma.PropertyViewFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyViewPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PropertyViewFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyViewPayload>
+          }
+          findMany: {
+            args: Prisma.PropertyViewFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyViewPayload>[]
+          }
+          create: {
+            args: Prisma.PropertyViewCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyViewPayload>
+          }
+          createMany: {
+            args: Prisma.PropertyViewCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PropertyViewCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyViewPayload>[]
+          }
+          delete: {
+            args: Prisma.PropertyViewDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyViewPayload>
+          }
+          update: {
+            args: Prisma.PropertyViewUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyViewPayload>
+          }
+          deleteMany: {
+            args: Prisma.PropertyViewDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PropertyViewUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PropertyViewUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyViewPayload>[]
+          }
+          upsert: {
+            args: Prisma.PropertyViewUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PropertyViewPayload>
+          }
+          aggregate: {
+            args: Prisma.PropertyViewAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePropertyView>
+          }
+          groupBy: {
+            args: Prisma.PropertyViewGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PropertyViewGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PropertyViewCountArgs<ExtArgs>
+            result: $Utils.Optional<PropertyViewCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1398,6 +1488,7 @@ export namespace Prisma {
     application?: ApplicationOmit
     lease?: LeaseOmit
     payment?: PaymentOmit
+    propertyView?: PropertyViewOmit
   }
 
   /* Types for Logging */
@@ -1496,6 +1587,7 @@ export namespace Prisma {
     applications: number
     favoritedBy: number
     tenants: number
+    views: number
   }
 
   export type PropertyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1503,6 +1595,7 @@ export namespace Prisma {
     applications?: boolean | PropertyCountOutputTypeCountApplicationsArgs
     favoritedBy?: boolean | PropertyCountOutputTypeCountFavoritedByArgs
     tenants?: boolean | PropertyCountOutputTypeCountTenantsArgs
+    views?: boolean | PropertyCountOutputTypeCountViewsArgs
   }
 
   // Custom InputTypes
@@ -1542,6 +1635,13 @@ export namespace Prisma {
    */
   export type PropertyCountOutputTypeCountTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TenantWhereInput
+  }
+
+  /**
+   * PropertyCountOutputType without action
+   */
+  export type PropertyCountOutputTypeCountViewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PropertyViewWhereInput
   }
 
 
@@ -1585,6 +1685,7 @@ export namespace Prisma {
     favorites: number
     applications: number
     leases: number
+    views: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1592,6 +1693,7 @@ export namespace Prisma {
     favorites?: boolean | TenantCountOutputTypeCountFavoritesArgs
     applications?: boolean | TenantCountOutputTypeCountApplicationsArgs
     leases?: boolean | TenantCountOutputTypeCountLeasesArgs
+    views?: boolean | TenantCountOutputTypeCountViewsArgs
   }
 
   // Custom InputTypes
@@ -1631,6 +1733,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountLeasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LeaseWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountViewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PropertyViewWhereInput
   }
 
 
@@ -2048,6 +2157,7 @@ export namespace Prisma {
     applications?: boolean | Property$applicationsArgs<ExtArgs>
     favoritedBy?: boolean | Property$favoritedByArgs<ExtArgs>
     tenants?: boolean | Property$tenantsArgs<ExtArgs>
+    views?: boolean | Property$viewsArgs<ExtArgs>
     _count?: boolean | PropertyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["property"]>
 
@@ -2132,6 +2242,7 @@ export namespace Prisma {
     applications?: boolean | Property$applicationsArgs<ExtArgs>
     favoritedBy?: boolean | Property$favoritedByArgs<ExtArgs>
     tenants?: boolean | Property$tenantsArgs<ExtArgs>
+    views?: boolean | Property$viewsArgs<ExtArgs>
     _count?: boolean | PropertyCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PropertyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2152,6 +2263,7 @@ export namespace Prisma {
       applications: Prisma.$ApplicationPayload<ExtArgs>[]
       favoritedBy: Prisma.$TenantPayload<ExtArgs>[]
       tenants: Prisma.$TenantPayload<ExtArgs>[]
+      views: Prisma.$PropertyViewPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2574,6 +2686,7 @@ export namespace Prisma {
     applications<T extends Property$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, Property$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     favoritedBy<T extends Property$favoritedByArgs<ExtArgs> = {}>(args?: Subset<T, Property$favoritedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     tenants<T extends Property$tenantsArgs<ExtArgs> = {}>(args?: Subset<T, Property$tenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    views<T extends Property$viewsArgs<ExtArgs> = {}>(args?: Subset<T, Property$viewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyViewPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3112,6 +3225,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TenantScalarFieldEnum | TenantScalarFieldEnum[]
+  }
+
+  /**
+   * Property.views
+   */
+  export type Property$viewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewInclude<ExtArgs> | null
+    where?: PropertyViewWhereInput
+    orderBy?: PropertyViewOrderByWithRelationInput | PropertyViewOrderByWithRelationInput[]
+    cursor?: PropertyViewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PropertyViewScalarFieldEnum | PropertyViewScalarFieldEnum[]
   }
 
   /**
@@ -4439,6 +4576,7 @@ export namespace Prisma {
     favorites?: boolean | Tenant$favoritesArgs<ExtArgs>
     applications?: boolean | Tenant$applicationsArgs<ExtArgs>
     leases?: boolean | Tenant$leasesArgs<ExtArgs>
+    views?: boolean | Tenant$viewsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -4472,6 +4610,7 @@ export namespace Prisma {
     favorites?: boolean | Tenant$favoritesArgs<ExtArgs>
     applications?: boolean | Tenant$applicationsArgs<ExtArgs>
     leases?: boolean | Tenant$leasesArgs<ExtArgs>
+    views?: boolean | Tenant$viewsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4484,6 +4623,7 @@ export namespace Prisma {
       favorites: Prisma.$PropertyPayload<ExtArgs>[]
       applications: Prisma.$ApplicationPayload<ExtArgs>[]
       leases: Prisma.$LeasePayload<ExtArgs>[]
+      views: Prisma.$PropertyViewPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4889,6 +5029,7 @@ export namespace Prisma {
     favorites<T extends Tenant$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     applications<T extends Tenant$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     leases<T extends Tenant$leasesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$leasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeasePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    views<T extends Tenant$viewsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$viewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyViewPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5404,6 +5545,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LeaseScalarFieldEnum | LeaseScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.views
+   */
+  export type Tenant$viewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewInclude<ExtArgs> | null
+    where?: PropertyViewWhereInput
+    orderBy?: PropertyViewOrderByWithRelationInput | PropertyViewOrderByWithRelationInput[]
+    cursor?: PropertyViewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PropertyViewScalarFieldEnum | PropertyViewScalarFieldEnum[]
   }
 
   /**
@@ -9902,6 +10067,1097 @@ export namespace Prisma {
 
 
   /**
+   * Model PropertyView
+   */
+
+  export type AggregatePropertyView = {
+    _count: PropertyViewCountAggregateOutputType | null
+    _avg: PropertyViewAvgAggregateOutputType | null
+    _sum: PropertyViewSumAggregateOutputType | null
+    _min: PropertyViewMinAggregateOutputType | null
+    _max: PropertyViewMaxAggregateOutputType | null
+  }
+
+  export type PropertyViewAvgAggregateOutputType = {
+    id: number | null
+    propertyId: number | null
+  }
+
+  export type PropertyViewSumAggregateOutputType = {
+    id: number | null
+    propertyId: number | null
+  }
+
+  export type PropertyViewMinAggregateOutputType = {
+    id: number | null
+    tenantCognitoId: string | null
+    propertyId: number | null
+    viewedAt: Date | null
+  }
+
+  export type PropertyViewMaxAggregateOutputType = {
+    id: number | null
+    tenantCognitoId: string | null
+    propertyId: number | null
+    viewedAt: Date | null
+  }
+
+  export type PropertyViewCountAggregateOutputType = {
+    id: number
+    tenantCognitoId: number
+    propertyId: number
+    viewedAt: number
+    _all: number
+  }
+
+
+  export type PropertyViewAvgAggregateInputType = {
+    id?: true
+    propertyId?: true
+  }
+
+  export type PropertyViewSumAggregateInputType = {
+    id?: true
+    propertyId?: true
+  }
+
+  export type PropertyViewMinAggregateInputType = {
+    id?: true
+    tenantCognitoId?: true
+    propertyId?: true
+    viewedAt?: true
+  }
+
+  export type PropertyViewMaxAggregateInputType = {
+    id?: true
+    tenantCognitoId?: true
+    propertyId?: true
+    viewedAt?: true
+  }
+
+  export type PropertyViewCountAggregateInputType = {
+    id?: true
+    tenantCognitoId?: true
+    propertyId?: true
+    viewedAt?: true
+    _all?: true
+  }
+
+  export type PropertyViewAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PropertyView to aggregate.
+     */
+    where?: PropertyViewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyViews to fetch.
+     */
+    orderBy?: PropertyViewOrderByWithRelationInput | PropertyViewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PropertyViewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyViews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyViews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PropertyViews
+    **/
+    _count?: true | PropertyViewCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PropertyViewAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PropertyViewSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PropertyViewMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PropertyViewMaxAggregateInputType
+  }
+
+  export type GetPropertyViewAggregateType<T extends PropertyViewAggregateArgs> = {
+        [P in keyof T & keyof AggregatePropertyView]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePropertyView[P]>
+      : GetScalarType<T[P], AggregatePropertyView[P]>
+  }
+
+
+
+
+  export type PropertyViewGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PropertyViewWhereInput
+    orderBy?: PropertyViewOrderByWithAggregationInput | PropertyViewOrderByWithAggregationInput[]
+    by: PropertyViewScalarFieldEnum[] | PropertyViewScalarFieldEnum
+    having?: PropertyViewScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PropertyViewCountAggregateInputType | true
+    _avg?: PropertyViewAvgAggregateInputType
+    _sum?: PropertyViewSumAggregateInputType
+    _min?: PropertyViewMinAggregateInputType
+    _max?: PropertyViewMaxAggregateInputType
+  }
+
+  export type PropertyViewGroupByOutputType = {
+    id: number
+    tenantCognitoId: string
+    propertyId: number
+    viewedAt: Date
+    _count: PropertyViewCountAggregateOutputType | null
+    _avg: PropertyViewAvgAggregateOutputType | null
+    _sum: PropertyViewSumAggregateOutputType | null
+    _min: PropertyViewMinAggregateOutputType | null
+    _max: PropertyViewMaxAggregateOutputType | null
+  }
+
+  type GetPropertyViewGroupByPayload<T extends PropertyViewGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PropertyViewGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PropertyViewGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PropertyViewGroupByOutputType[P]>
+            : GetScalarType<T[P], PropertyViewGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PropertyViewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantCognitoId?: boolean
+    propertyId?: boolean
+    viewedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    property?: boolean | PropertyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["propertyView"]>
+
+  export type PropertyViewSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantCognitoId?: boolean
+    propertyId?: boolean
+    viewedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    property?: boolean | PropertyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["propertyView"]>
+
+  export type PropertyViewSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantCognitoId?: boolean
+    propertyId?: boolean
+    viewedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    property?: boolean | PropertyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["propertyView"]>
+
+  export type PropertyViewSelectScalar = {
+    id?: boolean
+    tenantCognitoId?: boolean
+    propertyId?: boolean
+    viewedAt?: boolean
+  }
+
+  export type PropertyViewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantCognitoId" | "propertyId" | "viewedAt", ExtArgs["result"]["propertyView"]>
+  export type PropertyViewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    property?: boolean | PropertyDefaultArgs<ExtArgs>
+  }
+  export type PropertyViewIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    property?: boolean | PropertyDefaultArgs<ExtArgs>
+  }
+  export type PropertyViewIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    property?: boolean | PropertyDefaultArgs<ExtArgs>
+  }
+
+  export type $PropertyViewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PropertyView"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      property: Prisma.$PropertyPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      tenantCognitoId: string
+      propertyId: number
+      viewedAt: Date
+    }, ExtArgs["result"]["propertyView"]>
+    composites: {}
+  }
+
+  type PropertyViewGetPayload<S extends boolean | null | undefined | PropertyViewDefaultArgs> = $Result.GetResult<Prisma.$PropertyViewPayload, S>
+
+  type PropertyViewCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PropertyViewFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PropertyViewCountAggregateInputType | true
+    }
+
+  export interface PropertyViewDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PropertyView'], meta: { name: 'PropertyView' } }
+    /**
+     * Find zero or one PropertyView that matches the filter.
+     * @param {PropertyViewFindUniqueArgs} args - Arguments to find a PropertyView
+     * @example
+     * // Get one PropertyView
+     * const propertyView = await prisma.propertyView.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PropertyViewFindUniqueArgs>(args: SelectSubset<T, PropertyViewFindUniqueArgs<ExtArgs>>): Prisma__PropertyViewClient<$Result.GetResult<Prisma.$PropertyViewPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one PropertyView that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PropertyViewFindUniqueOrThrowArgs} args - Arguments to find a PropertyView
+     * @example
+     * // Get one PropertyView
+     * const propertyView = await prisma.propertyView.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PropertyViewFindUniqueOrThrowArgs>(args: SelectSubset<T, PropertyViewFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PropertyViewClient<$Result.GetResult<Prisma.$PropertyViewPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first PropertyView that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyViewFindFirstArgs} args - Arguments to find a PropertyView
+     * @example
+     * // Get one PropertyView
+     * const propertyView = await prisma.propertyView.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PropertyViewFindFirstArgs>(args?: SelectSubset<T, PropertyViewFindFirstArgs<ExtArgs>>): Prisma__PropertyViewClient<$Result.GetResult<Prisma.$PropertyViewPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first PropertyView that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyViewFindFirstOrThrowArgs} args - Arguments to find a PropertyView
+     * @example
+     * // Get one PropertyView
+     * const propertyView = await prisma.propertyView.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PropertyViewFindFirstOrThrowArgs>(args?: SelectSubset<T, PropertyViewFindFirstOrThrowArgs<ExtArgs>>): Prisma__PropertyViewClient<$Result.GetResult<Prisma.$PropertyViewPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more PropertyViews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyViewFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PropertyViews
+     * const propertyViews = await prisma.propertyView.findMany()
+     * 
+     * // Get first 10 PropertyViews
+     * const propertyViews = await prisma.propertyView.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const propertyViewWithIdOnly = await prisma.propertyView.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PropertyViewFindManyArgs>(args?: SelectSubset<T, PropertyViewFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyViewPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a PropertyView.
+     * @param {PropertyViewCreateArgs} args - Arguments to create a PropertyView.
+     * @example
+     * // Create one PropertyView
+     * const PropertyView = await prisma.propertyView.create({
+     *   data: {
+     *     // ... data to create a PropertyView
+     *   }
+     * })
+     * 
+     */
+    create<T extends PropertyViewCreateArgs>(args: SelectSubset<T, PropertyViewCreateArgs<ExtArgs>>): Prisma__PropertyViewClient<$Result.GetResult<Prisma.$PropertyViewPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many PropertyViews.
+     * @param {PropertyViewCreateManyArgs} args - Arguments to create many PropertyViews.
+     * @example
+     * // Create many PropertyViews
+     * const propertyView = await prisma.propertyView.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PropertyViewCreateManyArgs>(args?: SelectSubset<T, PropertyViewCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PropertyViews and returns the data saved in the database.
+     * @param {PropertyViewCreateManyAndReturnArgs} args - Arguments to create many PropertyViews.
+     * @example
+     * // Create many PropertyViews
+     * const propertyView = await prisma.propertyView.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PropertyViews and only return the `id`
+     * const propertyViewWithIdOnly = await prisma.propertyView.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PropertyViewCreateManyAndReturnArgs>(args?: SelectSubset<T, PropertyViewCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyViewPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a PropertyView.
+     * @param {PropertyViewDeleteArgs} args - Arguments to delete one PropertyView.
+     * @example
+     * // Delete one PropertyView
+     * const PropertyView = await prisma.propertyView.delete({
+     *   where: {
+     *     // ... filter to delete one PropertyView
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PropertyViewDeleteArgs>(args: SelectSubset<T, PropertyViewDeleteArgs<ExtArgs>>): Prisma__PropertyViewClient<$Result.GetResult<Prisma.$PropertyViewPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one PropertyView.
+     * @param {PropertyViewUpdateArgs} args - Arguments to update one PropertyView.
+     * @example
+     * // Update one PropertyView
+     * const propertyView = await prisma.propertyView.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PropertyViewUpdateArgs>(args: SelectSubset<T, PropertyViewUpdateArgs<ExtArgs>>): Prisma__PropertyViewClient<$Result.GetResult<Prisma.$PropertyViewPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more PropertyViews.
+     * @param {PropertyViewDeleteManyArgs} args - Arguments to filter PropertyViews to delete.
+     * @example
+     * // Delete a few PropertyViews
+     * const { count } = await prisma.propertyView.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PropertyViewDeleteManyArgs>(args?: SelectSubset<T, PropertyViewDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PropertyViews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyViewUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PropertyViews
+     * const propertyView = await prisma.propertyView.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PropertyViewUpdateManyArgs>(args: SelectSubset<T, PropertyViewUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PropertyViews and returns the data updated in the database.
+     * @param {PropertyViewUpdateManyAndReturnArgs} args - Arguments to update many PropertyViews.
+     * @example
+     * // Update many PropertyViews
+     * const propertyView = await prisma.propertyView.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PropertyViews and only return the `id`
+     * const propertyViewWithIdOnly = await prisma.propertyView.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PropertyViewUpdateManyAndReturnArgs>(args: SelectSubset<T, PropertyViewUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyViewPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one PropertyView.
+     * @param {PropertyViewUpsertArgs} args - Arguments to update or create a PropertyView.
+     * @example
+     * // Update or create a PropertyView
+     * const propertyView = await prisma.propertyView.upsert({
+     *   create: {
+     *     // ... data to create a PropertyView
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PropertyView we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PropertyViewUpsertArgs>(args: SelectSubset<T, PropertyViewUpsertArgs<ExtArgs>>): Prisma__PropertyViewClient<$Result.GetResult<Prisma.$PropertyViewPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of PropertyViews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyViewCountArgs} args - Arguments to filter PropertyViews to count.
+     * @example
+     * // Count the number of PropertyViews
+     * const count = await prisma.propertyView.count({
+     *   where: {
+     *     // ... the filter for the PropertyViews we want to count
+     *   }
+     * })
+    **/
+    count<T extends PropertyViewCountArgs>(
+      args?: Subset<T, PropertyViewCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PropertyViewCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PropertyView.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyViewAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PropertyViewAggregateArgs>(args: Subset<T, PropertyViewAggregateArgs>): Prisma.PrismaPromise<GetPropertyViewAggregateType<T>>
+
+    /**
+     * Group by PropertyView.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PropertyViewGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PropertyViewGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PropertyViewGroupByArgs['orderBy'] }
+        : { orderBy?: PropertyViewGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PropertyViewGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPropertyViewGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PropertyView model
+   */
+  readonly fields: PropertyViewFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PropertyView.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PropertyViewClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    property<T extends PropertyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PropertyDefaultArgs<ExtArgs>>): Prisma__PropertyClient<$Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PropertyView model
+   */ 
+  interface PropertyViewFieldRefs {
+    readonly id: FieldRef<"PropertyView", 'Int'>
+    readonly tenantCognitoId: FieldRef<"PropertyView", 'String'>
+    readonly propertyId: FieldRef<"PropertyView", 'Int'>
+    readonly viewedAt: FieldRef<"PropertyView", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PropertyView findUnique
+   */
+  export type PropertyViewFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyView to fetch.
+     */
+    where: PropertyViewWhereUniqueInput
+  }
+
+  /**
+   * PropertyView findUniqueOrThrow
+   */
+  export type PropertyViewFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyView to fetch.
+     */
+    where: PropertyViewWhereUniqueInput
+  }
+
+  /**
+   * PropertyView findFirst
+   */
+  export type PropertyViewFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyView to fetch.
+     */
+    where?: PropertyViewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyViews to fetch.
+     */
+    orderBy?: PropertyViewOrderByWithRelationInput | PropertyViewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PropertyViews.
+     */
+    cursor?: PropertyViewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyViews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyViews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PropertyViews.
+     */
+    distinct?: PropertyViewScalarFieldEnum | PropertyViewScalarFieldEnum[]
+  }
+
+  /**
+   * PropertyView findFirstOrThrow
+   */
+  export type PropertyViewFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyView to fetch.
+     */
+    where?: PropertyViewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyViews to fetch.
+     */
+    orderBy?: PropertyViewOrderByWithRelationInput | PropertyViewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PropertyViews.
+     */
+    cursor?: PropertyViewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyViews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyViews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PropertyViews.
+     */
+    distinct?: PropertyViewScalarFieldEnum | PropertyViewScalarFieldEnum[]
+  }
+
+  /**
+   * PropertyView findMany
+   */
+  export type PropertyViewFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewInclude<ExtArgs> | null
+    /**
+     * Filter, which PropertyViews to fetch.
+     */
+    where?: PropertyViewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PropertyViews to fetch.
+     */
+    orderBy?: PropertyViewOrderByWithRelationInput | PropertyViewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PropertyViews.
+     */
+    cursor?: PropertyViewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PropertyViews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PropertyViews.
+     */
+    skip?: number
+    distinct?: PropertyViewScalarFieldEnum | PropertyViewScalarFieldEnum[]
+  }
+
+  /**
+   * PropertyView create
+   */
+  export type PropertyViewCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PropertyView.
+     */
+    data: XOR<PropertyViewCreateInput, PropertyViewUncheckedCreateInput>
+  }
+
+  /**
+   * PropertyView createMany
+   */
+  export type PropertyViewCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PropertyViews.
+     */
+    data: PropertyViewCreateManyInput | PropertyViewCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PropertyView createManyAndReturn
+   */
+  export type PropertyViewCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * The data used to create many PropertyViews.
+     */
+    data: PropertyViewCreateManyInput | PropertyViewCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PropertyView update
+   */
+  export type PropertyViewUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PropertyView.
+     */
+    data: XOR<PropertyViewUpdateInput, PropertyViewUncheckedUpdateInput>
+    /**
+     * Choose, which PropertyView to update.
+     */
+    where: PropertyViewWhereUniqueInput
+  }
+
+  /**
+   * PropertyView updateMany
+   */
+  export type PropertyViewUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PropertyViews.
+     */
+    data: XOR<PropertyViewUpdateManyMutationInput, PropertyViewUncheckedUpdateManyInput>
+    /**
+     * Filter which PropertyViews to update
+     */
+    where?: PropertyViewWhereInput
+    /**
+     * Limit how many PropertyViews to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PropertyView updateManyAndReturn
+   */
+  export type PropertyViewUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * The data used to update PropertyViews.
+     */
+    data: XOR<PropertyViewUpdateManyMutationInput, PropertyViewUncheckedUpdateManyInput>
+    /**
+     * Filter which PropertyViews to update
+     */
+    where?: PropertyViewWhereInput
+    /**
+     * Limit how many PropertyViews to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PropertyView upsert
+   */
+  export type PropertyViewUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PropertyView to update in case it exists.
+     */
+    where: PropertyViewWhereUniqueInput
+    /**
+     * In case the PropertyView found by the `where` argument doesn't exist, create a new PropertyView with this data.
+     */
+    create: XOR<PropertyViewCreateInput, PropertyViewUncheckedCreateInput>
+    /**
+     * In case the PropertyView was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PropertyViewUpdateInput, PropertyViewUncheckedUpdateInput>
+  }
+
+  /**
+   * PropertyView delete
+   */
+  export type PropertyViewDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewInclude<ExtArgs> | null
+    /**
+     * Filter which PropertyView to delete.
+     */
+    where: PropertyViewWhereUniqueInput
+  }
+
+  /**
+   * PropertyView deleteMany
+   */
+  export type PropertyViewDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PropertyViews to delete
+     */
+    where?: PropertyViewWhereInput
+    /**
+     * Limit how many PropertyViews to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PropertyView without action
+   */
+  export type PropertyViewDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PropertyView
+     */
+    select?: PropertyViewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PropertyView
+     */
+    omit?: PropertyViewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyViewInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -10015,6 +11271,16 @@ export namespace Prisma {
   };
 
   export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+  export const PropertyViewScalarFieldEnum: {
+    id: 'id',
+    tenantCognitoId: 'tenantCognitoId',
+    propertyId: 'propertyId',
+    viewedAt: 'viewedAt'
+  };
+
+  export type PropertyViewScalarFieldEnum = (typeof PropertyViewScalarFieldEnum)[keyof typeof PropertyViewScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10212,6 +11478,7 @@ export namespace Prisma {
     applications?: ApplicationListRelationFilter
     favoritedBy?: TenantListRelationFilter
     tenants?: TenantListRelationFilter
+    views?: PropertyViewListRelationFilter
   }
 
   export type PropertyOrderByWithRelationInput = {
@@ -10241,6 +11508,7 @@ export namespace Prisma {
     applications?: ApplicationOrderByRelationAggregateInput
     favoritedBy?: TenantOrderByRelationAggregateInput
     tenants?: TenantOrderByRelationAggregateInput
+    views?: PropertyViewOrderByRelationAggregateInput
   }
 
   export type PropertyWhereUniqueInput = Prisma.AtLeast<{
@@ -10273,6 +11541,7 @@ export namespace Prisma {
     applications?: ApplicationListRelationFilter
     favoritedBy?: TenantListRelationFilter
     tenants?: TenantListRelationFilter
+    views?: PropertyViewListRelationFilter
   }, "id">
 
   export type PropertyOrderByWithAggregationInput = {
@@ -10399,6 +11668,7 @@ export namespace Prisma {
     favorites?: PropertyListRelationFilter
     applications?: ApplicationListRelationFilter
     leases?: LeaseListRelationFilter
+    views?: PropertyViewListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -10411,6 +11681,7 @@ export namespace Prisma {
     favorites?: PropertyOrderByRelationAggregateInput
     applications?: ApplicationOrderByRelationAggregateInput
     leases?: LeaseOrderByRelationAggregateInput
+    views?: PropertyViewOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -10426,6 +11697,7 @@ export namespace Prisma {
     favorites?: PropertyListRelationFilter
     applications?: ApplicationListRelationFilter
     leases?: LeaseListRelationFilter
+    views?: PropertyViewListRelationFilter
   }, "id" | "cognitoId">
 
   export type TenantOrderByWithAggregationInput = {
@@ -10745,6 +12017,61 @@ export namespace Prisma {
     leaseId?: IntWithAggregatesFilter<"Payment"> | number
   }
 
+  export type PropertyViewWhereInput = {
+    AND?: PropertyViewWhereInput | PropertyViewWhereInput[]
+    OR?: PropertyViewWhereInput[]
+    NOT?: PropertyViewWhereInput | PropertyViewWhereInput[]
+    id?: IntFilter<"PropertyView"> | number
+    tenantCognitoId?: StringFilter<"PropertyView"> | string
+    propertyId?: IntFilter<"PropertyView"> | number
+    viewedAt?: DateTimeFilter<"PropertyView"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    property?: XOR<PropertyScalarRelationFilter, PropertyWhereInput>
+  }
+
+  export type PropertyViewOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantCognitoId?: SortOrder
+    propertyId?: SortOrder
+    viewedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    property?: PropertyOrderByWithRelationInput
+  }
+
+  export type PropertyViewWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: PropertyViewWhereInput | PropertyViewWhereInput[]
+    OR?: PropertyViewWhereInput[]
+    NOT?: PropertyViewWhereInput | PropertyViewWhereInput[]
+    tenantCognitoId?: StringFilter<"PropertyView"> | string
+    propertyId?: IntFilter<"PropertyView"> | number
+    viewedAt?: DateTimeFilter<"PropertyView"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    property?: XOR<PropertyScalarRelationFilter, PropertyWhereInput>
+  }, "id">
+
+  export type PropertyViewOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantCognitoId?: SortOrder
+    propertyId?: SortOrder
+    viewedAt?: SortOrder
+    _count?: PropertyViewCountOrderByAggregateInput
+    _avg?: PropertyViewAvgOrderByAggregateInput
+    _max?: PropertyViewMaxOrderByAggregateInput
+    _min?: PropertyViewMinOrderByAggregateInput
+    _sum?: PropertyViewSumOrderByAggregateInput
+  }
+
+  export type PropertyViewScalarWhereWithAggregatesInput = {
+    AND?: PropertyViewScalarWhereWithAggregatesInput | PropertyViewScalarWhereWithAggregatesInput[]
+    OR?: PropertyViewScalarWhereWithAggregatesInput[]
+    NOT?: PropertyViewScalarWhereWithAggregatesInput | PropertyViewScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"PropertyView"> | number
+    tenantCognitoId?: StringWithAggregatesFilter<"PropertyView"> | string
+    propertyId?: IntWithAggregatesFilter<"PropertyView"> | number
+    viewedAt?: DateTimeWithAggregatesFilter<"PropertyView"> | Date | string
+  }
+
   export type PropertyCreateInput = {
     name: string
     description: string
@@ -10769,6 +12096,7 @@ export namespace Prisma {
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
     tenants?: TenantCreateNestedManyWithoutPropertiesInput
+    views?: PropertyViewCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateInput = {
@@ -10796,6 +12124,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+    views?: PropertyViewUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUpdateInput = {
@@ -10822,6 +12151,7 @@ export namespace Prisma {
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+    views?: PropertyViewUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateInput = {
@@ -10849,6 +12179,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+    views?: PropertyViewUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyCreateManyInput = {
@@ -10983,6 +12314,7 @@ export namespace Prisma {
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
+    views?: PropertyViewCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -10995,6 +12327,7 @@ export namespace Prisma {
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
+    views?: PropertyViewUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -11006,6 +12339,7 @@ export namespace Prisma {
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
+    views?: PropertyViewUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -11018,6 +12352,7 @@ export namespace Prisma {
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
+    views?: PropertyViewUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -11303,6 +12638,50 @@ export namespace Prisma {
     leaseId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type PropertyViewCreateInput = {
+    viewedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutViewsInput
+    property: PropertyCreateNestedOneWithoutViewsInput
+  }
+
+  export type PropertyViewUncheckedCreateInput = {
+    id?: number
+    tenantCognitoId: string
+    propertyId: number
+    viewedAt?: Date | string
+  }
+
+  export type PropertyViewUpdateInput = {
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutViewsNestedInput
+    property?: PropertyUpdateOneRequiredWithoutViewsNestedInput
+  }
+
+  export type PropertyViewUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tenantCognitoId?: StringFieldUpdateOperationsInput | string
+    propertyId?: IntFieldUpdateOperationsInput | number
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyViewCreateManyInput = {
+    id?: number
+    tenantCognitoId: string
+    propertyId: number
+    viewedAt?: Date | string
+  }
+
+  export type PropertyViewUpdateManyMutationInput = {
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyViewUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tenantCognitoId?: StringFieldUpdateOperationsInput | string
+    propertyId?: IntFieldUpdateOperationsInput | number
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -11437,6 +12816,12 @@ export namespace Prisma {
     none?: TenantWhereInput
   }
 
+  export type PropertyViewListRelationFilter = {
+    every?: PropertyViewWhereInput
+    some?: PropertyViewWhereInput
+    none?: PropertyViewWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -11451,6 +12836,10 @@ export namespace Prisma {
   }
 
   export type TenantOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PropertyViewOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12007,6 +13396,37 @@ export namespace Prisma {
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
   }
 
+  export type PropertyViewCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantCognitoId?: SortOrder
+    propertyId?: SortOrder
+    viewedAt?: SortOrder
+  }
+
+  export type PropertyViewAvgOrderByAggregateInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+  }
+
+  export type PropertyViewMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantCognitoId?: SortOrder
+    propertyId?: SortOrder
+    viewedAt?: SortOrder
+  }
+
+  export type PropertyViewMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantCognitoId?: SortOrder
+    propertyId?: SortOrder
+    viewedAt?: SortOrder
+  }
+
+  export type PropertyViewSumOrderByAggregateInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+  }
+
   export type PropertyCreatephotoUrlsInput = {
     set: string[]
   }
@@ -12055,6 +13475,13 @@ export namespace Prisma {
     connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
   }
 
+  export type PropertyViewCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<PropertyViewCreateWithoutPropertyInput, PropertyViewUncheckedCreateWithoutPropertyInput> | PropertyViewCreateWithoutPropertyInput[] | PropertyViewUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: PropertyViewCreateOrConnectWithoutPropertyInput | PropertyViewCreateOrConnectWithoutPropertyInput[]
+    createMany?: PropertyViewCreateManyPropertyInputEnvelope
+    connect?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+  }
+
   export type LeaseUncheckedCreateNestedManyWithoutPropertyInput = {
     create?: XOR<LeaseCreateWithoutPropertyInput, LeaseUncheckedCreateWithoutPropertyInput> | LeaseCreateWithoutPropertyInput[] | LeaseUncheckedCreateWithoutPropertyInput[]
     connectOrCreate?: LeaseCreateOrConnectWithoutPropertyInput | LeaseCreateOrConnectWithoutPropertyInput[]
@@ -12079,6 +13506,13 @@ export namespace Prisma {
     create?: XOR<TenantCreateWithoutPropertiesInput, TenantUncheckedCreateWithoutPropertiesInput> | TenantCreateWithoutPropertiesInput[] | TenantUncheckedCreateWithoutPropertiesInput[]
     connectOrCreate?: TenantCreateOrConnectWithoutPropertiesInput | TenantCreateOrConnectWithoutPropertiesInput[]
     connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+  }
+
+  export type PropertyViewUncheckedCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<PropertyViewCreateWithoutPropertyInput, PropertyViewUncheckedCreateWithoutPropertyInput> | PropertyViewCreateWithoutPropertyInput[] | PropertyViewUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: PropertyViewCreateOrConnectWithoutPropertyInput | PropertyViewCreateOrConnectWithoutPropertyInput[]
+    createMany?: PropertyViewCreateManyPropertyInputEnvelope
+    connect?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12211,6 +13645,20 @@ export namespace Prisma {
     deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
   }
 
+  export type PropertyViewUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<PropertyViewCreateWithoutPropertyInput, PropertyViewUncheckedCreateWithoutPropertyInput> | PropertyViewCreateWithoutPropertyInput[] | PropertyViewUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: PropertyViewCreateOrConnectWithoutPropertyInput | PropertyViewCreateOrConnectWithoutPropertyInput[]
+    upsert?: PropertyViewUpsertWithWhereUniqueWithoutPropertyInput | PropertyViewUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: PropertyViewCreateManyPropertyInputEnvelope
+    set?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    disconnect?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    delete?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    connect?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    update?: PropertyViewUpdateWithWhereUniqueWithoutPropertyInput | PropertyViewUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: PropertyViewUpdateManyWithWhereWithoutPropertyInput | PropertyViewUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: PropertyViewScalarWhereInput | PropertyViewScalarWhereInput[]
+  }
+
   export type LeaseUncheckedUpdateManyWithoutPropertyNestedInput = {
     create?: XOR<LeaseCreateWithoutPropertyInput, LeaseUncheckedCreateWithoutPropertyInput> | LeaseCreateWithoutPropertyInput[] | LeaseUncheckedCreateWithoutPropertyInput[]
     connectOrCreate?: LeaseCreateOrConnectWithoutPropertyInput | LeaseCreateOrConnectWithoutPropertyInput[]
@@ -12263,6 +13711,20 @@ export namespace Prisma {
     update?: TenantUpdateWithWhereUniqueWithoutPropertiesInput | TenantUpdateWithWhereUniqueWithoutPropertiesInput[]
     updateMany?: TenantUpdateManyWithWhereWithoutPropertiesInput | TenantUpdateManyWithWhereWithoutPropertiesInput[]
     deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
+  }
+
+  export type PropertyViewUncheckedUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<PropertyViewCreateWithoutPropertyInput, PropertyViewUncheckedCreateWithoutPropertyInput> | PropertyViewCreateWithoutPropertyInput[] | PropertyViewUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: PropertyViewCreateOrConnectWithoutPropertyInput | PropertyViewCreateOrConnectWithoutPropertyInput[]
+    upsert?: PropertyViewUpsertWithWhereUniqueWithoutPropertyInput | PropertyViewUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: PropertyViewCreateManyPropertyInputEnvelope
+    set?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    disconnect?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    delete?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    connect?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    update?: PropertyViewUpdateWithWhereUniqueWithoutPropertyInput | PropertyViewUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: PropertyViewUpdateManyWithWhereWithoutPropertyInput | PropertyViewUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: PropertyViewScalarWhereInput | PropertyViewScalarWhereInput[]
   }
 
   export type PropertyCreateNestedManyWithoutManagerInput = {
@@ -12333,6 +13795,13 @@ export namespace Prisma {
     connect?: LeaseWhereUniqueInput | LeaseWhereUniqueInput[]
   }
 
+  export type PropertyViewCreateNestedManyWithoutTenantInput = {
+    create?: XOR<PropertyViewCreateWithoutTenantInput, PropertyViewUncheckedCreateWithoutTenantInput> | PropertyViewCreateWithoutTenantInput[] | PropertyViewUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PropertyViewCreateOrConnectWithoutTenantInput | PropertyViewCreateOrConnectWithoutTenantInput[]
+    createMany?: PropertyViewCreateManyTenantInputEnvelope
+    connect?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+  }
+
   export type PropertyUncheckedCreateNestedManyWithoutTenantsInput = {
     create?: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput> | PropertyCreateWithoutTenantsInput[] | PropertyUncheckedCreateWithoutTenantsInput[]
     connectOrCreate?: PropertyCreateOrConnectWithoutTenantsInput | PropertyCreateOrConnectWithoutTenantsInput[]
@@ -12357,6 +13826,13 @@ export namespace Prisma {
     connectOrCreate?: LeaseCreateOrConnectWithoutTenantInput | LeaseCreateOrConnectWithoutTenantInput[]
     createMany?: LeaseCreateManyTenantInputEnvelope
     connect?: LeaseWhereUniqueInput | LeaseWhereUniqueInput[]
+  }
+
+  export type PropertyViewUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<PropertyViewCreateWithoutTenantInput, PropertyViewUncheckedCreateWithoutTenantInput> | PropertyViewCreateWithoutTenantInput[] | PropertyViewUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PropertyViewCreateOrConnectWithoutTenantInput | PropertyViewCreateOrConnectWithoutTenantInput[]
+    createMany?: PropertyViewCreateManyTenantInputEnvelope
+    connect?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
   }
 
   export type PropertyUpdateManyWithoutTenantsNestedInput = {
@@ -12413,6 +13889,20 @@ export namespace Prisma {
     deleteMany?: LeaseScalarWhereInput | LeaseScalarWhereInput[]
   }
 
+  export type PropertyViewUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<PropertyViewCreateWithoutTenantInput, PropertyViewUncheckedCreateWithoutTenantInput> | PropertyViewCreateWithoutTenantInput[] | PropertyViewUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PropertyViewCreateOrConnectWithoutTenantInput | PropertyViewCreateOrConnectWithoutTenantInput[]
+    upsert?: PropertyViewUpsertWithWhereUniqueWithoutTenantInput | PropertyViewUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: PropertyViewCreateManyTenantInputEnvelope
+    set?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    disconnect?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    delete?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    connect?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    update?: PropertyViewUpdateWithWhereUniqueWithoutTenantInput | PropertyViewUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: PropertyViewUpdateManyWithWhereWithoutTenantInput | PropertyViewUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: PropertyViewScalarWhereInput | PropertyViewScalarWhereInput[]
+  }
+
   export type PropertyUncheckedUpdateManyWithoutTenantsNestedInput = {
     create?: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput> | PropertyCreateWithoutTenantsInput[] | PropertyUncheckedCreateWithoutTenantsInput[]
     connectOrCreate?: PropertyCreateOrConnectWithoutTenantsInput | PropertyCreateOrConnectWithoutTenantsInput[]
@@ -12465,6 +13955,20 @@ export namespace Prisma {
     update?: LeaseUpdateWithWhereUniqueWithoutTenantInput | LeaseUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: LeaseUpdateManyWithWhereWithoutTenantInput | LeaseUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: LeaseScalarWhereInput | LeaseScalarWhereInput[]
+  }
+
+  export type PropertyViewUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<PropertyViewCreateWithoutTenantInput, PropertyViewUncheckedCreateWithoutTenantInput> | PropertyViewCreateWithoutTenantInput[] | PropertyViewUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PropertyViewCreateOrConnectWithoutTenantInput | PropertyViewCreateOrConnectWithoutTenantInput[]
+    upsert?: PropertyViewUpsertWithWhereUniqueWithoutTenantInput | PropertyViewUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: PropertyViewCreateManyTenantInputEnvelope
+    set?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    disconnect?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    delete?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    connect?: PropertyViewWhereUniqueInput | PropertyViewWhereUniqueInput[]
+    update?: PropertyViewUpdateWithWhereUniqueWithoutTenantInput | PropertyViewUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: PropertyViewUpdateManyWithWhereWithoutTenantInput | PropertyViewUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: PropertyViewScalarWhereInput | PropertyViewScalarWhereInput[]
   }
 
   export type PropertyUpdateManyWithoutLocationNestedInput = {
@@ -12665,6 +14169,34 @@ export namespace Prisma {
     upsert?: LeaseUpsertWithoutPaymentsInput
     connect?: LeaseWhereUniqueInput
     update?: XOR<XOR<LeaseUpdateToOneWithWhereWithoutPaymentsInput, LeaseUpdateWithoutPaymentsInput>, LeaseUncheckedUpdateWithoutPaymentsInput>
+  }
+
+  export type TenantCreateNestedOneWithoutViewsInput = {
+    create?: XOR<TenantCreateWithoutViewsInput, TenantUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutViewsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type PropertyCreateNestedOneWithoutViewsInput = {
+    create?: XOR<PropertyCreateWithoutViewsInput, PropertyUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: PropertyCreateOrConnectWithoutViewsInput
+    connect?: PropertyWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutViewsNestedInput = {
+    create?: XOR<TenantCreateWithoutViewsInput, TenantUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutViewsInput
+    upsert?: TenantUpsertWithoutViewsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutViewsInput, TenantUpdateWithoutViewsInput>, TenantUncheckedUpdateWithoutViewsInput>
+  }
+
+  export type PropertyUpdateOneRequiredWithoutViewsNestedInput = {
+    create?: XOR<PropertyCreateWithoutViewsInput, PropertyUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: PropertyCreateOrConnectWithoutViewsInput
+    upsert?: PropertyUpsertWithoutViewsInput
+    connect?: PropertyWhereUniqueInput
+    update?: XOR<XOR<PropertyUpdateToOneWithWhereWithoutViewsInput, PropertyUpdateWithoutViewsInput>, PropertyUncheckedUpdateWithoutViewsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -13018,6 +14550,7 @@ export namespace Prisma {
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
+    views?: PropertyViewCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFavoritesInput = {
@@ -13029,6 +14562,7 @@ export namespace Prisma {
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
+    views?: PropertyViewUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFavoritesInput = {
@@ -13044,6 +14578,7 @@ export namespace Prisma {
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
+    views?: PropertyViewCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPropertiesInput = {
@@ -13055,11 +14590,33 @@ export namespace Prisma {
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
+    views?: PropertyViewUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPropertiesInput = {
     where: TenantWhereUniqueInput
     create: XOR<TenantCreateWithoutPropertiesInput, TenantUncheckedCreateWithoutPropertiesInput>
+  }
+
+  export type PropertyViewCreateWithoutPropertyInput = {
+    viewedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutViewsInput
+  }
+
+  export type PropertyViewUncheckedCreateWithoutPropertyInput = {
+    id?: number
+    tenantCognitoId: string
+    viewedAt?: Date | string
+  }
+
+  export type PropertyViewCreateOrConnectWithoutPropertyInput = {
+    where: PropertyViewWhereUniqueInput
+    create: XOR<PropertyViewCreateWithoutPropertyInput, PropertyViewUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type PropertyViewCreateManyPropertyInputEnvelope = {
+    data: PropertyViewCreateManyPropertyInput | PropertyViewCreateManyPropertyInput[]
+    skipDuplicates?: boolean
   }
 
   export type LocationUpdateToOneWithWhereWithoutPropertiesInput = {
@@ -13214,6 +14771,32 @@ export namespace Prisma {
     data: XOR<TenantUpdateManyMutationInput, TenantUncheckedUpdateManyWithoutPropertiesInput>
   }
 
+  export type PropertyViewUpsertWithWhereUniqueWithoutPropertyInput = {
+    where: PropertyViewWhereUniqueInput
+    update: XOR<PropertyViewUpdateWithoutPropertyInput, PropertyViewUncheckedUpdateWithoutPropertyInput>
+    create: XOR<PropertyViewCreateWithoutPropertyInput, PropertyViewUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type PropertyViewUpdateWithWhereUniqueWithoutPropertyInput = {
+    where: PropertyViewWhereUniqueInput
+    data: XOR<PropertyViewUpdateWithoutPropertyInput, PropertyViewUncheckedUpdateWithoutPropertyInput>
+  }
+
+  export type PropertyViewUpdateManyWithWhereWithoutPropertyInput = {
+    where: PropertyViewScalarWhereInput
+    data: XOR<PropertyViewUpdateManyMutationInput, PropertyViewUncheckedUpdateManyWithoutPropertyInput>
+  }
+
+  export type PropertyViewScalarWhereInput = {
+    AND?: PropertyViewScalarWhereInput | PropertyViewScalarWhereInput[]
+    OR?: PropertyViewScalarWhereInput[]
+    NOT?: PropertyViewScalarWhereInput | PropertyViewScalarWhereInput[]
+    id?: IntFilter<"PropertyView"> | number
+    tenantCognitoId?: StringFilter<"PropertyView"> | string
+    propertyId?: IntFilter<"PropertyView"> | number
+    viewedAt?: DateTimeFilter<"PropertyView"> | Date | string
+  }
+
   export type PropertyCreateWithoutManagerInput = {
     name: string
     description: string
@@ -13237,6 +14820,7 @@ export namespace Prisma {
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
     tenants?: TenantCreateNestedManyWithoutPropertiesInput
+    views?: PropertyViewCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutManagerInput = {
@@ -13263,6 +14847,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+    views?: PropertyViewUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutManagerInput = {
@@ -13340,6 +14925,7 @@ export namespace Prisma {
     leases?: LeaseCreateNestedManyWithoutPropertyInput
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
+    views?: PropertyViewCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutTenantsInput = {
@@ -13366,6 +14952,7 @@ export namespace Prisma {
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
+    views?: PropertyViewUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutTenantsInput = {
@@ -13396,6 +14983,7 @@ export namespace Prisma {
     leases?: LeaseCreateNestedManyWithoutPropertyInput
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
     tenants?: TenantCreateNestedManyWithoutPropertiesInput
+    views?: PropertyViewCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutFavoritedByInput = {
@@ -13422,6 +15010,7 @@ export namespace Prisma {
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+    views?: PropertyViewUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutFavoritedByInput = {
@@ -13493,6 +15082,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PropertyViewCreateWithoutTenantInput = {
+    viewedAt?: Date | string
+    property: PropertyCreateNestedOneWithoutViewsInput
+  }
+
+  export type PropertyViewUncheckedCreateWithoutTenantInput = {
+    id?: number
+    propertyId: number
+    viewedAt?: Date | string
+  }
+
+  export type PropertyViewCreateOrConnectWithoutTenantInput = {
+    where: PropertyViewWhereUniqueInput
+    create: XOR<PropertyViewCreateWithoutTenantInput, PropertyViewUncheckedCreateWithoutTenantInput>
+  }
+
+  export type PropertyViewCreateManyTenantInputEnvelope = {
+    data: PropertyViewCreateManyTenantInput | PropertyViewCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PropertyUpsertWithWhereUniqueWithoutTenantsInput = {
     where: PropertyWhereUniqueInput
     update: XOR<PropertyUpdateWithoutTenantsInput, PropertyUncheckedUpdateWithoutTenantsInput>
@@ -13557,6 +15167,22 @@ export namespace Prisma {
     data: XOR<LeaseUpdateManyMutationInput, LeaseUncheckedUpdateManyWithoutTenantInput>
   }
 
+  export type PropertyViewUpsertWithWhereUniqueWithoutTenantInput = {
+    where: PropertyViewWhereUniqueInput
+    update: XOR<PropertyViewUpdateWithoutTenantInput, PropertyViewUncheckedUpdateWithoutTenantInput>
+    create: XOR<PropertyViewCreateWithoutTenantInput, PropertyViewUncheckedCreateWithoutTenantInput>
+  }
+
+  export type PropertyViewUpdateWithWhereUniqueWithoutTenantInput = {
+    where: PropertyViewWhereUniqueInput
+    data: XOR<PropertyViewUpdateWithoutTenantInput, PropertyViewUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type PropertyViewUpdateManyWithWhereWithoutTenantInput = {
+    where: PropertyViewScalarWhereInput
+    data: XOR<PropertyViewUpdateManyMutationInput, PropertyViewUncheckedUpdateManyWithoutTenantInput>
+  }
+
   export type PropertyCreateWithoutLocationInput = {
     name: string
     description: string
@@ -13580,6 +15206,7 @@ export namespace Prisma {
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
     tenants?: TenantCreateNestedManyWithoutPropertiesInput
+    views?: PropertyViewCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutLocationInput = {
@@ -13606,6 +15233,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+    views?: PropertyViewUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutLocationInput = {
@@ -13657,6 +15285,7 @@ export namespace Prisma {
     leases?: LeaseCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
     tenants?: TenantCreateNestedManyWithoutPropertiesInput
+    views?: PropertyViewCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutApplicationsInput = {
@@ -13683,6 +15312,7 @@ export namespace Prisma {
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+    views?: PropertyViewUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutApplicationsInput = {
@@ -13698,6 +15328,7 @@ export namespace Prisma {
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
+    views?: PropertyViewCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutApplicationsInput = {
@@ -13709,6 +15340,7 @@ export namespace Prisma {
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
+    views?: PropertyViewUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutApplicationsInput = {
@@ -13776,6 +15408,7 @@ export namespace Prisma {
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+    views?: PropertyViewUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutApplicationsInput = {
@@ -13802,6 +15435,7 @@ export namespace Prisma {
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+    views?: PropertyViewUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type TenantUpsertWithoutApplicationsInput = {
@@ -13823,6 +15457,7 @@ export namespace Prisma {
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
+    views?: PropertyViewUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutApplicationsInput = {
@@ -13834,6 +15469,7 @@ export namespace Prisma {
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
+    views?: PropertyViewUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type LeaseUpsertWithoutApplicationInput = {
@@ -13891,6 +15527,7 @@ export namespace Prisma {
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
     tenants?: TenantCreateNestedManyWithoutPropertiesInput
+    views?: PropertyViewCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutLeasesInput = {
@@ -13917,6 +15554,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+    views?: PropertyViewUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutLeasesInput = {
@@ -13932,6 +15570,7 @@ export namespace Prisma {
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
+    views?: PropertyViewCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLeasesInput = {
@@ -13943,6 +15582,7 @@ export namespace Prisma {
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
+    views?: PropertyViewUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLeasesInput = {
@@ -14039,6 +15679,7 @@ export namespace Prisma {
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+    views?: PropertyViewUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutLeasesInput = {
@@ -14065,6 +15706,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+    views?: PropertyViewUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type TenantUpsertWithoutLeasesInput = {
@@ -14086,6 +15728,7 @@ export namespace Prisma {
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
+    views?: PropertyViewUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLeasesInput = {
@@ -14097,6 +15740,7 @@ export namespace Prisma {
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    views?: PropertyViewUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ApplicationUpsertWithoutLeaseInput = {
@@ -14220,6 +15864,190 @@ export namespace Prisma {
     application?: ApplicationUncheckedUpdateOneWithoutLeaseNestedInput
   }
 
+  export type TenantCreateWithoutViewsInput = {
+    cognitoId: string
+    name: string
+    email: string
+    phoneNumber: string
+    properties?: PropertyCreateNestedManyWithoutTenantsInput
+    favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
+    applications?: ApplicationCreateNestedManyWithoutTenantInput
+    leases?: LeaseCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutViewsInput = {
+    id?: number
+    cognitoId: string
+    name: string
+    email: string
+    phoneNumber: string
+    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
+    favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
+    applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
+    leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutViewsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutViewsInput, TenantUncheckedCreateWithoutViewsInput>
+  }
+
+  export type PropertyCreateWithoutViewsInput = {
+    name: string
+    description: string
+    pricePerMonth: number
+    securityDeposit: number
+    applicationFee: number
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    isPetsAllowed?: boolean
+    isParkingIncluded?: boolean
+    beds: number
+    baths: number
+    squareFeet: number
+    propertyType: $Enums.PropertyType
+    postedDate?: Date | string
+    averageRating?: number | null
+    numberOfReviews?: number | null
+    location: LocationCreateNestedOneWithoutPropertiesInput
+    manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
+    leases?: LeaseCreateNestedManyWithoutPropertyInput
+    applications?: ApplicationCreateNestedManyWithoutPropertyInput
+    favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
+    tenants?: TenantCreateNestedManyWithoutPropertiesInput
+  }
+
+  export type PropertyUncheckedCreateWithoutViewsInput = {
+    id?: number
+    name: string
+    description: string
+    pricePerMonth: number
+    securityDeposit: number
+    applicationFee: number
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    isPetsAllowed?: boolean
+    isParkingIncluded?: boolean
+    beds: number
+    baths: number
+    squareFeet: number
+    propertyType: $Enums.PropertyType
+    postedDate?: Date | string
+    averageRating?: number | null
+    numberOfReviews?: number | null
+    locationId: number
+    managerCognitoId: string
+    leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
+    applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
+    favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
+    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+  }
+
+  export type PropertyCreateOrConnectWithoutViewsInput = {
+    where: PropertyWhereUniqueInput
+    create: XOR<PropertyCreateWithoutViewsInput, PropertyUncheckedCreateWithoutViewsInput>
+  }
+
+  export type TenantUpsertWithoutViewsInput = {
+    update: XOR<TenantUpdateWithoutViewsInput, TenantUncheckedUpdateWithoutViewsInput>
+    create: XOR<TenantCreateWithoutViewsInput, TenantUncheckedCreateWithoutViewsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutViewsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutViewsInput, TenantUncheckedUpdateWithoutViewsInput>
+  }
+
+  export type TenantUpdateWithoutViewsInput = {
+    cognitoId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    properties?: PropertyUpdateManyWithoutTenantsNestedInput
+    favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
+    applications?: ApplicationUpdateManyWithoutTenantNestedInput
+    leases?: LeaseUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutViewsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cognitoId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
+    favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
+    applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type PropertyUpsertWithoutViewsInput = {
+    update: XOR<PropertyUpdateWithoutViewsInput, PropertyUncheckedUpdateWithoutViewsInput>
+    create: XOR<PropertyCreateWithoutViewsInput, PropertyUncheckedCreateWithoutViewsInput>
+    where?: PropertyWhereInput
+  }
+
+  export type PropertyUpdateToOneWithWhereWithoutViewsInput = {
+    where?: PropertyWhereInput
+    data: XOR<PropertyUpdateWithoutViewsInput, PropertyUncheckedUpdateWithoutViewsInput>
+  }
+
+  export type PropertyUpdateWithoutViewsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    pricePerMonth?: FloatFieldUpdateOperationsInput | number
+    securityDeposit?: FloatFieldUpdateOperationsInput | number
+    applicationFee?: FloatFieldUpdateOperationsInput | number
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
+    isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
+    beds?: IntFieldUpdateOperationsInput | number
+    baths?: FloatFieldUpdateOperationsInput | number
+    squareFeet?: IntFieldUpdateOperationsInput | number
+    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
+    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
+    numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
+    manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
+    leases?: LeaseUpdateManyWithoutPropertyNestedInput
+    applications?: ApplicationUpdateManyWithoutPropertyNestedInput
+    favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
+    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+  }
+
+  export type PropertyUncheckedUpdateWithoutViewsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    pricePerMonth?: FloatFieldUpdateOperationsInput | number
+    securityDeposit?: FloatFieldUpdateOperationsInput | number
+    applicationFee?: FloatFieldUpdateOperationsInput | number
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
+    isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
+    beds?: IntFieldUpdateOperationsInput | number
+    baths?: FloatFieldUpdateOperationsInput | number
+    squareFeet?: IntFieldUpdateOperationsInput | number
+    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
+    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
+    numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    locationId?: IntFieldUpdateOperationsInput | number
+    managerCognitoId?: StringFieldUpdateOperationsInput | string
+    leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
+    applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
+    favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
+    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+  }
+
   export type LeaseCreateManyPropertyInput = {
     id?: number
     startDate: Date | string
@@ -14239,6 +16067,12 @@ export namespace Prisma {
     phoneNumber: string
     message?: string | null
     leaseId?: number | null
+  }
+
+  export type PropertyViewCreateManyPropertyInput = {
+    id?: number
+    tenantCognitoId: string
+    viewedAt?: Date | string
   }
 
   export type LeaseUpdateWithoutPropertyInput = {
@@ -14314,6 +16148,7 @@ export namespace Prisma {
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
+    views?: PropertyViewUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFavoritesInput = {
@@ -14325,6 +16160,7 @@ export namespace Prisma {
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
+    views?: PropertyViewUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutFavoritesInput = {
@@ -14343,6 +16179,7 @@ export namespace Prisma {
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
+    views?: PropertyViewUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPropertiesInput = {
@@ -14354,6 +16191,7 @@ export namespace Prisma {
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
+    views?: PropertyViewUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutPropertiesInput = {
@@ -14362,6 +16200,23 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PropertyViewUpdateWithoutPropertyInput = {
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutViewsNestedInput
+  }
+
+  export type PropertyViewUncheckedUpdateWithoutPropertyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tenantCognitoId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyViewUncheckedUpdateManyWithoutPropertyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tenantCognitoId?: StringFieldUpdateOperationsInput | string
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PropertyCreateManyManagerInput = {
@@ -14409,6 +16264,7 @@ export namespace Prisma {
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+    views?: PropertyViewUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutManagerInput = {
@@ -14435,6 +16291,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+    views?: PropertyViewUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateManyWithoutManagerInput = {
@@ -14480,6 +16337,12 @@ export namespace Prisma {
     propertyId: number
   }
 
+  export type PropertyViewCreateManyTenantInput = {
+    id?: number
+    propertyId: number
+    viewedAt?: Date | string
+  }
+
   export type PropertyUpdateWithoutTenantsInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -14503,6 +16366,7 @@ export namespace Prisma {
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
+    views?: PropertyViewUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutTenantsInput = {
@@ -14529,6 +16393,7 @@ export namespace Prisma {
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
+    views?: PropertyViewUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateManyWithoutTenantsInput = {
@@ -14577,6 +16442,7 @@ export namespace Prisma {
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
     tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+    views?: PropertyViewUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutFavoritedByInput = {
@@ -14603,6 +16469,7 @@ export namespace Prisma {
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+    views?: PropertyViewUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateManyWithoutFavoritedByInput = {
@@ -14693,6 +16560,23 @@ export namespace Prisma {
     propertyId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type PropertyViewUpdateWithoutTenantInput = {
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    property?: PropertyUpdateOneRequiredWithoutViewsNestedInput
+  }
+
+  export type PropertyViewUncheckedUpdateWithoutTenantInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    propertyId?: IntFieldUpdateOperationsInput | number
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyViewUncheckedUpdateManyWithoutTenantInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    propertyId?: IntFieldUpdateOperationsInput | number
+    viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PropertyUpdateWithoutLocationInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -14716,6 +16600,7 @@ export namespace Prisma {
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+    views?: PropertyViewUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutLocationInput = {
@@ -14742,6 +16627,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+    views?: PropertyViewUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyCreateManyLocationInput = {
