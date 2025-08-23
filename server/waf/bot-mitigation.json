@@ -1,0 +1,35 @@
+{
+  "Description": "AWS WAF Bot Control configuration",
+  "Resources": {
+    "WebACL": {
+      "Type": "AWS::WAFv2::WebACL",
+      "Properties": {
+        "Scope": "REGIONAL",
+        "DefaultAction": { "Allow": {} },
+        "VisibilityConfig": {
+          "SampledRequestsEnabled": true,
+          "CloudWatchMetricsEnabled": true,
+          "MetricName": "webACL"
+        },
+        "Rules": [
+          {
+            "Name": "AWS-AWSManagedRulesBotControlRuleSet",
+            "Priority": 0,
+            "Statement": {
+              "ManagedRuleGroupStatement": {
+                "VendorName": "AWS",
+                "Name": "AWSManagedRulesBotControlRuleSet"
+              }
+            },
+            "OverrideAction": { "None": {} },
+            "VisibilityConfig": {
+              "SampledRequestsEnabled": true,
+              "CloudWatchMetricsEnabled": true,
+              "MetricName": "botControl"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
