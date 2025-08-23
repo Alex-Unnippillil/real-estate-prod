@@ -69,6 +69,7 @@ model Property {
   id                Int          @id @default(autoincrement())
   name              String
   description       String
+  searchVector      Unsupported("tsvector") @default(dbgenerated("to_tsvector('english', coalesce(name,'') || ' ' || coalesce(description,''))"))
   pricePerMonth     Float
   securityDeposit   Float
   applicationFee    Float
@@ -93,6 +94,8 @@ model Property {
   applications Application[]
   favoritedBy  Tenant[]      @relation("TenantFavorites")
   tenants      Tenant[]      @relation("TenantProperties")
+
+  @@index([searchVector], type: Gin)
 }
 
 model Manager {

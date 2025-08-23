@@ -30,9 +30,12 @@ export const getProperties = async (
       availableFrom,
       latitude,
       longitude,
+      q,
     } = req.query;
 
     let whereConditions: Prisma.Sql[] = [];
+    let rankClause: Prisma.Sql = Prisma.empty;
+    let orderByClause: Prisma.Sql = Prisma.empty;
 
     if (favoriteIds) {
       const favoriteIdsArray = (favoriteIds as string).split(",").map(Number);
@@ -116,9 +119,19 @@ export const getProperties = async (
       );
     }
 
+    if (q) {
+      const tsQuery = (q as string).trim().split(/\s+/).join(" & ");
+      whereConditions.push(
+        Prisma.sql`p."searchVector" @@ to_tsquery('english', ${tsQuery})`
+      );
+      rankClause = Prisma.sql`ts_rank(p."searchVector", to_tsquery('english', ${tsQuery})) AS rank,`;
+      orderByClause = Prisma.sql`ORDER BY rank DESC`;
+    }
+
     const completeQuery = Prisma.sql`
-      SELECT 
+      SELECT
         p.*,
+        ${rankClause}
         json_build_object(
           'id', l.id,
           'address', l.address,
@@ -138,6 +151,7 @@ export const getProperties = async (
           ? Prisma.sql`WHERE ${Prisma.join(whereConditions, " AND ")}`
           : Prisma.empty
       }
+      ${orderByClause}
     `;
 
     const properties = await prisma.$queryRaw(completeQuery);
