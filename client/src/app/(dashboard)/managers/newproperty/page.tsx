@@ -44,23 +44,33 @@ const NewProperty = () => {
       throw new Error("No manager ID found");
     }
 
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      if (key === "photoUrls") {
-        const files = value as File[];
-        files.forEach((file: File) => {
-          formData.append("photos", file);
+    const files = data.photoUrls as File[];
+    const uploadKeys = await Promise.all(
+      files.map(async (file) => {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/properties/upload-url?fileName=${encodeURIComponent(
+            file.name
+          )}&fileType=${encodeURIComponent(file.type)}`
+        );
+        const { uploadUrl, key } = await res.json();
+        await fetch(uploadUrl, {
+          method: "PUT",
+          headers: { "Content-Type": file.type },
+          body: file,
         });
-      } else if (Array.isArray(value)) {
-        formData.append(key, JSON.stringify(value));
-      } else {
-        formData.append(key, String(value));
-      }
-    });
+        return key as string;
+      })
+    );
 
-    formData.append("managerCognitoId", authUser.cognitoInfo.userId);
+    const payload = {
+      ...data,
+      photoUrls: uploadKeys,
+      amenities: [data.amenities],
+      highlights: [data.highlights],
+      managerCognitoId: authUser.cognitoInfo.userId,
+    };
 
-    await createProperty(formData);
+    await createProperty(payload);
   };
 
   return (

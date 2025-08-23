@@ -243,7 +243,7 @@ export const api = createApi({
       },
     }),
 
-    createProperty: build.mutation<Property, FormData>({
+    createProperty: build.mutation<Property, any>({
       query: (newProperty) => ({
         url: `properties`,
         method: "POST",

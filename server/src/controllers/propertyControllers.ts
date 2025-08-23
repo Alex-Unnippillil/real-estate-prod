@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { PrismaClient, Prisma } from "@prisma/client";
 import { wktToGeoJSON } from "@terraformer/wkt";
-import { S3Client } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { Location } from "@prisma/client";
-import { Upload } from "@aws-sdk/lib-storage";
 import axios from "axios";
 
 const prisma = new PrismaClient();
@@ -11,6 +11,31 @@ const prisma = new PrismaClient();
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
 });
+
+export const generateUploadUrl = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { fileName, fileType } = req.query;
+    if (!fileName) {
+      res.status(400).json({ message: "fileName is required" });
+      return;
+    }
+    const key = `properties/${Date.now()}-${fileName}`;
+    const command = new PutObjectCommand({
+      Bucket: process.env.S3_BUCKET_NAME!,
+      Key: key,
+      ContentType: fileType as string | undefined,
+    });
+    const uploadUrl = await getSignedUrl(s3Client, command, { expiresIn: 60 });
+    res.json({ uploadUrl, key });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: `Error generating upload URL: ${error.message}` });
+  }
+};
 
 export const getProperties = async (
   req: Request,
@@ -141,8 +166,15 @@ export const getProperties = async (
     `;
 
     const properties = await prisma.$queryRaw(completeQuery);
+    const s3BaseUrl = `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com`;
+    const propertiesWithUrls = (properties as any[]).map((p: any) => ({
+      ...p,
+      photoUrls: (p.photoUrls || []).map(
+        (key: string) => `${s3BaseUrl}/${key}`
+      ),
+    }));
 
-    res.json(properties);
+    res.json(propertiesWithUrls);
   } catch (error: any) {
     res
       .status(500)
@@ -181,7 +213,14 @@ export const getProperty = async (
           },
         },
       };
-      res.json(propertyWithCoordinates);
+      const s3BaseUrl = `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com`;
+      const propertyWithUrls = {
+        ...propertyWithCoordinates,
+        photoUrls: propertyWithCoordinates.photoUrls.map(
+          (key: string) => `${s3BaseUrl}/${key}`
+        ),
+      };
+      res.json(propertyWithUrls);
     }
   } catch (err: any) {
     res
@@ -195,7 +234,6 @@ export const createProperty = async (
   res: Response
 ): Promise<void> => {
   try {
-    const files = req.files as Express.Multer.File[];
     const {
       address,
       city,
@@ -203,26 +241,17 @@ export const createProperty = async (
       country,
       postalCode,
       managerCognitoId,
+      photoUrls,
+      amenities,
+      highlights,
       ...propertyData
     } = req.body;
 
-    const photoUrls = await Promise.all(
-      files.map(async (file) => {
-        const uploadParams = {
-          Bucket: process.env.S3_BUCKET_NAME!,
-          Key: `properties/${Date.now()}-${file.originalname}`,
-          Body: file.buffer,
-          ContentType: file.mimetype,
-        };
-
-        const uploadResult = await new Upload({
-          client: s3Client,
-          params: uploadParams,
-        }).done();
-
-        return uploadResult.Location;
-      })
-    );
+    const photoKeys = Array.isArray(photoUrls)
+      ? photoUrls
+      : typeof photoUrls === "string"
+      ? photoUrls.split(",")
+      : [];
 
     const geocodingUrl = `https://nominatim.openstreetmap.org/search?${new URLSearchParams(
       {
@@ -258,25 +287,19 @@ export const createProperty = async (
     const newProperty = await prisma.property.create({
       data: {
         ...propertyData,
-        photoUrls,
+        photoUrls: photoKeys,
         locationId: location.id,
         managerCognitoId,
-        amenities:
-          typeof propertyData.amenities === "string"
-            ? propertyData.amenities.split(",")
-            : [],
-        highlights:
-          typeof propertyData.highlights === "string"
-            ? propertyData.highlights.split(",")
-            : [],
-        isPetsAllowed: propertyData.isPetsAllowed === "true",
-        isParkingIncluded: propertyData.isParkingIncluded === "true",
-        pricePerMonth: parseFloat(propertyData.pricePerMonth),
-        securityDeposit: parseFloat(propertyData.securityDeposit),
-        applicationFee: parseFloat(propertyData.applicationFee),
-        beds: parseInt(propertyData.beds),
-        baths: parseFloat(propertyData.baths),
-        squareFeet: parseInt(propertyData.squareFeet),
+        amenities: Array.isArray(amenities) ? amenities : [],
+        highlights: Array.isArray(highlights) ? highlights : [],
+        isPetsAllowed: Boolean(propertyData.isPetsAllowed),
+        isParkingIncluded: Boolean(propertyData.isParkingIncluded),
+        pricePerMonth: Number(propertyData.pricePerMonth),
+        securityDeposit: Number(propertyData.securityDeposit),
+        applicationFee: Number(propertyData.applicationFee),
+        beds: Number(propertyData.beds),
+        baths: Number(propertyData.baths),
+        squareFeet: Number(propertyData.squareFeet),
       },
       include: {
         location: true,
