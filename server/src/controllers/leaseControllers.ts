@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 export const getLeases = async (req: Request, res: Response): Promise<void> => {
   try {
     const leases = await prisma.lease.findMany({
+      where: { deletedAt: null },
       include: {
         tenant: true,
         property: true,
@@ -26,7 +27,7 @@ export const getLeasePayments = async (
   try {
     const { id } = req.params;
     const payments = await prisma.payment.findMany({
-      where: { leaseId: Number(id) },
+      where: { leaseId: Number(id), deletedAt: null },
     });
     res.json(payments);
   } catch (error: any) {

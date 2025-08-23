@@ -10,16 +10,15 @@ export const listApplications = async (
   try {
     const { userId, userType } = req.query;
 
-    let whereClause = {};
+    let whereClause: any = { deletedAt: null };
 
     if (userId && userType) {
       if (userType === "tenant") {
-        whereClause = { tenantCognitoId: String(userId) };
+        whereClause.tenantCognitoId = String(userId);
       } else if (userType === "manager") {
-        whereClause = {
-          property: {
-            managerCognitoId: String(userId),
-          },
+        whereClause.property = {
+          managerCognitoId: String(userId),
+          deletedAt: null,
         };
       }
     }
@@ -99,8 +98,8 @@ export const createApplication = async (
       message,
     } = req.body;
 
-    const property = await prisma.property.findUnique({
-      where: { id: propertyId },
+    const property = await prisma.property.findFirst({
+      where: { id: propertyId, deletedAt: null },
       select: { pricePerMonth: true, securityDeposit: true },
     });
 
@@ -174,8 +173,8 @@ export const updateApplicationStatus = async (
     const { status } = req.body;
     console.log("status:", status);
 
-    const application = await prisma.application.findUnique({
-      where: { id: Number(id) },
+    const application = await prisma.application.findFirst({
+      where: { id: Number(id), deletedAt: null },
       include: {
         property: true,
         tenant: true,
@@ -230,14 +229,14 @@ export const updateApplicationStatus = async (
     }
 
     // Respond with the updated application details
-    const updatedApplication = await prisma.application.findUnique({
-      where: { id: Number(id) },
-      include: {
-        property: true,
-        tenant: true,
-        lease: true,
-      },
-    });
+      const updatedApplication = await prisma.application.findFirst({
+        where: { id: Number(id), deletedAt: null },
+        include: {
+          property: true,
+          tenant: true,
+          lease: true,
+        },
+      });
 
     res.json(updatedApplication);
   } catch (error: any) {

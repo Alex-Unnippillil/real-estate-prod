@@ -7,8 +7,8 @@ const prisma = new PrismaClient();
 export const getTenant = async (req: Request, res: Response): Promise<void> => {
   try {
     const { cognitoId } = req.params;
-    const tenant = await prisma.tenant.findUnique({
-      where: { cognitoId },
+    const tenant = await prisma.tenant.findFirst({
+      where: { cognitoId, deletedAt: null },
       include: {
         favorites: true,
       },
@@ -82,7 +82,7 @@ export const getCurrentResidences = async (
   try {
     const { cognitoId } = req.params;
     const properties = await prisma.property.findMany({
-      where: { tenants: { some: { cognitoId } } },
+      where: { tenants: { some: { cognitoId } }, deletedAt: null },
       include: {
         location: true,
       },
@@ -124,8 +124,8 @@ export const addFavoriteProperty = async (
 ): Promise<void> => {
   try {
     const { cognitoId, propertyId } = req.params;
-    const tenant = await prisma.tenant.findUnique({
-      where: { cognitoId },
+    const tenant = await prisma.tenant.findFirst({
+      where: { cognitoId, deletedAt: null },
       include: { favorites: true },
     });
 
