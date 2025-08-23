@@ -6,6 +6,7 @@ import {
   Payment,
   Property,
   Tenant,
+  Message,
 } from "@/types/prismaTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
@@ -32,6 +33,7 @@ export const api = createApi({
     "Leases",
     "Payments",
     "Applications",
+    "Messages",
   ],
   endpoints: (build) => ({
     getAuthUser: build.query<User, void>({
@@ -348,6 +350,47 @@ export const api = createApi({
         });
       },
     }),
+
+    // messaging endpoints
+    getConversations: build.query<
+      { userId: string; lastMessage: Message; unreadCount: number }[],
+      string
+    >({
+      query: (userId) => `messages/${userId}/conversations`,
+      providesTags: ["Messages"],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          error: "Failed to fetch conversations.",
+        });
+      },
+    }),
+
+    getMessages: build.query<
+      Message[],
+      { userId: string; otherUserId: string }
+    >({
+      query: ({ userId, otherUserId }) =>
+        `messages/${userId}/${otherUserId}`,
+      providesTags: ["Messages"],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          error: "Failed to fetch messages.",
+        });
+      },
+    }),
+
+    sendMessage: build.mutation<
+      Message,
+      { senderId: string; receiverId: string; content: string }
+    >({
+      query: (body) => ({ url: `messages`, method: "POST", body }),
+      invalidatesTags: ["Messages"],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          error: "Failed to send message.",
+        });
+      },
+    }),
   }),
 });
 
@@ -369,4 +412,7 @@ export const {
   useGetApplicationsQuery,
   useUpdateApplicationStatusMutation,
   useCreateApplicationMutation,
+  useGetConversationsQuery,
+  useGetMessagesQuery,
+  useSendMessageMutation,
 } = api;
