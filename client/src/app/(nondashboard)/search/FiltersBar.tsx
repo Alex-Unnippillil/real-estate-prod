@@ -5,11 +5,9 @@ import {
   toggleFiltersFullOpen,
 } from "@/state";
 import { useAppSelector } from "@/state/redux";
-import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { debounce } from "lodash";
-import { cleanParams, cn, formatPriceValue } from "@/lib/utils";
+import { cn, formatPriceValue } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Filter, Grid, List, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -21,11 +19,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PropertyTypeIcons } from "@/lib/constants";
+import { useDebouncedCallback } from "use-debounce";
 
 const FiltersBar = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
-  const pathname = usePathname();
   const filters = useAppSelector((state) => state.global.filters);
   const isFiltersFullOpen = useAppSelector(
     (state) => state.global.isFiltersFullOpen
@@ -33,19 +30,12 @@ const FiltersBar = () => {
   const viewMode = useAppSelector((state) => state.global.viewMode);
   const [searchInput, setSearchInput] = useState(filters.location);
 
-  const updateURL = debounce((newFilters: FiltersState) => {
-    const cleanFilters = cleanParams(newFilters);
-    const updatedSearchParams = new URLSearchParams();
-
-    Object.entries(cleanFilters).forEach(([key, value]) => {
-      updatedSearchParams.set(
-        key,
-        Array.isArray(value) ? value.join(",") : value.toString()
-      );
-    });
-
-    router.push(`${pathname}?${updatedSearchParams.toString()}`);
-  });
+  const debouncedSetFilters = useDebouncedCallback(
+    (newFilters: FiltersState) => {
+      dispatch(setFilters(newFilters));
+    },
+    500
+  );
 
   const handleFilterChange = (
     key: string,
@@ -68,8 +58,7 @@ const FiltersBar = () => {
     }
 
     const newFilters = { ...filters, [key]: newValue };
-    dispatch(setFilters(newFilters));
-    updateURL(newFilters);
+    debouncedSetFilters(newFilters);
   };
 
   const handleLocationSearch = async () => {
@@ -84,12 +73,10 @@ const FiltersBar = () => {
       const data = await response.json();
       if (data.features && data.features.length > 0) {
         const [lng, lat] = data.features[0].center;
-        dispatch(
-          setFilters({
-            location: searchInput,
-            coordinates: [lng, lat],
-          })
-        );
+        debouncedSetFilters({
+          location: searchInput,
+          coordinates: [lng, lat],
+        });
       }
     } catch (err) {
       console.error("Error search location:", err);
