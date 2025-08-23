@@ -14,16 +14,34 @@ import { FiltersState } from ".";
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+    credentials: "include",
     prepareHeaders: async (headers) => {
-      const session = await fetchAuthSession();
-      const { idToken } = session.tokens ?? {};
-      if (idToken) {
-        headers.set("Authorization", `Bearer ${idToken}`);
+      let token: string | undefined;
+
+      if (typeof window === "undefined") {
+        const { cookies } = await import("next/headers");
+        const cookieStore = cookies();
+        const tokenCookie = cookieStore
+          .getAll()
+          .find((c) => c.name.endsWith(".idToken"));
+        token = tokenCookie?.value;
+      } else {
+        const session = await fetchAuthSession();
+        token = session.tokens?.idToken?.toString();
+      }
+
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
       }
       return headers;
     },
   }),
   reducerPath: "api",
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === "HYDRATE") {
+      return action.payload[reducerPath];
+    }
+  },
   tagTypes: [
     "Managers",
     "Tenants",
