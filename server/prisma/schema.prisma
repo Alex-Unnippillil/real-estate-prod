@@ -65,6 +65,12 @@ enum PaymentStatus {
   Overdue
 }
 
+enum ApplicationPaymentStatus {
+  Pending
+  Paid
+  Cancelled
+}
+
 model Property {
   id                Int          @id @default(autoincrement())
   name              String
@@ -141,6 +147,8 @@ model Application {
   phoneNumber     String
   message         String?
   leaseId         Int?              @unique
+  paymentStatus   ApplicationPaymentStatus @default(Pending)
+  stripeSessionId String?
 
   property Property @relation(fields: [propertyId], references: [id])
   tenant   Tenant   @relation(fields: [tenantCognitoId], references: [cognitoId])

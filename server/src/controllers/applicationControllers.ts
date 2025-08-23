@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import Stripe from "stripe";
 
 const prisma = new PrismaClient();
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 
 export const listApplications = async (
   req: Request,
@@ -244,5 +246,117 @@ export const updateApplicationStatus = async (
     res
       .status(500)
       .json({ message: `Error updating application status: ${error.message}` });
+  }
+};
+
+export const createApplicationCheckoutSession = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const application = await prisma.application.findUnique({
+      where: { id: Number(id) },
+      include: { property: true },
+    });
+
+    if (!application) {
+      res.status(404).json({ message: "Application not found" });
+      return;
+    }
+
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: `Application Fee for ${application.property.name}`,
+            },
+            unit_amount: Math.round(application.property.applicationFee * 100),
+          },
+          quantity: 1,
+        },
+      ],
+      success_url: `${process.env.FRONTEND_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.FRONTEND_URL}/payment-cancel?session_id={CHECKOUT_SESSION_ID}`,
+    });
+
+    await prisma.application.update({
+      where: { id: application.id },
+      data: { stripeSessionId: session.id, paymentStatus: "Pending" },
+    });
+
+    res.json({ url: session.url });
+  } catch (error: any) {
+    res.status(500).json({
+      message: `Error creating checkout session: ${error.message}`,
+    });
+  }
+};
+
+export const handleApplicationPaymentSuccess = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const sessionId = String(req.query.session_id);
+
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    if (session.payment_status !== "paid") {
+      res.status(400).json({ message: "Payment not completed" });
+      return;
+    }
+
+    const application = await prisma.application.findFirst({
+      where: { stripeSessionId: sessionId },
+    });
+
+    if (!application) {
+      res.status(404).json({ message: "Application not found" });
+      return;
+    }
+
+    await prisma.application.update({
+      where: { id: application.id },
+      data: { paymentStatus: "Paid" },
+    });
+
+    res.json({ message: "Payment successful" });
+  } catch (error: any) {
+    res.status(500).json({
+      message: `Error handling payment success: ${error.message}`,
+    });
+  }
+};
+
+export const handleApplicationPaymentCancel = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const sessionId = String(req.query.session_id);
+
+    const application = await prisma.application.findFirst({
+      where: { stripeSessionId: sessionId },
+    });
+
+    if (!application) {
+      res.status(404).json({ message: "Application not found" });
+      return;
+    }
+
+    await prisma.application.update({
+      where: { id: application.id },
+      data: { paymentStatus: "Cancelled" },
+    });
+
+    res.json({ message: "Payment cancelled" });
+  } catch (error: any) {
+    res.status(500).json({
+      message: `Error handling payment cancellation: ${error.message}`,
+    });
   }
 };

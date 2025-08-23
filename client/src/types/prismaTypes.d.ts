@@ -123,6 +123,15 @@ export const PaymentStatus: {
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 
+
+export const ApplicationPaymentStatus: {
+  Pending: 'Pending',
+  Paid: 'Paid',
+  Cancelled: 'Cancelled'
+};
+
+export type ApplicationPaymentStatus = (typeof ApplicationPaymentStatus)[keyof typeof ApplicationPaymentStatus]
+
 }
 
 export type Highlight = $Enums.Highlight
@@ -144,6 +153,10 @@ export const ApplicationStatus: typeof $Enums.ApplicationStatus
 export type PaymentStatus = $Enums.PaymentStatus
 
 export const PaymentStatus: typeof $Enums.PaymentStatus
+
+export type ApplicationPaymentStatus = $Enums.ApplicationPaymentStatus
+
+export const ApplicationPaymentStatus: typeof $Enums.ApplicationPaymentStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -6415,6 +6428,8 @@ export namespace Prisma {
     phoneNumber: string | null
     message: string | null
     leaseId: number | null
+    paymentStatus: $Enums.ApplicationPaymentStatus | null
+    stripeSessionId: string | null
   }
 
   export type ApplicationMaxAggregateOutputType = {
@@ -6428,6 +6443,8 @@ export namespace Prisma {
     phoneNumber: string | null
     message: string | null
     leaseId: number | null
+    paymentStatus: $Enums.ApplicationPaymentStatus | null
+    stripeSessionId: string | null
   }
 
   export type ApplicationCountAggregateOutputType = {
@@ -6441,6 +6458,8 @@ export namespace Prisma {
     phoneNumber: number
     message: number
     leaseId: number
+    paymentStatus: number
+    stripeSessionId: number
     _all: number
   }
 
@@ -6468,6 +6487,8 @@ export namespace Prisma {
     phoneNumber?: true
     message?: true
     leaseId?: true
+    paymentStatus?: true
+    stripeSessionId?: true
   }
 
   export type ApplicationMaxAggregateInputType = {
@@ -6481,6 +6502,8 @@ export namespace Prisma {
     phoneNumber?: true
     message?: true
     leaseId?: true
+    paymentStatus?: true
+    stripeSessionId?: true
   }
 
   export type ApplicationCountAggregateInputType = {
@@ -6494,6 +6517,8 @@ export namespace Prisma {
     phoneNumber?: true
     message?: true
     leaseId?: true
+    paymentStatus?: true
+    stripeSessionId?: true
     _all?: true
   }
 
@@ -6594,6 +6619,8 @@ export namespace Prisma {
     phoneNumber: string
     message: string | null
     leaseId: number | null
+    paymentStatus: $Enums.ApplicationPaymentStatus
+    stripeSessionId: string | null
     _count: ApplicationCountAggregateOutputType | null
     _avg: ApplicationAvgAggregateOutputType | null
     _sum: ApplicationSumAggregateOutputType | null
@@ -6626,6 +6653,8 @@ export namespace Prisma {
     phoneNumber?: boolean
     message?: boolean
     leaseId?: boolean
+    paymentStatus?: boolean
+    stripeSessionId?: boolean
     property?: boolean | PropertyDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     lease?: boolean | Application$leaseArgs<ExtArgs>
@@ -6642,6 +6671,8 @@ export namespace Prisma {
     phoneNumber?: boolean
     message?: boolean
     leaseId?: boolean
+    paymentStatus?: boolean
+    stripeSessionId?: boolean
     property?: boolean | PropertyDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     lease?: boolean | Application$leaseArgs<ExtArgs>
@@ -6658,6 +6689,8 @@ export namespace Prisma {
     phoneNumber?: boolean
     message?: boolean
     leaseId?: boolean
+    paymentStatus?: boolean
+    stripeSessionId?: boolean
     property?: boolean | PropertyDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     lease?: boolean | Application$leaseArgs<ExtArgs>
@@ -6674,9 +6707,11 @@ export namespace Prisma {
     phoneNumber?: boolean
     message?: boolean
     leaseId?: boolean
+    paymentStatus?: boolean
+    stripeSessionId?: boolean
   }
 
-  export type ApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicationDate" | "status" | "propertyId" | "tenantCognitoId" | "name" | "email" | "phoneNumber" | "message" | "leaseId", ExtArgs["result"]["application"]>
+  export type ApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicationDate" | "status" | "propertyId" | "tenantCognitoId" | "name" | "email" | "phoneNumber" | "message" | "leaseId" | "paymentStatus" | "stripeSessionId", ExtArgs["result"]["application"]>
   export type ApplicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     property?: boolean | PropertyDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -6711,6 +6746,8 @@ export namespace Prisma {
       phoneNumber: string
       message: string | null
       leaseId: number | null
+      paymentStatus: $Enums.ApplicationPaymentStatus
+      stripeSessionId: string | null
     }, ExtArgs["result"]["application"]>
     composites: {}
   }
@@ -7147,6 +7184,8 @@ export namespace Prisma {
     readonly phoneNumber: FieldRef<"Application", 'String'>
     readonly message: FieldRef<"Application", 'String'>
     readonly leaseId: FieldRef<"Application", 'Int'>
+    readonly paymentStatus: FieldRef<"Application", 'ApplicationPaymentStatus'>
+    readonly stripeSessionId: FieldRef<"Application", 'String'>
   }
     
 
@@ -9985,7 +10024,9 @@ export namespace Prisma {
     email: 'email',
     phoneNumber: 'phoneNumber',
     message: 'message',
-    leaseId: 'leaseId'
+    leaseId: 'leaseId',
+    paymentStatus: 'paymentStatus',
+    stripeSessionId: 'stripeSessionId'
   };
 
   export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
@@ -10162,6 +10203,20 @@ export namespace Prisma {
    * Reference to a field of type 'ApplicationStatus[]'
    */
   export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ApplicationPaymentStatus'
+   */
+  export type EnumApplicationPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationPaymentStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ApplicationPaymentStatus[]'
+   */
+  export type ListEnumApplicationPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationPaymentStatus[]'>
     
 
 
@@ -10528,6 +10583,8 @@ export namespace Prisma {
     phoneNumber?: StringFilter<"Application"> | string
     message?: StringNullableFilter<"Application"> | string | null
     leaseId?: IntNullableFilter<"Application"> | number | null
+    paymentStatus?: EnumApplicationPaymentStatusFilter<"Application"> | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: StringNullableFilter<"Application"> | string | null
     property?: XOR<PropertyScalarRelationFilter, PropertyWhereInput>
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     lease?: XOR<LeaseNullableScalarRelationFilter, LeaseWhereInput> | null
@@ -10544,6 +10601,8 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     message?: SortOrderInput | SortOrder
     leaseId?: SortOrderInput | SortOrder
+    paymentStatus?: SortOrder
+    stripeSessionId?: SortOrderInput | SortOrder
     property?: PropertyOrderByWithRelationInput
     tenant?: TenantOrderByWithRelationInput
     lease?: LeaseOrderByWithRelationInput
@@ -10563,6 +10622,8 @@ export namespace Prisma {
     email?: StringFilter<"Application"> | string
     phoneNumber?: StringFilter<"Application"> | string
     message?: StringNullableFilter<"Application"> | string | null
+    paymentStatus?: EnumApplicationPaymentStatusFilter<"Application"> | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: StringNullableFilter<"Application"> | string | null
     property?: XOR<PropertyScalarRelationFilter, PropertyWhereInput>
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     lease?: XOR<LeaseNullableScalarRelationFilter, LeaseWhereInput> | null
@@ -10579,6 +10640,8 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     message?: SortOrderInput | SortOrder
     leaseId?: SortOrderInput | SortOrder
+    paymentStatus?: SortOrder
+    stripeSessionId?: SortOrderInput | SortOrder
     _count?: ApplicationCountOrderByAggregateInput
     _avg?: ApplicationAvgOrderByAggregateInput
     _max?: ApplicationMaxOrderByAggregateInput
@@ -10600,6 +10663,8 @@ export namespace Prisma {
     phoneNumber?: StringWithAggregatesFilter<"Application"> | string
     message?: StringNullableWithAggregatesFilter<"Application"> | string | null
     leaseId?: IntNullableWithAggregatesFilter<"Application"> | number | null
+    paymentStatus?: EnumApplicationPaymentStatusWithAggregatesFilter<"Application"> | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: StringNullableWithAggregatesFilter<"Application"> | string | null
   }
 
   export type LeaseWhereInput = {
@@ -11086,6 +11151,8 @@ export namespace Prisma {
     email: string
     phoneNumber: string
     message?: string | null
+    paymentStatus?: $Enums.ApplicationPaymentStatus
+    stripeSessionId?: string | null
     property: PropertyCreateNestedOneWithoutApplicationsInput
     tenant: TenantCreateNestedOneWithoutApplicationsInput
     lease?: LeaseCreateNestedOneWithoutApplicationInput
@@ -11102,6 +11169,8 @@ export namespace Prisma {
     phoneNumber: string
     message?: string | null
     leaseId?: number | null
+    paymentStatus?: $Enums.ApplicationPaymentStatus
+    stripeSessionId?: string | null
   }
 
   export type ApplicationUpdateInput = {
@@ -11111,6 +11180,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: EnumApplicationPaymentStatusFieldUpdateOperationsInput | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     property?: PropertyUpdateOneRequiredWithoutApplicationsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutApplicationsNestedInput
     lease?: LeaseUpdateOneWithoutApplicationNestedInput
@@ -11127,6 +11198,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    paymentStatus?: EnumApplicationPaymentStatusFieldUpdateOperationsInput | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ApplicationCreateManyInput = {
@@ -11140,6 +11213,8 @@ export namespace Prisma {
     phoneNumber: string
     message?: string | null
     leaseId?: number | null
+    paymentStatus?: $Enums.ApplicationPaymentStatus
+    stripeSessionId?: string | null
   }
 
   export type ApplicationUpdateManyMutationInput = {
@@ -11149,6 +11224,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: EnumApplicationPaymentStatusFieldUpdateOperationsInput | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ApplicationUncheckedUpdateManyInput = {
@@ -11162,6 +11239,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    paymentStatus?: EnumApplicationPaymentStatusFieldUpdateOperationsInput | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LeaseCreateInput = {
@@ -11788,6 +11867,13 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type EnumApplicationPaymentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationPaymentStatus | EnumApplicationPaymentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationPaymentStatus[] | ListEnumApplicationPaymentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationPaymentStatus[] | ListEnumApplicationPaymentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationPaymentStatusFilter<$PrismaModel> | $Enums.ApplicationPaymentStatus
+  }
+
   export type PropertyScalarRelationFilter = {
     is?: PropertyWhereInput
     isNot?: PropertyWhereInput
@@ -11814,6 +11900,8 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     message?: SortOrder
     leaseId?: SortOrder
+    paymentStatus?: SortOrder
+    stripeSessionId?: SortOrder
   }
 
   export type ApplicationAvgOrderByAggregateInput = {
@@ -11833,6 +11921,8 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     message?: SortOrder
     leaseId?: SortOrder
+    paymentStatus?: SortOrder
+    stripeSessionId?: SortOrder
   }
 
   export type ApplicationMinOrderByAggregateInput = {
@@ -11846,6 +11936,8 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     message?: SortOrder
     leaseId?: SortOrder
+    paymentStatus?: SortOrder
+    stripeSessionId?: SortOrder
   }
 
   export type ApplicationSumOrderByAggregateInput = {
@@ -11880,6 +11972,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumApplicationPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationPaymentStatus | EnumApplicationPaymentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationPaymentStatus[] | ListEnumApplicationPaymentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationPaymentStatus[] | ListEnumApplicationPaymentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationPaymentStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationPaymentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumApplicationPaymentStatusFilter<$PrismaModel>
+    _max?: NestedEnumApplicationPaymentStatusFilter<$PrismaModel>
   }
 
   export type ApplicationNullableScalarRelationFilter = {
@@ -12521,6 +12623,10 @@ export namespace Prisma {
     set?: string | null
   }
 
+  export type EnumApplicationPaymentStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ApplicationPaymentStatus
+  }
+
   export type PropertyUpdateOneRequiredWithoutApplicationsNestedInput = {
     create?: XOR<PropertyCreateWithoutApplicationsInput, PropertyUncheckedCreateWithoutApplicationsInput>
     connectOrCreate?: PropertyCreateOrConnectWithoutApplicationsInput
@@ -12882,6 +12988,13 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedEnumApplicationPaymentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationPaymentStatus | EnumApplicationPaymentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationPaymentStatus[] | ListEnumApplicationPaymentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationPaymentStatus[] | ListEnumApplicationPaymentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationPaymentStatusFilter<$PrismaModel> | $Enums.ApplicationPaymentStatus
+  }
+
   export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
@@ -12907,6 +13020,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumApplicationPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationPaymentStatus | EnumApplicationPaymentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationPaymentStatus[] | ListEnumApplicationPaymentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationPaymentStatus[] | ListEnumApplicationPaymentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationPaymentStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationPaymentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumApplicationPaymentStatusFilter<$PrismaModel>
+    _max?: NestedEnumApplicationPaymentStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
@@ -12984,6 +13107,8 @@ export namespace Prisma {
     email: string
     phoneNumber: string
     message?: string | null
+    paymentStatus?: $Enums.ApplicationPaymentStatus
+    stripeSessionId?: string | null
     tenant: TenantCreateNestedOneWithoutApplicationsInput
     lease?: LeaseCreateNestedOneWithoutApplicationInput
   }
@@ -12998,6 +13123,8 @@ export namespace Prisma {
     phoneNumber: string
     message?: string | null
     leaseId?: number | null
+    paymentStatus?: $Enums.ApplicationPaymentStatus
+    stripeSessionId?: string | null
   }
 
   export type ApplicationCreateOrConnectWithoutPropertyInput = {
@@ -13169,6 +13296,8 @@ export namespace Prisma {
     phoneNumber?: StringFilter<"Application"> | string
     message?: StringNullableFilter<"Application"> | string | null
     leaseId?: IntNullableFilter<"Application"> | number | null
+    paymentStatus?: EnumApplicationPaymentStatusFilter<"Application"> | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: StringNullableFilter<"Application"> | string | null
   }
 
   export type TenantUpsertWithWhereUniqueWithoutFavoritesInput = {
@@ -13436,6 +13565,8 @@ export namespace Prisma {
     email: string
     phoneNumber: string
     message?: string | null
+    paymentStatus?: $Enums.ApplicationPaymentStatus
+    stripeSessionId?: string | null
     property: PropertyCreateNestedOneWithoutApplicationsInput
     lease?: LeaseCreateNestedOneWithoutApplicationInput
   }
@@ -13450,6 +13581,8 @@ export namespace Prisma {
     phoneNumber: string
     message?: string | null
     leaseId?: number | null
+    paymentStatus?: $Enums.ApplicationPaymentStatus
+    stripeSessionId?: string | null
   }
 
   export type ApplicationCreateOrConnectWithoutTenantInput = {
@@ -13957,6 +14090,8 @@ export namespace Prisma {
     email: string
     phoneNumber: string
     message?: string | null
+    paymentStatus?: $Enums.ApplicationPaymentStatus
+    stripeSessionId?: string | null
     property: PropertyCreateNestedOneWithoutApplicationsInput
     tenant: TenantCreateNestedOneWithoutApplicationsInput
   }
@@ -13971,6 +14106,8 @@ export namespace Prisma {
     email: string
     phoneNumber: string
     message?: string | null
+    paymentStatus?: $Enums.ApplicationPaymentStatus
+    stripeSessionId?: string | null
   }
 
   export type ApplicationCreateOrConnectWithoutLeaseInput = {
@@ -14117,6 +14254,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: EnumApplicationPaymentStatusFieldUpdateOperationsInput | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     property?: PropertyUpdateOneRequiredWithoutApplicationsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutApplicationsNestedInput
   }
@@ -14131,6 +14270,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: EnumApplicationPaymentStatusFieldUpdateOperationsInput | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutLeaseInput = {
@@ -14239,6 +14380,8 @@ export namespace Prisma {
     phoneNumber: string
     message?: string | null
     leaseId?: number | null
+    paymentStatus?: $Enums.ApplicationPaymentStatus
+    stripeSessionId?: string | null
   }
 
   export type LeaseUpdateWithoutPropertyInput = {
@@ -14278,6 +14421,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: EnumApplicationPaymentStatusFieldUpdateOperationsInput | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     tenant?: TenantUpdateOneRequiredWithoutApplicationsNestedInput
     lease?: LeaseUpdateOneWithoutApplicationNestedInput
   }
@@ -14292,6 +14437,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    paymentStatus?: EnumApplicationPaymentStatusFieldUpdateOperationsInput | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ApplicationUncheckedUpdateManyWithoutPropertyInput = {
@@ -14304,6 +14451,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    paymentStatus?: EnumApplicationPaymentStatusFieldUpdateOperationsInput | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TenantUpdateWithoutFavoritesInput = {
@@ -14469,6 +14618,8 @@ export namespace Prisma {
     phoneNumber: string
     message?: string | null
     leaseId?: number | null
+    paymentStatus?: $Enums.ApplicationPaymentStatus
+    stripeSessionId?: string | null
   }
 
   export type LeaseCreateManyTenantInput = {
@@ -14635,6 +14786,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentStatus?: EnumApplicationPaymentStatusFieldUpdateOperationsInput | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     property?: PropertyUpdateOneRequiredWithoutApplicationsNestedInput
     lease?: LeaseUpdateOneWithoutApplicationNestedInput
   }
@@ -14649,6 +14802,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    paymentStatus?: EnumApplicationPaymentStatusFieldUpdateOperationsInput | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ApplicationUncheckedUpdateManyWithoutTenantInput = {
@@ -14661,6 +14816,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    paymentStatus?: EnumApplicationPaymentStatusFieldUpdateOperationsInput | $Enums.ApplicationPaymentStatus
+    stripeSessionId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LeaseUpdateWithoutTenantInput = {
