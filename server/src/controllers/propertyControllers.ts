@@ -12,6 +12,20 @@ const s3Client = new S3Client({
   region: process.env.AWS_REGION,
 });
 
+const cloudFrontDomain = process.env.CLOUDFRONT_DOMAIN || "";
+
+const buildCloudFrontUrl = (key: string): string =>
+  cloudFrontDomain ? `https://${cloudFrontDomain}/${key}` : key;
+
+const convertToCloudFront = (url: string): string => {
+  try {
+    const { pathname } = new URL(url);
+    return buildCloudFrontUrl(pathname.replace(/^\//, ""));
+  } catch {
+    return url;
+  }
+};
+
 export const getProperties = async (
   req: Request,
   res: Response
@@ -142,7 +156,14 @@ export const getProperties = async (
 
     const properties = await prisma.$queryRaw(completeQuery);
 
-    res.json(properties);
+    const transformed = (properties as any[]).map((property) => ({
+      ...property,
+      photoUrls: property.photoUrls?.map((url: string) =>
+        convertToCloudFront(url)
+      ),
+    }));
+
+    res.json(transformed);
   } catch (error: any) {
     res
       .status(500)
@@ -164,6 +185,11 @@ export const getProperty = async (
     });
 
     if (property) {
+      const cfProperty = {
+        ...property,
+        photoUrls: property.photoUrls?.map((url) => convertToCloudFront(url)),
+      };
+
       const coordinates: { coordinates: string }[] =
         await prisma.$queryRaw`SELECT ST_asText(coordinates) as coordinates from "Location" where id = ${property.location.id}`;
 
@@ -172,9 +198,9 @@ export const getProperty = async (
       const latitude = geoJSON.coordinates[1];
 
       const propertyWithCoordinates = {
-        ...property,
+        ...cfProperty,
         location: {
-          ...property.location,
+          ...cfProperty.location,
           coordinates: {
             longitude,
             latitude,
@@ -208,19 +234,20 @@ export const createProperty = async (
 
     const photoUrls = await Promise.all(
       files.map(async (file) => {
+        const key = `properties/${Date.now()}-${file.originalname}`;
         const uploadParams = {
           Bucket: process.env.S3_BUCKET_NAME!,
-          Key: `properties/${Date.now()}-${file.originalname}`,
+          Key: key,
           Body: file.buffer,
           ContentType: file.mimetype,
         };
 
-        const uploadResult = await new Upload({
+        await new Upload({
           client: s3Client,
           params: uploadParams,
         }).done();
 
-        return uploadResult.Location;
+        return buildCloudFrontUrl(key);
       })
     );
 
