@@ -39,6 +39,11 @@ export type Location = $Result.DefaultSelection<Prisma.$LocationPayload>
  */
 export type Application = $Result.DefaultSelection<Prisma.$ApplicationPayload>
 /**
+ * Model ApplicationDraft
+ * 
+ */
+export type ApplicationDraft = $Result.DefaultSelection<Prisma.$ApplicationDraftPayload>
+/**
  * Model Lease
  * 
  */
@@ -319,6 +324,16 @@ export class PrismaClient<
     * ```
     */
   get application(): Prisma.ApplicationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.applicationDraft`: Exposes CRUD operations for the **ApplicationDraft** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ApplicationDrafts
+    * const applicationDrafts = await prisma.applicationDraft.findMany()
+    * ```
+    */
+  get applicationDraft(): Prisma.ApplicationDraftDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.lease`: Exposes CRUD operations for the **Lease** model.
@@ -784,6 +799,7 @@ export namespace Prisma {
     Tenant: 'Tenant',
     Location: 'Location',
     Application: 'Application',
+    ApplicationDraft: 'ApplicationDraft',
     Lease: 'Lease',
     Payment: 'Payment'
   };
@@ -801,7 +817,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "property" | "manager" | "tenant" | "location" | "application" | "lease" | "payment"
+      modelProps: "property" | "manager" | "tenant" | "location" | "application" | "applicationDraft" | "lease" | "payment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1159,6 +1175,80 @@ export namespace Prisma {
           }
         }
       }
+      ApplicationDraft: {
+        payload: Prisma.$ApplicationDraftPayload<ExtArgs>
+        fields: Prisma.ApplicationDraftFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ApplicationDraftFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApplicationDraftPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ApplicationDraftFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApplicationDraftPayload>
+          }
+          findFirst: {
+            args: Prisma.ApplicationDraftFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApplicationDraftPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ApplicationDraftFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApplicationDraftPayload>
+          }
+          findMany: {
+            args: Prisma.ApplicationDraftFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApplicationDraftPayload>[]
+          }
+          create: {
+            args: Prisma.ApplicationDraftCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApplicationDraftPayload>
+          }
+          createMany: {
+            args: Prisma.ApplicationDraftCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ApplicationDraftCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApplicationDraftPayload>[]
+          }
+          delete: {
+            args: Prisma.ApplicationDraftDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApplicationDraftPayload>
+          }
+          update: {
+            args: Prisma.ApplicationDraftUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApplicationDraftPayload>
+          }
+          deleteMany: {
+            args: Prisma.ApplicationDraftDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ApplicationDraftUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ApplicationDraftUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApplicationDraftPayload>[]
+          }
+          upsert: {
+            args: Prisma.ApplicationDraftUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApplicationDraftPayload>
+          }
+          aggregate: {
+            args: Prisma.ApplicationDraftAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateApplicationDraft>
+          }
+          groupBy: {
+            args: Prisma.ApplicationDraftGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ApplicationDraftGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ApplicationDraftCountArgs<ExtArgs>
+            result: $Utils.Optional<ApplicationDraftCountAggregateOutputType> | number
+          }
+        }
+      }
       Lease: {
         payload: Prisma.$LeasePayload<ExtArgs>
         fields: Prisma.LeaseFieldRefs
@@ -1396,6 +1486,7 @@ export namespace Prisma {
     tenant?: TenantOmit
     location?: LocationOmit
     application?: ApplicationOmit
+    applicationDraft?: ApplicationDraftOmit
     lease?: LeaseOmit
     payment?: PaymentOmit
   }
@@ -6441,6 +6532,7 @@ export namespace Prisma {
     phoneNumber: number
     message: number
     leaseId: number
+    documentUrls: number
     _all: number
   }
 
@@ -6494,6 +6586,7 @@ export namespace Prisma {
     phoneNumber?: true
     message?: true
     leaseId?: true
+    documentUrls?: true
     _all?: true
   }
 
@@ -6594,6 +6687,7 @@ export namespace Prisma {
     phoneNumber: string
     message: string | null
     leaseId: number | null
+    documentUrls: string[]
     _count: ApplicationCountAggregateOutputType | null
     _avg: ApplicationAvgAggregateOutputType | null
     _sum: ApplicationSumAggregateOutputType | null
@@ -6626,6 +6720,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     message?: boolean
     leaseId?: boolean
+    documentUrls?: boolean
     property?: boolean | PropertyDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     lease?: boolean | Application$leaseArgs<ExtArgs>
@@ -6642,6 +6737,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     message?: boolean
     leaseId?: boolean
+    documentUrls?: boolean
     property?: boolean | PropertyDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     lease?: boolean | Application$leaseArgs<ExtArgs>
@@ -6658,6 +6754,7 @@ export namespace Prisma {
     phoneNumber?: boolean
     message?: boolean
     leaseId?: boolean
+    documentUrls?: boolean
     property?: boolean | PropertyDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     lease?: boolean | Application$leaseArgs<ExtArgs>
@@ -6674,9 +6771,10 @@ export namespace Prisma {
     phoneNumber?: boolean
     message?: boolean
     leaseId?: boolean
+    documentUrls?: boolean
   }
 
-  export type ApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicationDate" | "status" | "propertyId" | "tenantCognitoId" | "name" | "email" | "phoneNumber" | "message" | "leaseId", ExtArgs["result"]["application"]>
+  export type ApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicationDate" | "status" | "propertyId" | "tenantCognitoId" | "name" | "email" | "phoneNumber" | "message" | "leaseId" | "documentUrls", ExtArgs["result"]["application"]>
   export type ApplicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     property?: boolean | PropertyDefaultArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -6711,6 +6809,7 @@ export namespace Prisma {
       phoneNumber: string
       message: string | null
       leaseId: number | null
+      documentUrls: string[]
     }, ExtArgs["result"]["application"]>
     composites: {}
   }
@@ -7147,6 +7246,7 @@ export namespace Prisma {
     readonly phoneNumber: FieldRef<"Application", 'String'>
     readonly message: FieldRef<"Application", 'String'>
     readonly leaseId: FieldRef<"Application", 'Int'>
+    readonly documentUrls: FieldRef<"Application", 'String[]'>
   }
     
 
@@ -7577,6 +7677,1074 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ApplicationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ApplicationDraft
+   */
+
+  export type AggregateApplicationDraft = {
+    _count: ApplicationDraftCountAggregateOutputType | null
+    _avg: ApplicationDraftAvgAggregateOutputType | null
+    _sum: ApplicationDraftSumAggregateOutputType | null
+    _min: ApplicationDraftMinAggregateOutputType | null
+    _max: ApplicationDraftMaxAggregateOutputType | null
+  }
+
+  export type ApplicationDraftAvgAggregateOutputType = {
+    id: number | null
+    propertyId: number | null
+    currentStep: number | null
+  }
+
+  export type ApplicationDraftSumAggregateOutputType = {
+    id: number | null
+    propertyId: number | null
+    currentStep: number | null
+  }
+
+  export type ApplicationDraftMinAggregateOutputType = {
+    id: number | null
+    propertyId: number | null
+    tenantCognitoId: string | null
+    currentStep: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ApplicationDraftMaxAggregateOutputType = {
+    id: number | null
+    propertyId: number | null
+    tenantCognitoId: string | null
+    currentStep: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ApplicationDraftCountAggregateOutputType = {
+    id: number
+    propertyId: number
+    tenantCognitoId: number
+    data: number
+    currentStep: number
+    documentUrls: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ApplicationDraftAvgAggregateInputType = {
+    id?: true
+    propertyId?: true
+    currentStep?: true
+  }
+
+  export type ApplicationDraftSumAggregateInputType = {
+    id?: true
+    propertyId?: true
+    currentStep?: true
+  }
+
+  export type ApplicationDraftMinAggregateInputType = {
+    id?: true
+    propertyId?: true
+    tenantCognitoId?: true
+    currentStep?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ApplicationDraftMaxAggregateInputType = {
+    id?: true
+    propertyId?: true
+    tenantCognitoId?: true
+    currentStep?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ApplicationDraftCountAggregateInputType = {
+    id?: true
+    propertyId?: true
+    tenantCognitoId?: true
+    data?: true
+    currentStep?: true
+    documentUrls?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ApplicationDraftAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ApplicationDraft to aggregate.
+     */
+    where?: ApplicationDraftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApplicationDrafts to fetch.
+     */
+    orderBy?: ApplicationDraftOrderByWithRelationInput | ApplicationDraftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ApplicationDraftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApplicationDrafts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApplicationDrafts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ApplicationDrafts
+    **/
+    _count?: true | ApplicationDraftCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ApplicationDraftAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ApplicationDraftSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ApplicationDraftMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ApplicationDraftMaxAggregateInputType
+  }
+
+  export type GetApplicationDraftAggregateType<T extends ApplicationDraftAggregateArgs> = {
+        [P in keyof T & keyof AggregateApplicationDraft]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateApplicationDraft[P]>
+      : GetScalarType<T[P], AggregateApplicationDraft[P]>
+  }
+
+
+
+
+  export type ApplicationDraftGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ApplicationDraftWhereInput
+    orderBy?: ApplicationDraftOrderByWithAggregationInput | ApplicationDraftOrderByWithAggregationInput[]
+    by: ApplicationDraftScalarFieldEnum[] | ApplicationDraftScalarFieldEnum
+    having?: ApplicationDraftScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ApplicationDraftCountAggregateInputType | true
+    _avg?: ApplicationDraftAvgAggregateInputType
+    _sum?: ApplicationDraftSumAggregateInputType
+    _min?: ApplicationDraftMinAggregateInputType
+    _max?: ApplicationDraftMaxAggregateInputType
+  }
+
+  export type ApplicationDraftGroupByOutputType = {
+    id: number
+    propertyId: number
+    tenantCognitoId: string
+    data: JsonValue
+    currentStep: number
+    documentUrls: string[]
+    createdAt: Date
+    updatedAt: Date
+    _count: ApplicationDraftCountAggregateOutputType | null
+    _avg: ApplicationDraftAvgAggregateOutputType | null
+    _sum: ApplicationDraftSumAggregateOutputType | null
+    _min: ApplicationDraftMinAggregateOutputType | null
+    _max: ApplicationDraftMaxAggregateOutputType | null
+  }
+
+  type GetApplicationDraftGroupByPayload<T extends ApplicationDraftGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ApplicationDraftGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ApplicationDraftGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ApplicationDraftGroupByOutputType[P]>
+            : GetScalarType<T[P], ApplicationDraftGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ApplicationDraftSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    propertyId?: boolean
+    tenantCognitoId?: boolean
+    data?: boolean
+    currentStep?: boolean
+    documentUrls?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["applicationDraft"]>
+
+  export type ApplicationDraftSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    propertyId?: boolean
+    tenantCognitoId?: boolean
+    data?: boolean
+    currentStep?: boolean
+    documentUrls?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["applicationDraft"]>
+
+  export type ApplicationDraftSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    propertyId?: boolean
+    tenantCognitoId?: boolean
+    data?: boolean
+    currentStep?: boolean
+    documentUrls?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["applicationDraft"]>
+
+  export type ApplicationDraftSelectScalar = {
+    id?: boolean
+    propertyId?: boolean
+    tenantCognitoId?: boolean
+    data?: boolean
+    currentStep?: boolean
+    documentUrls?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ApplicationDraftOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "propertyId" | "tenantCognitoId" | "data" | "currentStep" | "documentUrls" | "createdAt" | "updatedAt", ExtArgs["result"]["applicationDraft"]>
+
+  export type $ApplicationDraftPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ApplicationDraft"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      propertyId: number
+      tenantCognitoId: string
+      data: Prisma.JsonValue
+      currentStep: number
+      documentUrls: string[]
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["applicationDraft"]>
+    composites: {}
+  }
+
+  type ApplicationDraftGetPayload<S extends boolean | null | undefined | ApplicationDraftDefaultArgs> = $Result.GetResult<Prisma.$ApplicationDraftPayload, S>
+
+  type ApplicationDraftCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ApplicationDraftFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ApplicationDraftCountAggregateInputType | true
+    }
+
+  export interface ApplicationDraftDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ApplicationDraft'], meta: { name: 'ApplicationDraft' } }
+    /**
+     * Find zero or one ApplicationDraft that matches the filter.
+     * @param {ApplicationDraftFindUniqueArgs} args - Arguments to find a ApplicationDraft
+     * @example
+     * // Get one ApplicationDraft
+     * const applicationDraft = await prisma.applicationDraft.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ApplicationDraftFindUniqueArgs>(args: SelectSubset<T, ApplicationDraftFindUniqueArgs<ExtArgs>>): Prisma__ApplicationDraftClient<$Result.GetResult<Prisma.$ApplicationDraftPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one ApplicationDraft that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ApplicationDraftFindUniqueOrThrowArgs} args - Arguments to find a ApplicationDraft
+     * @example
+     * // Get one ApplicationDraft
+     * const applicationDraft = await prisma.applicationDraft.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ApplicationDraftFindUniqueOrThrowArgs>(args: SelectSubset<T, ApplicationDraftFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ApplicationDraftClient<$Result.GetResult<Prisma.$ApplicationDraftPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first ApplicationDraft that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApplicationDraftFindFirstArgs} args - Arguments to find a ApplicationDraft
+     * @example
+     * // Get one ApplicationDraft
+     * const applicationDraft = await prisma.applicationDraft.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ApplicationDraftFindFirstArgs>(args?: SelectSubset<T, ApplicationDraftFindFirstArgs<ExtArgs>>): Prisma__ApplicationDraftClient<$Result.GetResult<Prisma.$ApplicationDraftPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first ApplicationDraft that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApplicationDraftFindFirstOrThrowArgs} args - Arguments to find a ApplicationDraft
+     * @example
+     * // Get one ApplicationDraft
+     * const applicationDraft = await prisma.applicationDraft.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ApplicationDraftFindFirstOrThrowArgs>(args?: SelectSubset<T, ApplicationDraftFindFirstOrThrowArgs<ExtArgs>>): Prisma__ApplicationDraftClient<$Result.GetResult<Prisma.$ApplicationDraftPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more ApplicationDrafts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApplicationDraftFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ApplicationDrafts
+     * const applicationDrafts = await prisma.applicationDraft.findMany()
+     * 
+     * // Get first 10 ApplicationDrafts
+     * const applicationDrafts = await prisma.applicationDraft.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const applicationDraftWithIdOnly = await prisma.applicationDraft.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ApplicationDraftFindManyArgs>(args?: SelectSubset<T, ApplicationDraftFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationDraftPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a ApplicationDraft.
+     * @param {ApplicationDraftCreateArgs} args - Arguments to create a ApplicationDraft.
+     * @example
+     * // Create one ApplicationDraft
+     * const ApplicationDraft = await prisma.applicationDraft.create({
+     *   data: {
+     *     // ... data to create a ApplicationDraft
+     *   }
+     * })
+     * 
+     */
+    create<T extends ApplicationDraftCreateArgs>(args: SelectSubset<T, ApplicationDraftCreateArgs<ExtArgs>>): Prisma__ApplicationDraftClient<$Result.GetResult<Prisma.$ApplicationDraftPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many ApplicationDrafts.
+     * @param {ApplicationDraftCreateManyArgs} args - Arguments to create many ApplicationDrafts.
+     * @example
+     * // Create many ApplicationDrafts
+     * const applicationDraft = await prisma.applicationDraft.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ApplicationDraftCreateManyArgs>(args?: SelectSubset<T, ApplicationDraftCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ApplicationDrafts and returns the data saved in the database.
+     * @param {ApplicationDraftCreateManyAndReturnArgs} args - Arguments to create many ApplicationDrafts.
+     * @example
+     * // Create many ApplicationDrafts
+     * const applicationDraft = await prisma.applicationDraft.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ApplicationDrafts and only return the `id`
+     * const applicationDraftWithIdOnly = await prisma.applicationDraft.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ApplicationDraftCreateManyAndReturnArgs>(args?: SelectSubset<T, ApplicationDraftCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationDraftPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a ApplicationDraft.
+     * @param {ApplicationDraftDeleteArgs} args - Arguments to delete one ApplicationDraft.
+     * @example
+     * // Delete one ApplicationDraft
+     * const ApplicationDraft = await prisma.applicationDraft.delete({
+     *   where: {
+     *     // ... filter to delete one ApplicationDraft
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ApplicationDraftDeleteArgs>(args: SelectSubset<T, ApplicationDraftDeleteArgs<ExtArgs>>): Prisma__ApplicationDraftClient<$Result.GetResult<Prisma.$ApplicationDraftPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one ApplicationDraft.
+     * @param {ApplicationDraftUpdateArgs} args - Arguments to update one ApplicationDraft.
+     * @example
+     * // Update one ApplicationDraft
+     * const applicationDraft = await prisma.applicationDraft.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ApplicationDraftUpdateArgs>(args: SelectSubset<T, ApplicationDraftUpdateArgs<ExtArgs>>): Prisma__ApplicationDraftClient<$Result.GetResult<Prisma.$ApplicationDraftPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more ApplicationDrafts.
+     * @param {ApplicationDraftDeleteManyArgs} args - Arguments to filter ApplicationDrafts to delete.
+     * @example
+     * // Delete a few ApplicationDrafts
+     * const { count } = await prisma.applicationDraft.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ApplicationDraftDeleteManyArgs>(args?: SelectSubset<T, ApplicationDraftDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ApplicationDrafts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApplicationDraftUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ApplicationDrafts
+     * const applicationDraft = await prisma.applicationDraft.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ApplicationDraftUpdateManyArgs>(args: SelectSubset<T, ApplicationDraftUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ApplicationDrafts and returns the data updated in the database.
+     * @param {ApplicationDraftUpdateManyAndReturnArgs} args - Arguments to update many ApplicationDrafts.
+     * @example
+     * // Update many ApplicationDrafts
+     * const applicationDraft = await prisma.applicationDraft.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ApplicationDrafts and only return the `id`
+     * const applicationDraftWithIdOnly = await prisma.applicationDraft.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ApplicationDraftUpdateManyAndReturnArgs>(args: SelectSubset<T, ApplicationDraftUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationDraftPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one ApplicationDraft.
+     * @param {ApplicationDraftUpsertArgs} args - Arguments to update or create a ApplicationDraft.
+     * @example
+     * // Update or create a ApplicationDraft
+     * const applicationDraft = await prisma.applicationDraft.upsert({
+     *   create: {
+     *     // ... data to create a ApplicationDraft
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ApplicationDraft we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ApplicationDraftUpsertArgs>(args: SelectSubset<T, ApplicationDraftUpsertArgs<ExtArgs>>): Prisma__ApplicationDraftClient<$Result.GetResult<Prisma.$ApplicationDraftPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of ApplicationDrafts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApplicationDraftCountArgs} args - Arguments to filter ApplicationDrafts to count.
+     * @example
+     * // Count the number of ApplicationDrafts
+     * const count = await prisma.applicationDraft.count({
+     *   where: {
+     *     // ... the filter for the ApplicationDrafts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ApplicationDraftCountArgs>(
+      args?: Subset<T, ApplicationDraftCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ApplicationDraftCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ApplicationDraft.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApplicationDraftAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ApplicationDraftAggregateArgs>(args: Subset<T, ApplicationDraftAggregateArgs>): Prisma.PrismaPromise<GetApplicationDraftAggregateType<T>>
+
+    /**
+     * Group by ApplicationDraft.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApplicationDraftGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ApplicationDraftGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ApplicationDraftGroupByArgs['orderBy'] }
+        : { orderBy?: ApplicationDraftGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ApplicationDraftGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetApplicationDraftGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ApplicationDraft model
+   */
+  readonly fields: ApplicationDraftFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ApplicationDraft.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ApplicationDraftClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ApplicationDraft model
+   */ 
+  interface ApplicationDraftFieldRefs {
+    readonly id: FieldRef<"ApplicationDraft", 'Int'>
+    readonly propertyId: FieldRef<"ApplicationDraft", 'Int'>
+    readonly tenantCognitoId: FieldRef<"ApplicationDraft", 'String'>
+    readonly data: FieldRef<"ApplicationDraft", 'Json'>
+    readonly currentStep: FieldRef<"ApplicationDraft", 'Int'>
+    readonly documentUrls: FieldRef<"ApplicationDraft", 'String[]'>
+    readonly createdAt: FieldRef<"ApplicationDraft", 'DateTime'>
+    readonly updatedAt: FieldRef<"ApplicationDraft", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ApplicationDraft findUnique
+   */
+  export type ApplicationDraftFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationDraft
+     */
+    select?: ApplicationDraftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApplicationDraft
+     */
+    omit?: ApplicationDraftOmit<ExtArgs> | null
+    /**
+     * Filter, which ApplicationDraft to fetch.
+     */
+    where: ApplicationDraftWhereUniqueInput
+  }
+
+  /**
+   * ApplicationDraft findUniqueOrThrow
+   */
+  export type ApplicationDraftFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationDraft
+     */
+    select?: ApplicationDraftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApplicationDraft
+     */
+    omit?: ApplicationDraftOmit<ExtArgs> | null
+    /**
+     * Filter, which ApplicationDraft to fetch.
+     */
+    where: ApplicationDraftWhereUniqueInput
+  }
+
+  /**
+   * ApplicationDraft findFirst
+   */
+  export type ApplicationDraftFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationDraft
+     */
+    select?: ApplicationDraftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApplicationDraft
+     */
+    omit?: ApplicationDraftOmit<ExtArgs> | null
+    /**
+     * Filter, which ApplicationDraft to fetch.
+     */
+    where?: ApplicationDraftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApplicationDrafts to fetch.
+     */
+    orderBy?: ApplicationDraftOrderByWithRelationInput | ApplicationDraftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ApplicationDrafts.
+     */
+    cursor?: ApplicationDraftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApplicationDrafts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApplicationDrafts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ApplicationDrafts.
+     */
+    distinct?: ApplicationDraftScalarFieldEnum | ApplicationDraftScalarFieldEnum[]
+  }
+
+  /**
+   * ApplicationDraft findFirstOrThrow
+   */
+  export type ApplicationDraftFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationDraft
+     */
+    select?: ApplicationDraftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApplicationDraft
+     */
+    omit?: ApplicationDraftOmit<ExtArgs> | null
+    /**
+     * Filter, which ApplicationDraft to fetch.
+     */
+    where?: ApplicationDraftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApplicationDrafts to fetch.
+     */
+    orderBy?: ApplicationDraftOrderByWithRelationInput | ApplicationDraftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ApplicationDrafts.
+     */
+    cursor?: ApplicationDraftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApplicationDrafts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApplicationDrafts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ApplicationDrafts.
+     */
+    distinct?: ApplicationDraftScalarFieldEnum | ApplicationDraftScalarFieldEnum[]
+  }
+
+  /**
+   * ApplicationDraft findMany
+   */
+  export type ApplicationDraftFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationDraft
+     */
+    select?: ApplicationDraftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApplicationDraft
+     */
+    omit?: ApplicationDraftOmit<ExtArgs> | null
+    /**
+     * Filter, which ApplicationDrafts to fetch.
+     */
+    where?: ApplicationDraftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApplicationDrafts to fetch.
+     */
+    orderBy?: ApplicationDraftOrderByWithRelationInput | ApplicationDraftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ApplicationDrafts.
+     */
+    cursor?: ApplicationDraftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApplicationDrafts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApplicationDrafts.
+     */
+    skip?: number
+    distinct?: ApplicationDraftScalarFieldEnum | ApplicationDraftScalarFieldEnum[]
+  }
+
+  /**
+   * ApplicationDraft create
+   */
+  export type ApplicationDraftCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationDraft
+     */
+    select?: ApplicationDraftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApplicationDraft
+     */
+    omit?: ApplicationDraftOmit<ExtArgs> | null
+    /**
+     * The data needed to create a ApplicationDraft.
+     */
+    data: XOR<ApplicationDraftCreateInput, ApplicationDraftUncheckedCreateInput>
+  }
+
+  /**
+   * ApplicationDraft createMany
+   */
+  export type ApplicationDraftCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ApplicationDrafts.
+     */
+    data: ApplicationDraftCreateManyInput | ApplicationDraftCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ApplicationDraft createManyAndReturn
+   */
+  export type ApplicationDraftCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationDraft
+     */
+    select?: ApplicationDraftSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApplicationDraft
+     */
+    omit?: ApplicationDraftOmit<ExtArgs> | null
+    /**
+     * The data used to create many ApplicationDrafts.
+     */
+    data: ApplicationDraftCreateManyInput | ApplicationDraftCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ApplicationDraft update
+   */
+  export type ApplicationDraftUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationDraft
+     */
+    select?: ApplicationDraftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApplicationDraft
+     */
+    omit?: ApplicationDraftOmit<ExtArgs> | null
+    /**
+     * The data needed to update a ApplicationDraft.
+     */
+    data: XOR<ApplicationDraftUpdateInput, ApplicationDraftUncheckedUpdateInput>
+    /**
+     * Choose, which ApplicationDraft to update.
+     */
+    where: ApplicationDraftWhereUniqueInput
+  }
+
+  /**
+   * ApplicationDraft updateMany
+   */
+  export type ApplicationDraftUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ApplicationDrafts.
+     */
+    data: XOR<ApplicationDraftUpdateManyMutationInput, ApplicationDraftUncheckedUpdateManyInput>
+    /**
+     * Filter which ApplicationDrafts to update
+     */
+    where?: ApplicationDraftWhereInput
+    /**
+     * Limit how many ApplicationDrafts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ApplicationDraft updateManyAndReturn
+   */
+  export type ApplicationDraftUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationDraft
+     */
+    select?: ApplicationDraftSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApplicationDraft
+     */
+    omit?: ApplicationDraftOmit<ExtArgs> | null
+    /**
+     * The data used to update ApplicationDrafts.
+     */
+    data: XOR<ApplicationDraftUpdateManyMutationInput, ApplicationDraftUncheckedUpdateManyInput>
+    /**
+     * Filter which ApplicationDrafts to update
+     */
+    where?: ApplicationDraftWhereInput
+    /**
+     * Limit how many ApplicationDrafts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ApplicationDraft upsert
+   */
+  export type ApplicationDraftUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationDraft
+     */
+    select?: ApplicationDraftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApplicationDraft
+     */
+    omit?: ApplicationDraftOmit<ExtArgs> | null
+    /**
+     * The filter to search for the ApplicationDraft to update in case it exists.
+     */
+    where: ApplicationDraftWhereUniqueInput
+    /**
+     * In case the ApplicationDraft found by the `where` argument doesn't exist, create a new ApplicationDraft with this data.
+     */
+    create: XOR<ApplicationDraftCreateInput, ApplicationDraftUncheckedCreateInput>
+    /**
+     * In case the ApplicationDraft was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ApplicationDraftUpdateInput, ApplicationDraftUncheckedUpdateInput>
+  }
+
+  /**
+   * ApplicationDraft delete
+   */
+  export type ApplicationDraftDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationDraft
+     */
+    select?: ApplicationDraftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApplicationDraft
+     */
+    omit?: ApplicationDraftOmit<ExtArgs> | null
+    /**
+     * Filter which ApplicationDraft to delete.
+     */
+    where: ApplicationDraftWhereUniqueInput
+  }
+
+  /**
+   * ApplicationDraft deleteMany
+   */
+  export type ApplicationDraftDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ApplicationDrafts to delete
+     */
+    where?: ApplicationDraftWhereInput
+    /**
+     * Limit how many ApplicationDrafts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ApplicationDraft without action
+   */
+  export type ApplicationDraftDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationDraft
+     */
+    select?: ApplicationDraftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApplicationDraft
+     */
+    omit?: ApplicationDraftOmit<ExtArgs> | null
   }
 
 
@@ -9985,10 +11153,25 @@ export namespace Prisma {
     email: 'email',
     phoneNumber: 'phoneNumber',
     message: 'message',
-    leaseId: 'leaseId'
+    leaseId: 'leaseId',
+    documentUrls: 'documentUrls'
   };
 
   export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
+
+
+  export const ApplicationDraftScalarFieldEnum: {
+    id: 'id',
+    propertyId: 'propertyId',
+    tenantCognitoId: 'tenantCognitoId',
+    data: 'data',
+    currentStep: 'currentStep',
+    documentUrls: 'documentUrls',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ApplicationDraftScalarFieldEnum = (typeof ApplicationDraftScalarFieldEnum)[keyof typeof ApplicationDraftScalarFieldEnum]
 
 
   export const LeaseScalarFieldEnum: {
@@ -10025,6 +11208,13 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
@@ -10039,6 +11229,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -10162,6 +11361,13 @@ export namespace Prisma {
    * Reference to a field of type 'ApplicationStatus[]'
    */
   export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
 
 
@@ -10528,6 +11734,7 @@ export namespace Prisma {
     phoneNumber?: StringFilter<"Application"> | string
     message?: StringNullableFilter<"Application"> | string | null
     leaseId?: IntNullableFilter<"Application"> | number | null
+    documentUrls?: StringNullableListFilter<"Application">
     property?: XOR<PropertyScalarRelationFilter, PropertyWhereInput>
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     lease?: XOR<LeaseNullableScalarRelationFilter, LeaseWhereInput> | null
@@ -10544,6 +11751,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     message?: SortOrderInput | SortOrder
     leaseId?: SortOrderInput | SortOrder
+    documentUrls?: SortOrder
     property?: PropertyOrderByWithRelationInput
     tenant?: TenantOrderByWithRelationInput
     lease?: LeaseOrderByWithRelationInput
@@ -10563,6 +11771,7 @@ export namespace Prisma {
     email?: StringFilter<"Application"> | string
     phoneNumber?: StringFilter<"Application"> | string
     message?: StringNullableFilter<"Application"> | string | null
+    documentUrls?: StringNullableListFilter<"Application">
     property?: XOR<PropertyScalarRelationFilter, PropertyWhereInput>
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     lease?: XOR<LeaseNullableScalarRelationFilter, LeaseWhereInput> | null
@@ -10579,6 +11788,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     message?: SortOrderInput | SortOrder
     leaseId?: SortOrderInput | SortOrder
+    documentUrls?: SortOrder
     _count?: ApplicationCountOrderByAggregateInput
     _avg?: ApplicationAvgOrderByAggregateInput
     _max?: ApplicationMaxOrderByAggregateInput
@@ -10600,6 +11810,76 @@ export namespace Prisma {
     phoneNumber?: StringWithAggregatesFilter<"Application"> | string
     message?: StringNullableWithAggregatesFilter<"Application"> | string | null
     leaseId?: IntNullableWithAggregatesFilter<"Application"> | number | null
+    documentUrls?: StringNullableListFilter<"Application">
+  }
+
+  export type ApplicationDraftWhereInput = {
+    AND?: ApplicationDraftWhereInput | ApplicationDraftWhereInput[]
+    OR?: ApplicationDraftWhereInput[]
+    NOT?: ApplicationDraftWhereInput | ApplicationDraftWhereInput[]
+    id?: IntFilter<"ApplicationDraft"> | number
+    propertyId?: IntFilter<"ApplicationDraft"> | number
+    tenantCognitoId?: StringFilter<"ApplicationDraft"> | string
+    data?: JsonFilter<"ApplicationDraft">
+    currentStep?: IntFilter<"ApplicationDraft"> | number
+    documentUrls?: StringNullableListFilter<"ApplicationDraft">
+    createdAt?: DateTimeFilter<"ApplicationDraft"> | Date | string
+    updatedAt?: DateTimeFilter<"ApplicationDraft"> | Date | string
+  }
+
+  export type ApplicationDraftOrderByWithRelationInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+    tenantCognitoId?: SortOrder
+    data?: SortOrder
+    currentStep?: SortOrder
+    documentUrls?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ApplicationDraftWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ApplicationDraftWhereInput | ApplicationDraftWhereInput[]
+    OR?: ApplicationDraftWhereInput[]
+    NOT?: ApplicationDraftWhereInput | ApplicationDraftWhereInput[]
+    propertyId?: IntFilter<"ApplicationDraft"> | number
+    tenantCognitoId?: StringFilter<"ApplicationDraft"> | string
+    data?: JsonFilter<"ApplicationDraft">
+    currentStep?: IntFilter<"ApplicationDraft"> | number
+    documentUrls?: StringNullableListFilter<"ApplicationDraft">
+    createdAt?: DateTimeFilter<"ApplicationDraft"> | Date | string
+    updatedAt?: DateTimeFilter<"ApplicationDraft"> | Date | string
+  }, "id">
+
+  export type ApplicationDraftOrderByWithAggregationInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+    tenantCognitoId?: SortOrder
+    data?: SortOrder
+    currentStep?: SortOrder
+    documentUrls?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ApplicationDraftCountOrderByAggregateInput
+    _avg?: ApplicationDraftAvgOrderByAggregateInput
+    _max?: ApplicationDraftMaxOrderByAggregateInput
+    _min?: ApplicationDraftMinOrderByAggregateInput
+    _sum?: ApplicationDraftSumOrderByAggregateInput
+  }
+
+  export type ApplicationDraftScalarWhereWithAggregatesInput = {
+    AND?: ApplicationDraftScalarWhereWithAggregatesInput | ApplicationDraftScalarWhereWithAggregatesInput[]
+    OR?: ApplicationDraftScalarWhereWithAggregatesInput[]
+    NOT?: ApplicationDraftScalarWhereWithAggregatesInput | ApplicationDraftScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ApplicationDraft"> | number
+    propertyId?: IntWithAggregatesFilter<"ApplicationDraft"> | number
+    tenantCognitoId?: StringWithAggregatesFilter<"ApplicationDraft"> | string
+    data?: JsonWithAggregatesFilter<"ApplicationDraft">
+    currentStep?: IntWithAggregatesFilter<"ApplicationDraft"> | number
+    documentUrls?: StringNullableListFilter<"ApplicationDraft">
+    createdAt?: DateTimeWithAggregatesFilter<"ApplicationDraft"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ApplicationDraft"> | Date | string
   }
 
   export type LeaseWhereInput = {
@@ -11086,6 +12366,7 @@ export namespace Prisma {
     email: string
     phoneNumber: string
     message?: string | null
+    documentUrls?: ApplicationCreatedocumentUrlsInput | string[]
     property: PropertyCreateNestedOneWithoutApplicationsInput
     tenant: TenantCreateNestedOneWithoutApplicationsInput
     lease?: LeaseCreateNestedOneWithoutApplicationInput
@@ -11102,6 +12383,7 @@ export namespace Prisma {
     phoneNumber: string
     message?: string | null
     leaseId?: number | null
+    documentUrls?: ApplicationCreatedocumentUrlsInput | string[]
   }
 
   export type ApplicationUpdateInput = {
@@ -11111,6 +12393,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
+    documentUrls?: ApplicationUpdatedocumentUrlsInput | string[]
     property?: PropertyUpdateOneRequiredWithoutApplicationsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutApplicationsNestedInput
     lease?: LeaseUpdateOneWithoutApplicationNestedInput
@@ -11127,6 +12410,7 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    documentUrls?: ApplicationUpdatedocumentUrlsInput | string[]
   }
 
   export type ApplicationCreateManyInput = {
@@ -11140,6 +12424,7 @@ export namespace Prisma {
     phoneNumber: string
     message?: string | null
     leaseId?: number | null
+    documentUrls?: ApplicationCreatedocumentUrlsInput | string[]
   }
 
   export type ApplicationUpdateManyMutationInput = {
@@ -11149,6 +12434,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
+    documentUrls?: ApplicationUpdatedocumentUrlsInput | string[]
   }
 
   export type ApplicationUncheckedUpdateManyInput = {
@@ -11162,6 +12448,81 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    documentUrls?: ApplicationUpdatedocumentUrlsInput | string[]
+  }
+
+  export type ApplicationDraftCreateInput = {
+    propertyId: number
+    tenantCognitoId: string
+    data: JsonNullValueInput | InputJsonValue
+    currentStep: number
+    documentUrls?: ApplicationDraftCreatedocumentUrlsInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ApplicationDraftUncheckedCreateInput = {
+    id?: number
+    propertyId: number
+    tenantCognitoId: string
+    data: JsonNullValueInput | InputJsonValue
+    currentStep: number
+    documentUrls?: ApplicationDraftCreatedocumentUrlsInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ApplicationDraftUpdateInput = {
+    propertyId?: IntFieldUpdateOperationsInput | number
+    tenantCognitoId?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    currentStep?: IntFieldUpdateOperationsInput | number
+    documentUrls?: ApplicationDraftUpdatedocumentUrlsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApplicationDraftUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    propertyId?: IntFieldUpdateOperationsInput | number
+    tenantCognitoId?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    currentStep?: IntFieldUpdateOperationsInput | number
+    documentUrls?: ApplicationDraftUpdatedocumentUrlsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApplicationDraftCreateManyInput = {
+    id?: number
+    propertyId: number
+    tenantCognitoId: string
+    data: JsonNullValueInput | InputJsonValue
+    currentStep: number
+    documentUrls?: ApplicationDraftCreatedocumentUrlsInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ApplicationDraftUpdateManyMutationInput = {
+    propertyId?: IntFieldUpdateOperationsInput | number
+    tenantCognitoId?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    currentStep?: IntFieldUpdateOperationsInput | number
+    documentUrls?: ApplicationDraftUpdatedocumentUrlsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApplicationDraftUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    propertyId?: IntFieldUpdateOperationsInput | number
+    tenantCognitoId?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    currentStep?: IntFieldUpdateOperationsInput | number
+    documentUrls?: ApplicationDraftUpdatedocumentUrlsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LeaseCreateInput = {
@@ -11814,6 +13175,7 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     message?: SortOrder
     leaseId?: SortOrder
+    documentUrls?: SortOrder
   }
 
   export type ApplicationAvgOrderByAggregateInput = {
@@ -11880,6 +13242,94 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+  export type JsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type ApplicationDraftCountOrderByAggregateInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+    tenantCognitoId?: SortOrder
+    data?: SortOrder
+    currentStep?: SortOrder
+    documentUrls?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ApplicationDraftAvgOrderByAggregateInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+    currentStep?: SortOrder
+  }
+
+  export type ApplicationDraftMaxOrderByAggregateInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+    tenantCognitoId?: SortOrder
+    currentStep?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ApplicationDraftMinOrderByAggregateInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+    tenantCognitoId?: SortOrder
+    currentStep?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ApplicationDraftSumOrderByAggregateInput = {
+    id?: SortOrder
+    propertyId?: SortOrder
+    currentStep?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type ApplicationNullableScalarRelationFilter = {
@@ -12495,6 +13945,10 @@ export namespace Prisma {
     deleteMany?: PropertyScalarWhereInput | PropertyScalarWhereInput[]
   }
 
+  export type ApplicationCreatedocumentUrlsInput = {
+    set: string[]
+  }
+
   export type PropertyCreateNestedOneWithoutApplicationsInput = {
     create?: XOR<PropertyCreateWithoutApplicationsInput, PropertyUncheckedCreateWithoutApplicationsInput>
     connectOrCreate?: PropertyCreateOrConnectWithoutApplicationsInput
@@ -12521,6 +13975,11 @@ export namespace Prisma {
     set?: string | null
   }
 
+  export type ApplicationUpdatedocumentUrlsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
   export type PropertyUpdateOneRequiredWithoutApplicationsNestedInput = {
     create?: XOR<PropertyCreateWithoutApplicationsInput, PropertyUncheckedCreateWithoutApplicationsInput>
     connectOrCreate?: PropertyCreateOrConnectWithoutApplicationsInput
@@ -12545,6 +14004,15 @@ export namespace Prisma {
     delete?: LeaseWhereInput | boolean
     connect?: LeaseWhereUniqueInput
     update?: XOR<XOR<LeaseUpdateToOneWithWhereWithoutApplicationInput, LeaseUpdateWithoutApplicationInput>, LeaseUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type ApplicationDraftCreatedocumentUrlsInput = {
+    set: string[]
+  }
+
+  export type ApplicationDraftUpdatedocumentUrlsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type PropertyCreateNestedOneWithoutLeasesInput = {
@@ -12908,6 +14376,28 @@ export namespace Prisma {
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
+  export type NestedJsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
@@ -12984,6 +14474,7 @@ export namespace Prisma {
     email: string
     phoneNumber: string
     message?: string | null
+    documentUrls?: ApplicationCreatedocumentUrlsInput | string[]
     tenant: TenantCreateNestedOneWithoutApplicationsInput
     lease?: LeaseCreateNestedOneWithoutApplicationInput
   }
@@ -12998,6 +14489,7 @@ export namespace Prisma {
     phoneNumber: string
     message?: string | null
     leaseId?: number | null
+    documentUrls?: ApplicationCreatedocumentUrlsInput | string[]
   }
 
   export type ApplicationCreateOrConnectWithoutPropertyInput = {
@@ -13169,6 +14661,7 @@ export namespace Prisma {
     phoneNumber?: StringFilter<"Application"> | string
     message?: StringNullableFilter<"Application"> | string | null
     leaseId?: IntNullableFilter<"Application"> | number | null
+    documentUrls?: StringNullableListFilter<"Application">
   }
 
   export type TenantUpsertWithWhereUniqueWithoutFavoritesInput = {
@@ -13436,6 +14929,7 @@ export namespace Prisma {
     email: string
     phoneNumber: string
     message?: string | null
+    documentUrls?: ApplicationCreatedocumentUrlsInput | string[]
     property: PropertyCreateNestedOneWithoutApplicationsInput
     lease?: LeaseCreateNestedOneWithoutApplicationInput
   }
@@ -13450,6 +14944,7 @@ export namespace Prisma {
     phoneNumber: string
     message?: string | null
     leaseId?: number | null
+    documentUrls?: ApplicationCreatedocumentUrlsInput | string[]
   }
 
   export type ApplicationCreateOrConnectWithoutTenantInput = {
@@ -13957,6 +15452,7 @@ export namespace Prisma {
     email: string
     phoneNumber: string
     message?: string | null
+    documentUrls?: ApplicationCreatedocumentUrlsInput | string[]
     property: PropertyCreateNestedOneWithoutApplicationsInput
     tenant: TenantCreateNestedOneWithoutApplicationsInput
   }
@@ -13971,6 +15467,7 @@ export namespace Prisma {
     email: string
     phoneNumber: string
     message?: string | null
+    documentUrls?: ApplicationCreatedocumentUrlsInput | string[]
   }
 
   export type ApplicationCreateOrConnectWithoutLeaseInput = {
@@ -14117,6 +15614,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
+    documentUrls?: ApplicationUpdatedocumentUrlsInput | string[]
     property?: PropertyUpdateOneRequiredWithoutApplicationsNestedInput
     tenant?: TenantUpdateOneRequiredWithoutApplicationsNestedInput
   }
@@ -14131,6 +15629,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
+    documentUrls?: ApplicationUpdatedocumentUrlsInput | string[]
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutLeaseInput = {
@@ -14239,6 +15738,7 @@ export namespace Prisma {
     phoneNumber: string
     message?: string | null
     leaseId?: number | null
+    documentUrls?: ApplicationCreatedocumentUrlsInput | string[]
   }
 
   export type LeaseUpdateWithoutPropertyInput = {
@@ -14278,6 +15778,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
+    documentUrls?: ApplicationUpdatedocumentUrlsInput | string[]
     tenant?: TenantUpdateOneRequiredWithoutApplicationsNestedInput
     lease?: LeaseUpdateOneWithoutApplicationNestedInput
   }
@@ -14292,6 +15793,7 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    documentUrls?: ApplicationUpdatedocumentUrlsInput | string[]
   }
 
   export type ApplicationUncheckedUpdateManyWithoutPropertyInput = {
@@ -14304,6 +15806,7 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    documentUrls?: ApplicationUpdatedocumentUrlsInput | string[]
   }
 
   export type TenantUpdateWithoutFavoritesInput = {
@@ -14469,6 +15972,7 @@ export namespace Prisma {
     phoneNumber: string
     message?: string | null
     leaseId?: number | null
+    documentUrls?: ApplicationCreatedocumentUrlsInput | string[]
   }
 
   export type LeaseCreateManyTenantInput = {
@@ -14635,6 +16139,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
+    documentUrls?: ApplicationUpdatedocumentUrlsInput | string[]
     property?: PropertyUpdateOneRequiredWithoutApplicationsNestedInput
     lease?: LeaseUpdateOneWithoutApplicationNestedInput
   }
@@ -14649,6 +16154,7 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    documentUrls?: ApplicationUpdatedocumentUrlsInput | string[]
   }
 
   export type ApplicationUncheckedUpdateManyWithoutTenantInput = {
@@ -14661,6 +16167,7 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    documentUrls?: ApplicationUpdatedocumentUrlsInput | string[]
   }
 
   export type LeaseUpdateWithoutTenantInput = {
