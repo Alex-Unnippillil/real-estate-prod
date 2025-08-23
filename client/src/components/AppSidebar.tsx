@@ -16,6 +16,7 @@ import {
   Home,
   Menu,
   Settings,
+  Users,
   X,
 } from "lucide-react";
 import { NAVBAR_HEIGHT } from "@/lib/constants";
@@ -35,6 +36,7 @@ const AppSidebar = ({ userType }: AppSidebarProps) => {
             label: "Applications",
             href: "/managers/applications",
           },
+          { icon: Users, label: "Team", href: "/managers/team" },
           { icon: Settings, label: "Settings", href: "/managers/settings" },
         ]
       : [
