@@ -20,7 +20,7 @@ const Favorites = () => {
   );
 
   const {
-    data: favoriteProperties,
+    data: favoritesResult,
     isLoading,
     error,
   } = useGetPropertiesQuery(
@@ -38,7 +38,7 @@ const Favorites = () => {
         subtitle="Browse and manage your saved property listings"
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {favoriteProperties?.map((property) => (
+        {favoritesResult?.properties?.map((property) => (
           <Card
             key={property.id}
             property={property}
@@ -49,7 +49,7 @@ const Favorites = () => {
           />
         ))}
       </div>
-      {(!favoriteProperties || favoriteProperties.length === 0) && (
+      {(!favoritesResult || favoritesResult.properties.length === 0) && (
         <p>You don&lsquo;t have any favorited properties</p>
       )}
     </div>

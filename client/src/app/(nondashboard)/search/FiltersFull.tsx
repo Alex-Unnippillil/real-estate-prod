@@ -8,7 +8,7 @@ import { cleanParams, cn, formatEnumString } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
-import { AmenityIcons, PropertyTypeIcons } from "@/lib/constants";
+import { AmenityIcons, PropertyTypeIcons, AmenityEnum } from "@/lib/constants";
 import { Slider } from "@/components/ui/slider";
 import {
   Select,
@@ -18,6 +18,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import { useGetPropertiesQuery } from "@/state/api";
 
 const FiltersFull = () => {
   const dispatch = useDispatch();
@@ -28,6 +30,9 @@ const FiltersFull = () => {
   const isFiltersFullOpen = useAppSelector(
     (state) => state.global.isFiltersFullOpen
   );
+
+  const { data: result } = useGetPropertiesQuery(localFilters);
+  const amenityCounts = result?.amenityCounts || {};
 
   const updateURL = debounce((newFilters: FiltersState) => {
     const cleanFilters = cleanParams(newFilters);
@@ -252,6 +257,9 @@ const FiltersFull = () => {
                 <Label className="hover:cursor-pointer">
                   {formatEnumString(amenity)}
                 </Label>
+                <Badge variant="secondary" className="ml-auto">
+                  {amenityCounts[amenity] ?? 0}
+                </Badge>
               </div>
             ))}
           </div>

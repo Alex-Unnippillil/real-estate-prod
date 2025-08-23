@@ -77,7 +77,7 @@ export const api = createApi({
 
     // property related endpoints
     getProperties: build.query<
-      Property[],
+      { properties: Property[]; amenityCounts: Record<string, number> },
       Partial<FiltersState> & { favoriteIds?: number[] }
     >({
       query: (filters) => {
@@ -102,7 +102,10 @@ export const api = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: "Properties" as const, id })),
+              ...result.properties.map(({ id }) => ({
+                type: "Properties" as const,
+                id,
+              })),
               { type: "Properties", id: "LIST" },
             ]
           : [{ type: "Properties", id: "LIST" }],

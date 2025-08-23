@@ -31,57 +31,59 @@ export const getProperties = async (
       latitude,
       longitude,
     } = req.query;
-
-    let whereConditions: Prisma.Sql[] = [];
+    // Conditions used for both property search and amenity counts
+    const baseConditions: Prisma.Sql[] = [];
+    // Separate amenity condition so we can exclude it from counts query
+    let amenityCondition: Prisma.Sql | null = null;
 
     if (favoriteIds) {
       const favoriteIdsArray = (favoriteIds as string).split(",").map(Number);
-      whereConditions.push(
+      baseConditions.push(
         Prisma.sql`p.id IN (${Prisma.join(favoriteIdsArray)})`
       );
     }
 
     if (priceMin) {
-      whereConditions.push(
+      baseConditions.push(
         Prisma.sql`p."pricePerMonth" >= ${Number(priceMin)}`
       );
     }
 
     if (priceMax) {
-      whereConditions.push(
+      baseConditions.push(
         Prisma.sql`p."pricePerMonth" <= ${Number(priceMax)}`
       );
     }
 
     if (beds && beds !== "any") {
-      whereConditions.push(Prisma.sql`p.beds >= ${Number(beds)}`);
+      baseConditions.push(Prisma.sql`p.beds >= ${Number(beds)}`);
     }
 
     if (baths && baths !== "any") {
-      whereConditions.push(Prisma.sql`p.baths >= ${Number(baths)}`);
+      baseConditions.push(Prisma.sql`p.baths >= ${Number(baths)}`);
     }
 
     if (squareFeetMin) {
-      whereConditions.push(
+      baseConditions.push(
         Prisma.sql`p."squareFeet" >= ${Number(squareFeetMin)}`
       );
     }
 
     if (squareFeetMax) {
-      whereConditions.push(
+      baseConditions.push(
         Prisma.sql`p."squareFeet" <= ${Number(squareFeetMax)}`
       );
     }
 
     if (propertyType && propertyType !== "any") {
-      whereConditions.push(
+      baseConditions.push(
         Prisma.sql`p."propertyType" = ${propertyType}::"PropertyType"`
       );
     }
 
     if (amenities && amenities !== "any") {
       const amenitiesArray = (amenities as string).split(",");
-      whereConditions.push(Prisma.sql`p.amenities @> ${amenitiesArray}`);
+      amenityCondition = Prisma.sql`p.amenities @> ${amenitiesArray}`;
     }
 
     if (availableFrom && availableFrom !== "any") {
@@ -90,10 +92,10 @@ export const getProperties = async (
       if (availableFromDate) {
         const date = new Date(availableFromDate);
         if (!isNaN(date.getTime())) {
-          whereConditions.push(
+          baseConditions.push(
             Prisma.sql`EXISTS (
-              SELECT 1 FROM "Lease" l 
-              WHERE l."propertyId" = p.id 
+              SELECT 1 FROM "Lease" l
+              WHERE l."propertyId" = p.id
               AND l."startDate" <= ${date.toISOString()}
             )`
           );
@@ -107,7 +109,7 @@ export const getProperties = async (
       const radiusInKilometers = 1000;
       const degrees = radiusInKilometers / 111; // Converts kilometers to degrees
 
-      whereConditions.push(
+      baseConditions.push(
         Prisma.sql`ST_DWithin(
           l.coordinates::geometry,
           ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326),
@@ -116,8 +118,12 @@ export const getProperties = async (
       );
     }
 
+    const whereConditions = amenityCondition
+      ? [...baseConditions, amenityCondition]
+      : baseConditions;
+
     const completeQuery = Prisma.sql`
-      SELECT 
+      SELECT
         p.*,
         json_build_object(
           'id', l.id,
@@ -139,10 +145,35 @@ export const getProperties = async (
           : Prisma.empty
       }
     `;
+    const baseWhereClause =
+      baseConditions.length > 0
+        ? Prisma.sql`WHERE ${Prisma.join(baseConditions, " AND ")}`
+        : Prisma.empty;
+
+    const amenityCountsQuery = Prisma.sql`
+      SELECT amenity, COUNT(*)::int as count
+      FROM (
+        SELECT UNNEST(p.amenities) AS amenity
+        FROM "Property" p
+        JOIN "Location" l ON p."locationId" = l.id
+        ${baseWhereClause}
+      ) AS a
+      GROUP BY amenity
+    `;
 
     const properties = await prisma.$queryRaw(completeQuery);
+    const amenityCountsRaw: { amenity: string; count: number }[] =
+      await prisma.$queryRaw(amenityCountsQuery);
 
-    res.json(properties);
+    const amenityCounts = amenityCountsRaw.reduce(
+      (acc: Record<string, number>, { amenity, count }) => {
+        acc[amenity] = Number(count);
+        return acc;
+      },
+      {}
+    );
+
+    res.json({ properties, amenityCounts });
   } catch (error: any) {
     res
       .status(500)

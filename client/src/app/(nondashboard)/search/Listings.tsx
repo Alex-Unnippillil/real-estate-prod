@@ -25,7 +25,7 @@ const Listings = () => {
   const filters = useAppSelector((state) => state.global.filters);
 
   const {
-    data: properties,
+    data: result,
     isLoading,
     isError,
   } = useGetPropertiesQuery(filters);
@@ -51,19 +51,19 @@ const Listings = () => {
   };
 
   if (isLoading) return <>Loading...</>;
-  if (isError || !properties) return <div>Failed to fetch properties</div>;
+  if (isError || !result) return <div>Failed to fetch properties</div>;
 
   return (
     <div className="w-full">
       <h3 className="text-sm px-4 font-bold">
-        {properties.length}{" "}
+        {result.properties.length}{" "}
         <span className="text-gray-700 font-normal">
           Places in {filters.location}
         </span>
       </h3>
       <div className="flex">
         <div className="p-4 w-full">
-          {properties?.map((property) =>
+          {result.properties?.map((property) =>
             viewMode === "grid" ? (
               <Card
                 key={property.id}
