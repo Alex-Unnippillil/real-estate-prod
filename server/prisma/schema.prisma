@@ -65,6 +65,12 @@ enum PaymentStatus {
   Overdue
 }
 
+enum TeamRole {
+  Owner
+  Admin
+  Member
+}
+
 model Property {
   id                Int          @id @default(autoincrement())
   name              String
@@ -103,6 +109,7 @@ model Manager {
   phoneNumber String
 
   managedProperties Property[]
+  teamMembers       TeamMember[]
 }
 
 model Tenant {
@@ -116,6 +123,15 @@ model Tenant {
   favorites    Property[]    @relation("TenantFavorites")
   applications Application[]
   leases       Lease[]
+}
+
+model TeamMember {
+  id                Int      @id @default(autoincrement())
+  email             String
+  role              TeamRole @default(Member)
+  managerCognitoId  String
+
+  manager Manager @relation(fields: [managerCognitoId], references: [cognitoId], onDelete: Cascade)
 }
 
 model Location {

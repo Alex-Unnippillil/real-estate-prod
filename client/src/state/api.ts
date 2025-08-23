@@ -6,6 +6,7 @@ import {
   Payment,
   Property,
   Tenant,
+  TeamMember,
 } from "@/types/prismaTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
@@ -32,6 +33,7 @@ export const api = createApi({
     "Leases",
     "Payments",
     "Applications",
+    "TeamMembers",
   ],
   endpoints: (build) => ({
     getAuthUser: build.query<User, void>({
@@ -348,6 +350,70 @@ export const api = createApi({
         });
       },
     }),
+
+    // team member related endpoints
+    getTeamMembers: build.query<TeamMember[], string>({
+      query: (cognitoId) => `managers/${cognitoId}/team`,
+      providesTags: ["TeamMembers"],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          error: "Failed to fetch team members.",
+        });
+      },
+    }),
+
+    inviteTeamMember: build.mutation<
+      TeamMember,
+      { cognitoId: string; email: string; role: string }
+    >({
+      query: ({ cognitoId, email, role }) => ({
+        url: `managers/${cognitoId}/team/invite`,
+        method: "POST",
+        body: { email, role },
+      }),
+      invalidatesTags: ["TeamMembers"],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: "Invitation sent!",
+          error: "Failed to invite team member.",
+        });
+      },
+    }),
+
+    updateTeamMemberRole: build.mutation<
+      TeamMember,
+      { cognitoId: string; memberId: number; role: string }
+    >({
+      query: ({ cognitoId, memberId, role }) => ({
+        url: `managers/${cognitoId}/team/${memberId}`,
+        method: "PUT",
+        body: { role },
+      }),
+      invalidatesTags: ["TeamMembers"],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: "Role updated!",
+          error: "Failed to update role.",
+        });
+      },
+    }),
+
+    removeTeamMember: build.mutation<
+      void,
+      { cognitoId: string; memberId: number }
+    >({
+      query: ({ cognitoId, memberId }) => ({
+        url: `managers/${cognitoId}/team/${memberId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["TeamMembers"],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: "Team member removed!",
+          error: "Failed to remove team member.",
+        });
+      },
+    }),
   }),
 });
 
@@ -369,4 +435,8 @@ export const {
   useGetApplicationsQuery,
   useUpdateApplicationStatusMutation,
   useCreateApplicationMutation,
+  useGetTeamMembersQuery,
+  useInviteTeamMemberMutation,
+  useUpdateTeamMemberRoleMutation,
+  useRemoveTeamMemberMutation,
 } = api;
