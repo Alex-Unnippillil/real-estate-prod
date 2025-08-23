@@ -6,6 +6,7 @@ import {
   Payment,
   Property,
   Tenant,
+  Notification,
 } from "@/types/prismaTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
@@ -32,6 +33,7 @@ export const api = createApi({
     "Leases",
     "Payments",
     "Applications",
+    "Notifications",
   ],
   endpoints: (build) => ({
     getAuthUser: build.query<User, void>({
@@ -348,6 +350,84 @@ export const api = createApi({
         });
       },
     }),
+
+    // notification related endpoints
+    getNotifications: build.query<Notification[], string>({
+      query: (cognitoId) => `notifications/${cognitoId}`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: "Notifications" as const, id })),
+              { type: "Notifications", id: "LIST" },
+            ]
+          : [{ type: "Notifications", id: "LIST" }],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          error: "Failed to load notifications.",
+        });
+      },
+    }),
+
+    createNotification: build.mutation<
+      Notification,
+      Pick<Notification, "recipientId" | "message">
+    >({
+      query: (body) => ({
+        url: `notifications`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: [{ type: "Notifications", id: "LIST" }],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: "Notification created!",
+          error: "Failed to create notification.",
+        });
+      },
+    }),
+
+    updateNotification: build.mutation<
+      Notification,
+      { id: number } & Partial<Notification>
+    >({
+      query: ({ id, ...body }) => ({
+        url: `notifications/${id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Notifications", id: arg.id },
+        { type: "Notifications", id: "LIST" },
+      ],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: "Notification updated!",
+          error: "Failed to update notification.",
+        });
+      },
+    }),
+
+    deleteNotification: build.mutation<void, number>({
+      query: (id) => ({
+        url: `notifications/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [{ type: "Notifications", id: "LIST" }],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: "Notification deleted!",
+          error: "Failed to delete notification.",
+        });
+      },
+    }),
+
+    markNotificationsRead: build.mutation<void, string>({
+      query: (cognitoId) => ({
+        url: `notifications/${cognitoId}/mark-read`,
+        method: "PUT",
+      }),
+      invalidatesTags: [{ type: "Notifications", id: "LIST" }],
+    }),
   }),
 });
 
@@ -369,4 +449,9 @@ export const {
   useGetApplicationsQuery,
   useUpdateApplicationStatusMutation,
   useCreateApplicationMutation,
+  useGetNotificationsQuery,
+  useCreateNotificationMutation,
+  useUpdateNotificationMutation,
+  useDeleteNotificationMutation,
+  useMarkNotificationsReadMutation,
 } = api;

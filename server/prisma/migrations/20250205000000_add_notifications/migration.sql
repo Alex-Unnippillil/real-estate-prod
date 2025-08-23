@@ -1,0 +1,7 @@
+CREATE TABLE "Notification" (
+  "id" SERIAL PRIMARY KEY,
+  "recipientId" TEXT NOT NULL,
+  "message" TEXT NOT NULL,
+  "isRead" BOOLEAN NOT NULL DEFAULT false,
+  "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
