@@ -126,9 +126,11 @@ model Location {
   state       String
   country     String
   postalCode  String
-  coordinates Unsupported("geography(Point, 4326)")
+  coordinates Unsupported("geometry(Point, 4326)")
 
   properties Property[]
+
+  @@index([coordinates], type: Gist)
 }
 
 model Application {

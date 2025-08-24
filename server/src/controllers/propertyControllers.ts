@@ -31,6 +31,7 @@ export const getProperties = async (
       availableFrom,
       latitude,
       longitude,
+      radius,
     } = req.query;
 
     let whereConditions: Prisma.Sql[] = [];
@@ -102,17 +103,16 @@ export const getProperties = async (
       }
     }
 
-    if (latitude && longitude) {
+    if (latitude && longitude && radius) {
       const lat = parseFloat(latitude as string);
       const lng = parseFloat(longitude as string);
-      const radiusInKilometers = 1000;
-      const degrees = radiusInKilometers / 111; // Converts kilometers to degrees
+      const radiusInMeters = parseFloat(radius as string) * 1000;
 
       whereConditions.push(
         Prisma.sql`ST_DWithin(
-          l.coordinates::geometry,
-          ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326),
-          ${degrees}
+          l.coordinates::geography,
+          ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)::geography,
+          ${radiusInMeters}
         )`
       );
     }
