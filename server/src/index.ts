@@ -5,6 +5,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import { env } from "../../packages/shared/config/env";
 import { authMiddleware } from "./middleware/authMiddleware";
+import { securityHeaders } from "./middleware/securityHeaders";
 /* ROUTE IMPORT */
 import tenantRoutes from "./routes/tenantRoutes";
 import managerRoutes from "./routes/managerRoutes";
@@ -21,6 +22,7 @@ app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+app.use(securityHeaders);
 
 /* ROUTES */
 app.get("/", (req, res) => {

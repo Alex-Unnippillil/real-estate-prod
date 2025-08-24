@@ -34,3 +34,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Security Headers
+
+The application sends a strict Content Security Policy and other HTTP security headers. A per-request nonce is required for any inline scripts or styles. See the [Security Policy](../SECURITY.md) for details on updating the policy when adding external resources.

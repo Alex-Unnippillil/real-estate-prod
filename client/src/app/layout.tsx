@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
@@ -24,8 +25,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const nonce = headers().get("x-nonce") ?? "";
   return (
-    <html lang="en">
+    <html lang="en" data-nonce={nonce}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
