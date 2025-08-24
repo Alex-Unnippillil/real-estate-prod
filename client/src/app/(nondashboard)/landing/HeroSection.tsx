@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setFilters } from "@/state";
+import { env } from "../../../../../packages/shared/config/env";
 
 const HeroSection = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const HeroSection = () => {
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
           trimmedQuery
         )}.json?access_token=${
-          process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
+          env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
         }&fuzzyMatch=true`
       );
       const data = await response.json();
