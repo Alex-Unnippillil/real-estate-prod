@@ -15,7 +15,7 @@ const CardCompact = ({
   );
 
   return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-lg w-full flex h-40 mb-5">
+    <div className="bg-card rounded-xl overflow-hidden shadow-lg w-full flex h-40 mb-5">
       <div className="relative w-1/3">
         <Image
           src={imgSrc}
@@ -27,12 +27,12 @@ const CardCompact = ({
         />
         <div className="absolute bottom-2 left-2 flex gap-1 flex-col">
           {property.isPetsAllowed && (
-            <span className="bg-white/80 text-black text-xs font-semibold px-2 py-1 rounded-full w-fit">
+            <span className="bg-background/80 text-foreground text-xs font-semibold px-2 py-1 rounded-full w-fit">
               Pets
             </span>
           )}
           {property.isParkingIncluded && (
-            <span className="bg-white/80 text-black text-xs font-semibold px-2 py-1 rounded-full">
+            <span className="bg-background/80 text-foreground text-xs font-semibold px-2 py-1 rounded-full">
               Parking
             </span>
           )}
@@ -56,7 +56,7 @@ const CardCompact = ({
             </h2>
             {showFavoriteButton && (
               <button
-                className="bg-white rounded-full p-1"
+                className="bg-background rounded-full p-1"
                 onClick={onFavoriteToggle}
               >
                 <Heart
@@ -67,21 +67,21 @@ const CardCompact = ({
               </button>
             )}
           </div>
-          <p className="text-gray-600 mb-1 text-sm">
+          <p className="text-muted-foreground mb-1 text-sm">
             {property?.location?.address}, {property?.location?.city}
           </p>
           <div className="flex text-sm items-center">
-            <Star className="w-3 h-3 text-yellow-400 mr-1" />
+            <Star className="w-3 h-3 text-primary mr-1" />
             <span className="font-semibold">
               {property.averageRating.toFixed(1)}
             </span>
-            <span className="text-gray-600 ml-1">
+            <span className="text-muted-foreground ml-1">
               ({property.numberOfReviews})
             </span>
           </div>
         </div>
         <div className="flex justify-between items-center text-sm">
-          <div className="flex gap-2 text-gray-600">
+          <div className="flex gap-2 text-muted-foreground">
             <span className="flex items-center">
               <Bed className="w-4 h-4 mr-1" />
               {property.beds}
@@ -98,7 +98,7 @@ const CardCompact = ({
 
           <p className="text-base font-bold">
             ${property.pricePerMonth.toFixed(0)}
-            <span className="text-gray-600 text-xs font-normal"> /mo</span>
+            <span className="text-muted-foreground text-xs font-normal"> /mo</span>
           </p>
         </div>
       </div>

@@ -17,7 +17,7 @@ const ContactWidget = ({ onOpenModal }: ContactWidgetProps) => {
   };
 
   return (
-    <div className="bg-white border border-primary-200 rounded-2xl p-7 h-fit min-w-[300px]">
+    <div className="bg-card border border-primary-200 rounded-2xl p-7 h-fit min-w-[300px]">
       {/* Contact Property */}
       <div className="flex items-center gap-5 mb-4 border border-primary-200 p-4 rounded-xl">
         <div className="flex items-center p-4 bg-primary-900 rounded-full">
@@ -30,10 +30,7 @@ const ContactWidget = ({ onOpenModal }: ContactWidgetProps) => {
           </div>
         </div>
       </div>
-      <Button
-        className="w-full bg-primary-700 text-white hover:bg-primary-600"
-        onClick={handleButtonClick}
-      >
+      <Button className="w-full" onClick={handleButtonClick}>
         {authUser ? "Submit Application" : "Sign In to Apply"}
       </Button>
 

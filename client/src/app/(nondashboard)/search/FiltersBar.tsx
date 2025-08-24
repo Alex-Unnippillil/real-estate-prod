@@ -145,7 +145,7 @@ const FiltersBar = () => {
                 {formatPriceValue(filters.priceRange[0], true)}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-white">
+            <SelectContent className="bg-card">
               <SelectItem value="any">Any Min Price</SelectItem>
               {[500, 1000, 1500, 2000, 3000, 5000, 10000].map((price) => (
                 <SelectItem key={price} value={price.toString()}>
@@ -167,7 +167,7 @@ const FiltersBar = () => {
                 {formatPriceValue(filters.priceRange[1], false)}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className="bg-white">
+            <SelectContent className="bg-card">
               <SelectItem value="any">Any Max Price</SelectItem>
               {[1000, 2000, 3000, 5000, 10000].map((price) => (
                 <SelectItem key={price} value={price.toString()}>
@@ -188,7 +188,7 @@ const FiltersBar = () => {
             <SelectTrigger className="w-26 rounded-xl border-primary-400">
               <SelectValue placeholder="Beds" />
             </SelectTrigger>
-            <SelectContent className="bg-white">
+            <SelectContent className="bg-card">
               <SelectItem value="any">Any Beds</SelectItem>
               <SelectItem value="1">1+ bed</SelectItem>
               <SelectItem value="2">2+ beds</SelectItem>
@@ -205,7 +205,7 @@ const FiltersBar = () => {
             <SelectTrigger className="w-26 rounded-xl border-primary-400">
               <SelectValue placeholder="Baths" />
             </SelectTrigger>
-            <SelectContent className="bg-white">
+            <SelectContent className="bg-card">
               <SelectItem value="any">Any Baths</SelectItem>
               <SelectItem value="1">1+ bath</SelectItem>
               <SelectItem value="2">2+ baths</SelectItem>
@@ -224,7 +224,7 @@ const FiltersBar = () => {
           <SelectTrigger className="w-32 rounded-xl border-primary-400">
             <SelectValue placeholder="Home Type" />
           </SelectTrigger>
-          <SelectContent className="bg-white">
+          <SelectContent className="bg-card">
             <SelectItem value="any">Any Property Type</SelectItem>
             {Object.entries(PropertyTypeIcons).map(([type, Icon]) => (
               <SelectItem key={type} value={type}>
