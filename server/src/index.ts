@@ -11,6 +11,7 @@ import managerRoutes from "./routes/managerRoutes";
 import propertyRoutes from "./routes/propertyRoutes";
 import leaseRoutes from "./routes/leaseRoutes";
 import applicationRoutes from "./routes/applicationRoutes";
+import savedSearchRoutes from "./routes/savedSearchRoutes";
 
 /* CONFIGURATIONS */
 const app = express();
@@ -32,6 +33,7 @@ app.use("/properties", propertyRoutes);
 app.use("/leases", leaseRoutes);
 app.use("/tenants", authMiddleware(["tenant"]), tenantRoutes);
 app.use("/managers", authMiddleware(["manager"]), managerRoutes);
+app.use("/saved-searches", authMiddleware(["tenant"]), savedSearchRoutes);
 
 /* SERVER */
 const port = env.PORT;

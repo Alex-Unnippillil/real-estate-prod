@@ -116,6 +116,7 @@ model Tenant {
   favorites    Property[]    @relation("TenantFavorites")
   applications Application[]
   leases       Lease[]
+  savedSearches SavedSearch[]
 }
 
 model Location {
@@ -172,4 +173,14 @@ model Payment {
   leaseId       Int
 
   lease Lease @relation(fields: [leaseId], references: [id])
+}
+
+model SavedSearch {
+  id              Int      @id @default(autoincrement())
+  name            String
+  filterCriteria  Json
+  tenantCognitoId String
+  tenant          Tenant   @relation(fields: [tenantCognitoId], references: [cognitoId])
+
+  @@unique([tenantCognitoId, name])
 }
