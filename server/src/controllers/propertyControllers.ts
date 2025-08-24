@@ -1,8 +1,13 @@
 import { Request, Response } from "express";
-import { PrismaClient, Prisma } from "@prisma/client";
+import {
+  PrismaClient,
+  Prisma,
+  Location,
+  Amenity,
+  Highlight,
+} from "@prisma/client";
 import { wktToGeoJSON } from "@terraformer/wkt";
 import { S3Client } from "@aws-sdk/client-s3";
-import { Location } from "@prisma/client";
 import { Upload } from "@aws-sdk/lib-storage";
 import axios from "axios";
 import { env } from "../../../packages/shared/config/env";
@@ -290,5 +295,114 @@ export const createProperty = async (
     res
       .status(500)
       .json({ message: `Error creating property: ${err.message}` });
+  }
+};
+
+export const uploadProperties = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    if (!req.file) {
+      res.status(400).json({ message: "No file uploaded" });
+      return;
+    }
+
+    const content = req.file.buffer.toString("utf-8");
+    const lines = content.trim().split(/\r?\n/);
+
+    if (lines.length < 2) {
+      res
+        .status(400)
+        .json({ message: "CSV file must have a header and at least one row" });
+      return;
+    }
+
+    const headers = lines[0].split(",").map((h) => h.trim());
+    const successes: { row: number; id: number }[] = [];
+    const errors: { row: number; message: string }[] = [];
+
+    for (let i = 1; i < lines.length; i++) {
+      const line = lines[i];
+      if (!line.trim()) continue;
+
+      const values = line.split(",").map((v) => v.trim());
+      const row: Record<string, string> = {};
+      headers.forEach((header, idx) => {
+        row[header] = values[idx];
+      });
+
+      try {
+        const requiredFields = [
+          "name",
+          "description",
+          "pricePerMonth",
+          "securityDeposit",
+          "applicationFee",
+          "beds",
+          "baths",
+          "squareFeet",
+          "propertyType",
+          "managerCognitoId",
+          "address",
+          "city",
+          "state",
+          "country",
+          "postalCode",
+        ];
+
+        for (const field of requiredFields) {
+          if (!row[field]) {
+            throw new Error(`Missing field ${field}`);
+          }
+        }
+
+        const [location] = await prisma.$queryRaw<{ id: number }[]>`
+          INSERT INTO "Location" (address, city, state, country, "postalCode", coordinates)
+          VALUES (${row.address}, ${row.city}, ${row.state}, ${row.country}, ${row.postalCode}, ST_SetSRID(ST_MakePoint(0,0), 4326))
+          RETURNING id;
+        `;
+
+        const property = await prisma.property.create({
+          data: {
+            name: row.name,
+            description: row.description,
+            pricePerMonth: parseFloat(row.pricePerMonth),
+            securityDeposit: parseFloat(row.securityDeposit),
+            applicationFee: parseFloat(row.applicationFee),
+            photoUrls: [],
+            amenities: row.amenities
+              ? (row.amenities.split("|") as unknown as Amenity[])
+              : [],
+            highlights: row.highlights
+              ? (row.highlights.split("|") as unknown as Highlight[])
+              : [],
+            isPetsAllowed: row.isPetsAllowed === "true",
+            isParkingIncluded: row.isParkingIncluded === "true",
+            beds: parseInt(row.beds),
+            baths: parseFloat(row.baths),
+            squareFeet: parseInt(row.squareFeet),
+            propertyType: row.propertyType as any,
+            locationId: location.id,
+            managerCognitoId: row.managerCognitoId,
+          },
+        });
+
+        successes.push({ row: i + 1, id: property.id });
+      } catch (err: any) {
+        errors.push({ row: i + 1, message: err.message });
+      }
+    }
+
+    res.json({
+      successCount: successes.length,
+      failureCount: errors.length,
+      successes,
+      errors,
+    });
+  } catch (err: any) {
+    res
+      .status(500)
+      .json({ message: `Error processing file: ${err.message}` });
   }
 };
