@@ -71,6 +71,8 @@ declare global {
 
   interface ContactWidgetProps {
     onOpenModal: () => void;
+    managerName?: string;
+    managerPhone?: string;
   }
 
   interface ImagePreviewsProps {

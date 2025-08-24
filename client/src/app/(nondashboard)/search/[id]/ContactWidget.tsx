@@ -4,7 +4,7 @@ import { Phone } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const ContactWidget = ({ onOpenModal }: ContactWidgetProps) => {
+const ContactWidget = ({ onOpenModal, managerName, managerPhone }: ContactWidgetProps) => {
   const { data: authUser } = useGetAuthUserQuery();
   const router = useRouter();
 
@@ -24,10 +24,19 @@ const ContactWidget = ({ onOpenModal }: ContactWidgetProps) => {
           <Phone className="text-primary-50" size={15} />
         </div>
         <div>
-          <p>Contact This Property</p>
-          <div className="text-lg font-bold text-primary-800">
-            (424) 340-5574
-          </div>
+          <p>Contact {managerName || "This Property"}</p>
+          {managerPhone ? (
+            <a
+              href={`tel:${managerPhone}`}
+              className="text-lg font-bold text-primary-800"
+            >
+              {managerPhone}
+            </a>
+          ) : (
+            <div className="text-lg font-bold text-primary-800">
+              Contact info not available
+            </div>
+          )}
         </div>
       </div>
       <Button className="w-full" onClick={handleButtonClick}>

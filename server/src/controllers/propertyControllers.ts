@@ -163,6 +163,7 @@ export const getProperty = async (
       where: { id: Number(id), isDeleted: false },
       include: {
         location: true,
+        manager: true,
       },
     });
 
