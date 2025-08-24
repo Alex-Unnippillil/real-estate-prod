@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { logError } from "../utils/logger";
 
 interface DecodedToken extends JwtPayload {
   sub: string;
@@ -40,7 +41,7 @@ export const authMiddleware = (allowedRoles: string[]) => {
         return;
       }
     } catch (err) {
-      console.error("Failed to decode token:", err);
+      logError(req, "Failed to decode token", { error: err });
       res.status(400).json({ message: "Invalid token" });
       return;
     }
