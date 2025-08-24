@@ -8,7 +8,9 @@
     "dev": "npm run build && concurrently \"npx tsc -w\" \"nodemon --exec ts-node src/index.ts\"",
     "seed": "ts-node prisma/seed.ts",
     "prisma:generate": "prisma generate",
-    "postprisma:generate": "shx cp -r node_modules/.prisma/client/index.d.ts ../client/src/types/prismaTypes.d.ts"
+    "postprisma:generate": "shx cp -r node_modules/.prisma/client/index.d.ts ../client/src/types/prismaTypes.d.ts",
+    "lint": "eslint .",
+    "format": "prettier . --write"
   },
   "keywords": [],
   "author": "",
@@ -45,6 +47,8 @@
     "rimraf": "^6.0.1",
     "shx": "^0.3.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "eslint": "^9",
+    "prettier": "^3.3.3"
   }
 }
