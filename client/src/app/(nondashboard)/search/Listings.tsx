@@ -10,6 +10,8 @@ import { Property } from "@/types/prismaTypes";
 import Card from "@/components/Card";
 import React from "react";
 import CardCompact from "@/components/CardCompact";
+import Loading from "@/components/Loading";
+import { Button } from "@/components/ui/button";
 
 const Listings = () => {
   const { data: authUser } = useGetAuthUserQuery();
@@ -28,6 +30,7 @@ const Listings = () => {
     data: properties,
     isLoading,
     isError,
+    refetch,
   } = useGetPropertiesQuery(filters);
 
   const handleFavoriteToggle = async (propertyId: number) => {
@@ -50,8 +53,18 @@ const Listings = () => {
     }
   };
 
-  if (isLoading) return <>Loading...</>;
-  if (isError || !properties) return <div>Failed to fetch properties</div>;
+  if (isLoading) return <Loading />;
+  if (isError)
+    return (
+      <div className="p-4 flex flex-col items-center gap-2">
+        <div>Failed to fetch properties</div>
+        <Button variant="outline" onClick={() => refetch()}>
+          Retry
+        </Button>
+      </div>
+    );
+  if (!properties || properties.length === 0)
+    return <div className="p-4">No properties found</div>;
 
   return (
     <div className="w-full">

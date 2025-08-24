@@ -6,6 +6,8 @@ import { useAppSelector } from "@/state/redux";
 import { useGetPropertiesQuery } from "@/state/api";
 import { Property } from "@/types/prismaTypes";
 import { env } from "../../../../../packages/shared/config/env";
+import Loading from "@/components/Loading";
+import { Button } from "@/components/ui/button";
 
 mapboxgl.accessToken = env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -16,10 +18,11 @@ const Map = () => {
     data: properties,
     isLoading,
     isError,
+    refetch,
   } = useGetPropertiesQuery(filters);
 
   useEffect(() => {
-    if (isLoading || isError || !properties) return;
+    if (isLoading || isError || !properties || properties.length === 0) return;
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current!,
@@ -43,8 +46,18 @@ const Map = () => {
     return () => map.remove();
   }, [isLoading, isError, properties, filters.coordinates]);
 
-  if (isLoading) return <>Loading...</>;
-  if (isError || !properties) return <div>Failed to fetch properties</div>;
+  if (isLoading) return <Loading />;
+  if (isError)
+    return (
+      <div className="p-4 flex flex-col items-center gap-2">
+        <div>Failed to fetch properties</div>
+        <Button variant="outline" onClick={() => refetch()}>
+          Retry
+        </Button>
+      </div>
+    );
+  if (!properties || properties.length === 0)
+    return <div className="p-4">No properties found</div>;
 
   return (
     <div className="basis-5/12 grow relative rounded-xl">
