@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:e2e": "playwright test",
+    "test:smoke": "playwright test --grep @smoke"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.9.1",
@@ -56,6 +58,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.55.0",
     "@types/lodash": "^4.17.15",
     "@types/node": "^20.17.16",
     "@types/react": "^19",
