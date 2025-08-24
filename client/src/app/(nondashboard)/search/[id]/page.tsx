@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetAuthUserQuery } from "@/state/api";
+import { useGetAuthUserQuery, useGetPropertyQuery } from "@/state/api";
 import { useParams } from "next/navigation";
 import React, { useState } from "react";
 import ImagePreviews from "./ImagePreviews";
@@ -15,12 +15,13 @@ const SingleListing = () => {
   const propertyId = Number(id);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: authUser } = useGetAuthUserQuery();
+  const { data: photoUrls = [] } = useGetPropertyQuery(propertyId, {
+    selectFromResult: ({ data }) => ({ data: data?.photoUrls ?? [] }),
+  });
 
   return (
     <div>
-      <ImagePreviews
-        images={["/singlelisting-2.jpg", "/singlelisting-3.jpg"]}
-      />
+      <ImagePreviews images={photoUrls} />
       <div className="flex flex-col md:flex-row justify-center gap-10 mx-10 md:w-2/3 md:mx-auto mt-16 mb-8">
         <div className="order-2 md:order-1">
           <PropertyOverview propertyId={propertyId} />

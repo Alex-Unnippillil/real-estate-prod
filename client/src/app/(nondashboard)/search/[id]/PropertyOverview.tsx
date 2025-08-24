@@ -7,7 +7,16 @@ const PropertyOverview = ({ propertyId }: PropertyOverviewProps) => {
     data: property,
     isError,
     isLoading,
-  } = useGetPropertyQuery(propertyId);
+  } = useGetPropertyQuery(propertyId, {
+    // explicitly include photo URLs so other components can access them
+    selectFromResult: ({ data, isError, isLoading }) => ({
+      data: data
+        ? { ...data, photoUrls: data.photoUrls ?? [] }
+        : undefined,
+      isError,
+      isLoading,
+    }),
+  });
 
   if (isLoading) return <>Loading...</>;
   if (isError || !property) {
