@@ -1856,6 +1856,7 @@ export namespace Prisma {
     numberOfReviews: number | null
     locationId: number | null
     managerCognitoId: string | null
+    isDeleted: boolean | null
   }
 
   export type PropertyMaxAggregateOutputType = {
@@ -1876,6 +1877,7 @@ export namespace Prisma {
     numberOfReviews: number | null
     locationId: number | null
     managerCognitoId: string | null
+    isDeleted: boolean | null
   }
 
   export type PropertyCountAggregateOutputType = {
@@ -1899,6 +1901,7 @@ export namespace Prisma {
     numberOfReviews: number
     locationId: number
     managerCognitoId: number
+    isDeleted: number
     _all: number
   }
 
@@ -1947,6 +1950,7 @@ export namespace Prisma {
     numberOfReviews?: true
     locationId?: true
     managerCognitoId?: true
+    isDeleted?: true
   }
 
   export type PropertyMaxAggregateInputType = {
@@ -1967,6 +1971,7 @@ export namespace Prisma {
     numberOfReviews?: true
     locationId?: true
     managerCognitoId?: true
+    isDeleted?: true
   }
 
   export type PropertyCountAggregateInputType = {
@@ -1990,6 +1995,7 @@ export namespace Prisma {
     numberOfReviews?: true
     locationId?: true
     managerCognitoId?: true
+    isDeleted?: true
     _all?: true
   }
 
@@ -2100,6 +2106,7 @@ export namespace Prisma {
     numberOfReviews: number | null
     locationId: number
     managerCognitoId: string
+    isDeleted: boolean
     _count: PropertyCountAggregateOutputType | null
     _avg: PropertyAvgAggregateOutputType | null
     _sum: PropertySumAggregateOutputType | null
@@ -2142,6 +2149,7 @@ export namespace Prisma {
     numberOfReviews?: boolean
     locationId?: boolean
     managerCognitoId?: boolean
+    isDeleted?: boolean
     location?: boolean | LocationDefaultArgs<ExtArgs>
     manager?: boolean | ManagerDefaultArgs<ExtArgs>
     leases?: boolean | Property$leasesArgs<ExtArgs>
@@ -2172,6 +2180,7 @@ export namespace Prisma {
     numberOfReviews?: boolean
     locationId?: boolean
     managerCognitoId?: boolean
+    isDeleted?: boolean
     location?: boolean | LocationDefaultArgs<ExtArgs>
     manager?: boolean | ManagerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["property"]>
@@ -2197,6 +2206,7 @@ export namespace Prisma {
     numberOfReviews?: boolean
     locationId?: boolean
     managerCognitoId?: boolean
+    isDeleted?: boolean
     location?: boolean | LocationDefaultArgs<ExtArgs>
     manager?: boolean | ManagerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["property"]>
@@ -2222,9 +2232,10 @@ export namespace Prisma {
     numberOfReviews?: boolean
     locationId?: boolean
     managerCognitoId?: boolean
+    isDeleted?: boolean
   }
 
-  export type PropertyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "pricePerMonth" | "securityDeposit" | "applicationFee" | "photoUrls" | "amenities" | "highlights" | "isPetsAllowed" | "isParkingIncluded" | "beds" | "baths" | "squareFeet" | "propertyType" | "postedDate" | "averageRating" | "numberOfReviews" | "locationId" | "managerCognitoId", ExtArgs["result"]["property"]>
+  export type PropertyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "pricePerMonth" | "securityDeposit" | "applicationFee" | "photoUrls" | "amenities" | "highlights" | "isPetsAllowed" | "isParkingIncluded" | "beds" | "baths" | "squareFeet" | "propertyType" | "postedDate" | "averageRating" | "numberOfReviews" | "locationId" | "managerCognitoId" | "isDeleted", ExtArgs["result"]["property"]>
   export type PropertyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     location?: boolean | LocationDefaultArgs<ExtArgs>
     manager?: boolean | ManagerDefaultArgs<ExtArgs>
@@ -2274,6 +2285,7 @@ export namespace Prisma {
       numberOfReviews: number | null
       locationId: number
       managerCognitoId: string
+      isDeleted: boolean
     }, ExtArgs["result"]["property"]>
     composites: {}
   }
@@ -2723,6 +2735,7 @@ export namespace Prisma {
     readonly numberOfReviews: FieldRef<"Property", 'Int'>
     readonly locationId: FieldRef<"Property", 'Int'>
     readonly managerCognitoId: FieldRef<"Property", 'String'>
+    readonly isDeleted: FieldRef<"Property", 'Boolean'>
   }
     
 
@@ -11138,7 +11151,8 @@ export namespace Prisma {
     averageRating: 'averageRating',
     numberOfReviews: 'numberOfReviews',
     locationId: 'locationId',
-    managerCognitoId: 'managerCognitoId'
+    managerCognitoId: 'managerCognitoId',
+    isDeleted: 'isDeleted'
   };
 
   export type PropertyScalarFieldEnum = (typeof PropertyScalarFieldEnum)[keyof typeof PropertyScalarFieldEnum]
@@ -11442,6 +11456,7 @@ export namespace Prisma {
     numberOfReviews?: IntNullableFilter<"Property"> | number | null
     locationId?: IntFilter<"Property"> | number
     managerCognitoId?: StringFilter<"Property"> | string
+    isDeleted?: BoolFilter<"Property"> | boolean
     location?: XOR<LocationScalarRelationFilter, LocationWhereInput>
     manager?: XOR<ManagerScalarRelationFilter, ManagerWhereInput>
     leases?: LeaseListRelationFilter
@@ -11471,6 +11486,7 @@ export namespace Prisma {
     numberOfReviews?: SortOrderInput | SortOrder
     locationId?: SortOrder
     managerCognitoId?: SortOrder
+    isDeleted?: SortOrder
     location?: LocationOrderByWithRelationInput
     manager?: ManagerOrderByWithRelationInput
     leases?: LeaseOrderByRelationAggregateInput
@@ -11503,6 +11519,7 @@ export namespace Prisma {
     numberOfReviews?: IntNullableFilter<"Property"> | number | null
     locationId?: IntFilter<"Property"> | number
     managerCognitoId?: StringFilter<"Property"> | string
+    isDeleted?: BoolFilter<"Property"> | boolean
     location?: XOR<LocationScalarRelationFilter, LocationWhereInput>
     manager?: XOR<ManagerScalarRelationFilter, ManagerWhereInput>
     leases?: LeaseListRelationFilter
@@ -11532,6 +11549,7 @@ export namespace Prisma {
     numberOfReviews?: SortOrderInput | SortOrder
     locationId?: SortOrder
     managerCognitoId?: SortOrder
+    isDeleted?: SortOrder
     _count?: PropertyCountOrderByAggregateInput
     _avg?: PropertyAvgOrderByAggregateInput
     _max?: PropertyMaxOrderByAggregateInput
@@ -11563,6 +11581,7 @@ export namespace Prisma {
     numberOfReviews?: IntNullableWithAggregatesFilter<"Property"> | number | null
     locationId?: IntWithAggregatesFilter<"Property"> | number
     managerCognitoId?: StringWithAggregatesFilter<"Property"> | string
+    isDeleted?: BoolWithAggregatesFilter<"Property"> | boolean
   }
 
   export type ManagerWhereInput = {
@@ -12055,6 +12074,7 @@ export namespace Prisma {
     postedDate?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    isDeleted?: boolean
     location: LocationCreateNestedOneWithoutPropertiesInput
     manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
     leases?: LeaseCreateNestedManyWithoutPropertyInput
@@ -12084,6 +12104,7 @@ export namespace Prisma {
     numberOfReviews?: number | null
     locationId: number
     managerCognitoId: string
+    isDeleted?: boolean
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
@@ -12108,6 +12129,7 @@ export namespace Prisma {
     postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
     manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
@@ -12137,6 +12159,7 @@ export namespace Prisma {
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
@@ -12164,6 +12187,7 @@ export namespace Prisma {
     numberOfReviews?: number | null
     locationId: number
     managerCognitoId: string
+    isDeleted?: boolean
   }
 
   export type PropertyUpdateManyMutationInput = {
@@ -12184,6 +12208,7 @@ export namespace Prisma {
     postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PropertyUncheckedUpdateManyInput = {
@@ -12207,6 +12232,7 @@ export namespace Prisma {
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ManagerCreateInput = {
@@ -12816,6 +12842,7 @@ export namespace Prisma {
     numberOfReviews?: SortOrder
     locationId?: SortOrder
     managerCognitoId?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type PropertyAvgOrderByAggregateInput = {
@@ -12849,6 +12876,7 @@ export namespace Prisma {
     numberOfReviews?: SortOrder
     locationId?: SortOrder
     managerCognitoId?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type PropertyMinOrderByAggregateInput = {
@@ -12869,6 +12897,7 @@ export namespace Prisma {
     numberOfReviews?: SortOrder
     locationId?: SortOrder
     managerCognitoId?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type PropertySumOrderByAggregateInput = {
@@ -14744,6 +14773,7 @@ export namespace Prisma {
     postedDate?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    isDeleted?: boolean
     location: LocationCreateNestedOneWithoutPropertiesInput
     leases?: LeaseCreateNestedManyWithoutPropertyInput
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
@@ -14771,6 +14801,7 @@ export namespace Prisma {
     averageRating?: number | null
     numberOfReviews?: number | null
     locationId: number
+    isDeleted?: boolean
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
@@ -14827,6 +14858,7 @@ export namespace Prisma {
     numberOfReviews?: IntNullableFilter<"Property"> | number | null
     locationId?: IntFilter<"Property"> | number
     managerCognitoId?: StringFilter<"Property"> | string
+    isDeleted?: BoolFilter<"Property"> | boolean
   }
 
   export type PropertyCreateWithoutTenantsInput = {
@@ -14847,6 +14879,7 @@ export namespace Prisma {
     postedDate?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    isDeleted?: boolean
     location: LocationCreateNestedOneWithoutPropertiesInput
     manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
     leases?: LeaseCreateNestedManyWithoutPropertyInput
@@ -14875,6 +14908,7 @@ export namespace Prisma {
     numberOfReviews?: number | null
     locationId: number
     managerCognitoId: string
+    isDeleted?: boolean
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
@@ -14903,6 +14937,7 @@ export namespace Prisma {
     postedDate?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    isDeleted?: boolean
     location: LocationCreateNestedOneWithoutPropertiesInput
     manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
     leases?: LeaseCreateNestedManyWithoutPropertyInput
@@ -14931,6 +14966,7 @@ export namespace Prisma {
     numberOfReviews?: number | null
     locationId: number
     managerCognitoId: string
+    isDeleted?: boolean
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
@@ -15134,6 +15170,7 @@ export namespace Prisma {
     postedDate?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    isDeleted?: boolean
     manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
     leases?: LeaseCreateNestedManyWithoutPropertyInput
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
@@ -15161,6 +15198,7 @@ export namespace Prisma {
     averageRating?: number | null
     numberOfReviews?: number | null
     managerCognitoId: string
+    isDeleted?: boolean
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
@@ -15211,6 +15249,7 @@ export namespace Prisma {
     postedDate?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    isDeleted?: boolean
     location: LocationCreateNestedOneWithoutPropertiesInput
     manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
     leases?: LeaseCreateNestedManyWithoutPropertyInput
@@ -15239,6 +15278,7 @@ export namespace Prisma {
     numberOfReviews?: number | null
     locationId: number
     managerCognitoId: string
+    isDeleted?: boolean
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
@@ -15332,6 +15372,7 @@ export namespace Prisma {
     postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
     manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
@@ -15360,6 +15401,7 @@ export namespace Prisma {
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
@@ -15449,6 +15491,7 @@ export namespace Prisma {
     postedDate?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    isDeleted?: boolean
     location: LocationCreateNestedOneWithoutPropertiesInput
     manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
@@ -15477,6 +15520,7 @@ export namespace Prisma {
     numberOfReviews?: number | null
     locationId: number
     managerCognitoId: string
+    isDeleted?: boolean
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
@@ -15599,6 +15643,7 @@ export namespace Prisma {
     postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
     manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
@@ -15627,6 +15672,7 @@ export namespace Prisma {
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
@@ -16017,6 +16063,7 @@ export namespace Prisma {
     averageRating?: number | null
     numberOfReviews?: number | null
     locationId: number
+    isDeleted?: boolean
   }
 
   export type PropertyUpdateWithoutManagerInput = {
@@ -16037,6 +16084,7 @@ export namespace Prisma {
     postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
@@ -16064,6 +16112,7 @@ export namespace Prisma {
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
     locationId?: IntFieldUpdateOperationsInput | number
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
@@ -16090,6 +16139,7 @@ export namespace Prisma {
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
     locationId?: IntFieldUpdateOperationsInput | number
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ApplicationCreateManyTenantInput = {
@@ -16137,6 +16187,7 @@ export namespace Prisma {
     postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
     manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
@@ -16165,6 +16216,7 @@ export namespace Prisma {
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
@@ -16191,6 +16243,7 @@ export namespace Prisma {
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PropertyUpdateWithoutFavoritedByInput = {
@@ -16211,6 +16264,7 @@ export namespace Prisma {
     postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
     manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
@@ -16239,6 +16293,7 @@ export namespace Prisma {
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
@@ -16265,6 +16320,7 @@ export namespace Prisma {
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ApplicationUpdateWithoutTenantInput = {
@@ -16367,6 +16423,7 @@ export namespace Prisma {
     postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
@@ -16394,6 +16451,7 @@ export namespace Prisma {
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
     managerCognitoId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
@@ -16420,6 +16478,7 @@ export namespace Prisma {
     averageRating?: number | null
     numberOfReviews?: number | null
     managerCognitoId: string
+    isDeleted?: boolean
   }
 
   export type PropertyUncheckedUpdateManyWithoutLocationInput = {
@@ -16442,6 +16501,7 @@ export namespace Prisma {
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
     managerCognitoId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PaymentCreateManyLeaseInput = {

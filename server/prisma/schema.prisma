@@ -86,6 +86,7 @@ model Property {
   numberOfReviews   Int?         @default(0)
   locationId        Int
   managerCognitoId  String
+  isDeleted         Boolean      @default(false)
 
   location     Location      @relation(fields: [locationId], references: [id])
   manager      Manager       @relation(fields: [managerCognitoId], references: [cognitoId])

@@ -262,6 +262,85 @@ export const api = createApi({
       },
     }),
 
+    updateProperty: build.mutation<
+      Property,
+      { id: number; managerCognitoId: string } & Partial<Property>
+    >({
+      query: ({ id, managerCognitoId: _manager, ...data }) => ({
+        url: `properties/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      async onQueryStarted(
+        { id, managerCognitoId, ...patch },
+        { dispatch, queryFulfilled }
+      ) {
+        const patchManager = dispatch(
+          api.util.updateQueryData(
+            "getManagerProperties",
+            managerCognitoId,
+            (draft) => {
+              const property = draft.find((p: Property) => p.id === id);
+              if (property) Object.assign(property, patch);
+            }
+          )
+        );
+        const patchProperty = dispatch(
+          api.util.updateQueryData("getProperty", id, (draft) => {
+            Object.assign(draft, patch);
+          })
+        );
+        try {
+          await withToast(queryFulfilled, {
+            success: "Property updated successfully!",
+            error: "Failed to update property.",
+          });
+        } catch {
+          patchManager.undo();
+          patchProperty.undo();
+        }
+      },
+    }),
+
+    softDeleteProperty: build.mutation<
+      void,
+      { id: number; managerCognitoId: string }
+    >({
+      query: ({ id }) => ({
+        url: `properties/${id}`,
+        method: "DELETE",
+      }),
+      async onQueryStarted(
+        { id, managerCognitoId },
+        { dispatch, queryFulfilled }
+      ) {
+        const patchManager = dispatch(
+          api.util.updateQueryData(
+            "getManagerProperties",
+            managerCognitoId,
+            (draft) => {
+              const index = draft.findIndex((p: Property) => p.id === id);
+              if (index !== -1) draft.splice(index, 1);
+            }
+          )
+        );
+        const patchProperty = dispatch(
+          api.util.updateQueryData("getProperty", id, (draft) => {
+            (draft as Property).isDeleted = true;
+          })
+        );
+        try {
+          await withToast(queryFulfilled, {
+            success: "Property removed successfully!",
+            error: "Failed to remove property.",
+          });
+        } catch {
+          patchManager.undo();
+          patchProperty.undo();
+        }
+      },
+    }),
+
     // lease related enpoints
     getLeases: build.query<Lease[], number>({
       query: () => "leases",
@@ -361,6 +440,8 @@ export const {
   useGetCurrentResidencesQuery,
   useGetManagerPropertiesQuery,
   useCreatePropertyMutation,
+  useUpdatePropertyMutation,
+  useSoftDeletePropertyMutation,
   useGetTenantQuery,
   useAddFavoritePropertyMutation,
   useRemoveFavoritePropertyMutation,
