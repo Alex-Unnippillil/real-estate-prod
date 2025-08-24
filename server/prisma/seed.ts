@@ -1,128 +1,138 @@
-import { PrismaClient, Prisma } from "@prisma/client";
-import fs from "fs";
-import path from "path";
+import { PrismaClient, Amenity, Highlight, PropertyType, ApplicationStatus } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function toPascalCase(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-function toCamelCase(str: string): string {
-  return str.charAt(0).toLowerCase() + str.slice(1);
-}
-
-async function insertLocationData(locations: any[]) {
-  for (const location of locations) {
-    const { id, country, city, state, address, postalCode, coordinates } =
-      location;
-    try {
-      await prisma.$executeRaw`
-        INSERT INTO "Location" ("id", "country", "city", "state", "address", "postalCode", "coordinates") 
-        VALUES (${id}, ${country}, ${city}, ${state}, ${address}, ${postalCode}, ST_GeomFromText(${coordinates}, 4326));
-      `;
-      console.log(`Inserted location for ${city}`);
-    } catch (error) {
-      console.error(`Error inserting location for ${city}:`, error);
-    }
-  }
-}
-
-async function resetSequence(modelName: string) {
-  const quotedModelName = `"${toPascalCase(modelName)}"`;
-
-  const maxIdResult = await (
-    prisma[modelName as keyof PrismaClient] as any
-  ).findMany({
-    select: { id: true },
-    orderBy: { id: "desc" },
-    take: 1,
-  });
-
-  if (maxIdResult.length === 0) return;
-
-  const nextId = maxIdResult[0].id + 1;
-  await prisma.$executeRaw(
-    Prisma.raw(`
-    SELECT setval(pg_get_serial_sequence('${quotedModelName}', 'id'), coalesce(max(id)+1, ${nextId}), false) FROM ${quotedModelName};
-  `)
-  );
-  console.log(`Reset sequence for ${modelName} to ${nextId}`);
-}
-
-async function deleteAllData(orderedFileNames: string[]) {
-  const modelNames = orderedFileNames.map((fileName) => {
-    return toPascalCase(path.basename(fileName, path.extname(fileName)));
-  });
-
-  for (const modelName of modelNames.reverse()) {
-    const modelNameCamel = toCamelCase(modelName);
-    const model = (prisma as any)[modelNameCamel];
-    if (!model) {
-      console.error(`Model ${modelName} not found in Prisma client`);
-      continue;
-    }
-    try {
-      await model.deleteMany({});
-      console.log(`Cleared data from ${modelName}`);
-    } catch (error) {
-      console.error(`Error clearing data from ${modelName}:`, error);
-    }
-  }
-}
-
 async function main() {
-  const dataDirectory = path.join(__dirname, "seedData");
+  // Clear existing data in reverse order of dependencies
+  await prisma.payment.deleteMany();
+  await prisma.lease.deleteMany();
+  await prisma.application.deleteMany();
+  await prisma.property.deleteMany();
+  await prisma.tenant.deleteMany();
+  await prisma.manager.deleteMany();
+  await prisma.$executeRaw`DELETE FROM "Location";`;
 
-  const orderedFileNames = [
-    "location.json", // No dependencies
-    "manager.json", // No dependencies
-    "property.json", // Depends on location and manager
-    "tenant.json", // No dependencies
-    "lease.json", // Depends on property and tenant
-    "application.json", // Depends on property and tenant
-    "payment.json", // Depends on lease
-  ];
+  // Managers (user role: manager)
+  const managerAlice = await prisma.manager.create({
+    data: {
+      cognitoId: "manager1",
+      name: "Alice Manager",
+      email: "alice.manager@example.com",
+      phoneNumber: "555-1111",
+    },
+  });
 
-  // Delete all existing data
-  await deleteAllData(orderedFileNames);
+  const managerBob = await prisma.manager.create({
+    data: {
+      cognitoId: "manager2",
+      name: "Bob Manager",
+      email: "bob.manager@example.com",
+      phoneNumber: "555-2222",
+    },
+  });
 
-  // Seed data
-  for (const fileName of orderedFileNames) {
-    const filePath = path.join(dataDirectory, fileName);
-    const jsonData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    const modelName = toPascalCase(
-      path.basename(fileName, path.extname(fileName))
-    );
-    const modelNameCamel = toCamelCase(modelName);
+  // Tenants (user role: tenant)
+  const tenantTom = await prisma.tenant.create({
+    data: {
+      cognitoId: "tenant1",
+      name: "Tom Tenant",
+      email: "tom.tenant@example.com",
+      phoneNumber: "555-3333",
+    },
+  });
 
-    if (modelName === "Location") {
-      await insertLocationData(jsonData);
-    } else {
-      const model = (prisma as any)[modelNameCamel];
-      try {
-        for (const item of jsonData) {
-          await model.create({
-            data: item,
-          });
-        }
-        console.log(`Seeded ${modelName} with data from ${fileName}`);
-      } catch (error) {
-        console.error(`Error seeding data for ${modelName}:`, error);
-      }
-    }
+  const tenantLisa = await prisma.tenant.create({
+    data: {
+      cognitoId: "tenant2",
+      name: "Lisa Tenant",
+      email: "lisa.tenant@example.com",
+      phoneNumber: "555-4444",
+    },
+  });
 
-    // Reset the sequence after seeding each model
-    await resetSequence(modelName);
+  // Locations with geolocation (longitude latitude)
+  await prisma.$executeRaw`
+    INSERT INTO "Location" ("id","address","city","state","country","postalCode","coordinates") VALUES
+    (1,'123 Main St','New York','NY','USA','10001', ST_GeomFromText('POINT(-74.00597 40.7128)',4326)),
+    (2,'456 Market St','San Francisco','CA','USA','94105', ST_GeomFromText('POINT(-122.4014 37.7936)',4326));
+  `;
 
-    await sleep(1000);
-  }
+  // Properties referencing locations and managers
+  const property1 = await prisma.property.create({
+    data: {
+      name: "Downtown Loft",
+      description: "Modern loft in the heart of the city",
+      pricePerMonth: 2500,
+      securityDeposit: 1000,
+      applicationFee: 50,
+      photoUrls: ["https://example.com/loft.jpg"],
+      amenities: [Amenity.WasherDryer, Amenity.AirConditioning],
+      highlights: [Highlight.HighSpeedInternetAccess, Highlight.GreatView],
+      isPetsAllowed: true,
+      isParkingIncluded: false,
+      beds: 1,
+      baths: 1,
+      squareFeet: 750,
+      propertyType: PropertyType.Apartment,
+      locationId: 1,
+      managerCognitoId: managerAlice.cognitoId,
+    },
+  });
+
+  const property2 = await prisma.property.create({
+    data: {
+      name: "Bay View House",
+      description: "Beautiful house with bay views",
+      pricePerMonth: 4000,
+      securityDeposit: 1500,
+      applicationFee: 75,
+      photoUrls: ["https://example.com/house.jpg"],
+      amenities: [Amenity.Parking, Amenity.WiFi],
+      highlights: [Highlight.GreatView, Highlight.QuietNeighborhood],
+      isPetsAllowed: false,
+      isParkingIncluded: true,
+      beds: 3,
+      baths: 2,
+      squareFeet: 1800,
+      propertyType: PropertyType.Villa,
+      locationId: 2,
+      managerCognitoId: managerBob.cognitoId,
+    },
+  });
+
+  // Applications linking tenants to properties
+  await prisma.application.create({
+    data: {
+      applicationDate: new Date(),
+      status: ApplicationStatus.Pending,
+      propertyId: property1.id,
+      tenantCognitoId: tenantTom.cognitoId,
+      name: tenantTom.name,
+      email: tenantTom.email,
+      phoneNumber: tenantTom.phoneNumber,
+      message: "Looking forward to renting this loft!",
+    },
+  });
+
+  await prisma.application.create({
+    data: {
+      applicationDate: new Date(),
+      status: ApplicationStatus.Pending,
+      propertyId: property2.id,
+      tenantCognitoId: tenantLisa.cognitoId,
+      name: tenantLisa.name,
+      email: tenantLisa.email,
+      phoneNumber: tenantLisa.phoneNumber,
+      message: "Is the bay view pet friendly?",
+    },
+  });
 }
 
 main()
-  .catch((e) => console.error(e))
-  .finally(async () => await prisma.$disconnect());
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
