@@ -101,6 +101,7 @@ model Manager {
   name        String
   email       String
   phoneNumber String
+  smsOptIn    Boolean @default(false)
 
   managedProperties Property[]
 }
@@ -111,11 +112,23 @@ model Tenant {
   name        String
   email       String
   phoneNumber String
+  smsOptIn    Boolean @default(false)
 
   properties   Property[]    @relation("TenantProperties")
   favorites    Property[]    @relation("TenantFavorites")
   applications Application[]
   leases       Lease[]
+}
+
+model SmsLog {
+  id         Int      @id @default(autoincrement())
+  cognitoId  String
+  userType   String
+  message    String
+  status     String
+  messageId  String?
+  error      String?
+  createdAt  DateTime @default(now())
 }
 
 model Location {

@@ -29,6 +29,11 @@ export type Manager = $Result.DefaultSelection<Prisma.$ManagerPayload>
  */
 export type Tenant = $Result.DefaultSelection<Prisma.$TenantPayload>
 /**
+ * Model SmsLog
+ * 
+ */
+export type SmsLog = $Result.DefaultSelection<Prisma.$SmsLogPayload>
+/**
  * Model Location
  * 
  */
@@ -299,6 +304,16 @@ export class PrismaClient<
     * ```
     */
   get tenant(): Prisma.TenantDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.smsLog`: Exposes CRUD operations for the **SmsLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SmsLogs
+    * const smsLogs = await prisma.smsLog.findMany()
+    * ```
+    */
+  get smsLog(): Prisma.SmsLogDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.location`: Exposes CRUD operations for the **Location** model.
@@ -782,6 +797,7 @@ export namespace Prisma {
     Property: 'Property',
     Manager: 'Manager',
     Tenant: 'Tenant',
+    SmsLog: 'SmsLog',
     Location: 'Location',
     Application: 'Application',
     Lease: 'Lease',
@@ -801,7 +817,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "property" | "manager" | "tenant" | "location" | "application" | "lease" | "payment"
+      modelProps: "property" | "manager" | "tenant" | "smsLog" | "location" | "application" | "lease" | "payment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1024,6 +1040,80 @@ export namespace Prisma {
           count: {
             args: Prisma.TenantCountArgs<ExtArgs>
             result: $Utils.Optional<TenantCountAggregateOutputType> | number
+          }
+        }
+      }
+      SmsLog: {
+        payload: Prisma.$SmsLogPayload<ExtArgs>
+        fields: Prisma.SmsLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SmsLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmsLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SmsLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmsLogPayload>
+          }
+          findFirst: {
+            args: Prisma.SmsLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmsLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SmsLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmsLogPayload>
+          }
+          findMany: {
+            args: Prisma.SmsLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmsLogPayload>[]
+          }
+          create: {
+            args: Prisma.SmsLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmsLogPayload>
+          }
+          createMany: {
+            args: Prisma.SmsLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SmsLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmsLogPayload>[]
+          }
+          delete: {
+            args: Prisma.SmsLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmsLogPayload>
+          }
+          update: {
+            args: Prisma.SmsLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmsLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.SmsLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SmsLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SmsLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmsLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.SmsLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmsLogPayload>
+          }
+          aggregate: {
+            args: Prisma.SmsLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSmsLog>
+          }
+          groupBy: {
+            args: Prisma.SmsLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SmsLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SmsLogCountArgs<ExtArgs>
+            result: $Utils.Optional<SmsLogCountAggregateOutputType> | number
           }
         }
       }
@@ -1394,6 +1484,7 @@ export namespace Prisma {
     property?: PropertyOmit
     manager?: ManagerOmit
     tenant?: TenantOmit
+    smsLog?: SmsLogOmit
     location?: LocationOmit
     application?: ApplicationOmit
     lease?: LeaseOmit
@@ -3159,6 +3250,7 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
+    smsOptIn: boolean | null
   }
 
   export type ManagerMaxAggregateOutputType = {
@@ -3167,6 +3259,7 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
+    smsOptIn: boolean | null
   }
 
   export type ManagerCountAggregateOutputType = {
@@ -3175,6 +3268,7 @@ export namespace Prisma {
     name: number
     email: number
     phoneNumber: number
+    smsOptIn: number
     _all: number
   }
 
@@ -3193,6 +3287,7 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    smsOptIn?: true
   }
 
   export type ManagerMaxAggregateInputType = {
@@ -3201,6 +3296,7 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    smsOptIn?: true
   }
 
   export type ManagerCountAggregateInputType = {
@@ -3209,6 +3305,7 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    smsOptIn?: true
     _all?: true
   }
 
@@ -3304,6 +3401,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn: boolean
     _count: ManagerCountAggregateOutputType | null
     _avg: ManagerAvgAggregateOutputType | null
     _sum: ManagerSumAggregateOutputType | null
@@ -3331,6 +3429,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    smsOptIn?: boolean
     managedProperties?: boolean | Manager$managedPropertiesArgs<ExtArgs>
     _count?: boolean | ManagerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["manager"]>
@@ -3341,6 +3440,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    smsOptIn?: boolean
   }, ExtArgs["result"]["manager"]>
 
   export type ManagerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3349,6 +3449,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    smsOptIn?: boolean
   }, ExtArgs["result"]["manager"]>
 
   export type ManagerSelectScalar = {
@@ -3357,9 +3458,10 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    smsOptIn?: boolean
   }
 
-  export type ManagerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cognitoId" | "name" | "email" | "phoneNumber", ExtArgs["result"]["manager"]>
+  export type ManagerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cognitoId" | "name" | "email" | "phoneNumber" | "smsOptIn", ExtArgs["result"]["manager"]>
   export type ManagerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     managedProperties?: boolean | Manager$managedPropertiesArgs<ExtArgs>
     _count?: boolean | ManagerCountOutputTypeDefaultArgs<ExtArgs>
@@ -3378,6 +3480,7 @@ export namespace Prisma {
       name: string
       email: string
       phoneNumber: string
+      smsOptIn: boolean
     }, ExtArgs["result"]["manager"]>
     composites: {}
   }
@@ -3807,6 +3910,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Manager", 'String'>
     readonly email: FieldRef<"Manager", 'String'>
     readonly phoneNumber: FieldRef<"Manager", 'String'>
+    readonly smsOptIn: FieldRef<"Manager", 'Boolean'>
   }
     
 
@@ -4263,6 +4367,7 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
+    smsOptIn: boolean | null
   }
 
   export type TenantMaxAggregateOutputType = {
@@ -4271,6 +4376,7 @@ export namespace Prisma {
     name: string | null
     email: string | null
     phoneNumber: string | null
+    smsOptIn: boolean | null
   }
 
   export type TenantCountAggregateOutputType = {
@@ -4279,6 +4385,7 @@ export namespace Prisma {
     name: number
     email: number
     phoneNumber: number
+    smsOptIn: number
     _all: number
   }
 
@@ -4297,6 +4404,7 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    smsOptIn?: true
   }
 
   export type TenantMaxAggregateInputType = {
@@ -4305,6 +4413,7 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    smsOptIn?: true
   }
 
   export type TenantCountAggregateInputType = {
@@ -4313,6 +4422,7 @@ export namespace Prisma {
     name?: true
     email?: true
     phoneNumber?: true
+    smsOptIn?: true
     _all?: true
   }
 
@@ -4408,6 +4518,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn: boolean
     _count: TenantCountAggregateOutputType | null
     _avg: TenantAvgAggregateOutputType | null
     _sum: TenantSumAggregateOutputType | null
@@ -4435,6 +4546,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    smsOptIn?: boolean
     properties?: boolean | Tenant$propertiesArgs<ExtArgs>
     favorites?: boolean | Tenant$favoritesArgs<ExtArgs>
     applications?: boolean | Tenant$applicationsArgs<ExtArgs>
@@ -4448,6 +4560,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    smsOptIn?: boolean
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4456,6 +4569,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    smsOptIn?: boolean
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectScalar = {
@@ -4464,9 +4578,10 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     phoneNumber?: boolean
+    smsOptIn?: boolean
   }
 
-  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cognitoId" | "name" | "email" | "phoneNumber", ExtArgs["result"]["tenant"]>
+  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cognitoId" | "name" | "email" | "phoneNumber" | "smsOptIn", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     properties?: boolean | Tenant$propertiesArgs<ExtArgs>
     favorites?: boolean | Tenant$favoritesArgs<ExtArgs>
@@ -4491,6 +4606,7 @@ export namespace Prisma {
       name: string
       email: string
       phoneNumber: string
+      smsOptIn: boolean
     }, ExtArgs["result"]["tenant"]>
     composites: {}
   }
@@ -4923,6 +5039,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Tenant", 'String'>
     readonly email: FieldRef<"Tenant", 'String'>
     readonly phoneNumber: FieldRef<"Tenant", 'String'>
+    readonly smsOptIn: FieldRef<"Tenant", 'Boolean'>
   }
     
 
@@ -5422,6 +5539,1074 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TenantInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SmsLog
+   */
+
+  export type AggregateSmsLog = {
+    _count: SmsLogCountAggregateOutputType | null
+    _avg: SmsLogAvgAggregateOutputType | null
+    _sum: SmsLogSumAggregateOutputType | null
+    _min: SmsLogMinAggregateOutputType | null
+    _max: SmsLogMaxAggregateOutputType | null
+  }
+
+  export type SmsLogAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type SmsLogSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type SmsLogMinAggregateOutputType = {
+    id: number | null
+    cognitoId: string | null
+    userType: string | null
+    message: string | null
+    status: string | null
+    messageId: string | null
+    error: string | null
+    createdAt: Date | null
+  }
+
+  export type SmsLogMaxAggregateOutputType = {
+    id: number | null
+    cognitoId: string | null
+    userType: string | null
+    message: string | null
+    status: string | null
+    messageId: string | null
+    error: string | null
+    createdAt: Date | null
+  }
+
+  export type SmsLogCountAggregateOutputType = {
+    id: number
+    cognitoId: number
+    userType: number
+    message: number
+    status: number
+    messageId: number
+    error: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SmsLogAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type SmsLogSumAggregateInputType = {
+    id?: true
+  }
+
+  export type SmsLogMinAggregateInputType = {
+    id?: true
+    cognitoId?: true
+    userType?: true
+    message?: true
+    status?: true
+    messageId?: true
+    error?: true
+    createdAt?: true
+  }
+
+  export type SmsLogMaxAggregateInputType = {
+    id?: true
+    cognitoId?: true
+    userType?: true
+    message?: true
+    status?: true
+    messageId?: true
+    error?: true
+    createdAt?: true
+  }
+
+  export type SmsLogCountAggregateInputType = {
+    id?: true
+    cognitoId?: true
+    userType?: true
+    message?: true
+    status?: true
+    messageId?: true
+    error?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SmsLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SmsLog to aggregate.
+     */
+    where?: SmsLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmsLogs to fetch.
+     */
+    orderBy?: SmsLogOrderByWithRelationInput | SmsLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SmsLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmsLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmsLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SmsLogs
+    **/
+    _count?: true | SmsLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SmsLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SmsLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SmsLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SmsLogMaxAggregateInputType
+  }
+
+  export type GetSmsLogAggregateType<T extends SmsLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateSmsLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSmsLog[P]>
+      : GetScalarType<T[P], AggregateSmsLog[P]>
+  }
+
+
+
+
+  export type SmsLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SmsLogWhereInput
+    orderBy?: SmsLogOrderByWithAggregationInput | SmsLogOrderByWithAggregationInput[]
+    by: SmsLogScalarFieldEnum[] | SmsLogScalarFieldEnum
+    having?: SmsLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SmsLogCountAggregateInputType | true
+    _avg?: SmsLogAvgAggregateInputType
+    _sum?: SmsLogSumAggregateInputType
+    _min?: SmsLogMinAggregateInputType
+    _max?: SmsLogMaxAggregateInputType
+  }
+
+  export type SmsLogGroupByOutputType = {
+    id: number
+    cognitoId: string
+    userType: string
+    message: string
+    status: string
+    messageId: string | null
+    error: string | null
+    createdAt: Date
+    _count: SmsLogCountAggregateOutputType | null
+    _avg: SmsLogAvgAggregateOutputType | null
+    _sum: SmsLogSumAggregateOutputType | null
+    _min: SmsLogMinAggregateOutputType | null
+    _max: SmsLogMaxAggregateOutputType | null
+  }
+
+  type GetSmsLogGroupByPayload<T extends SmsLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SmsLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SmsLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SmsLogGroupByOutputType[P]>
+            : GetScalarType<T[P], SmsLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SmsLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    cognitoId?: boolean
+    userType?: boolean
+    message?: boolean
+    status?: boolean
+    messageId?: boolean
+    error?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["smsLog"]>
+
+  export type SmsLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    cognitoId?: boolean
+    userType?: boolean
+    message?: boolean
+    status?: boolean
+    messageId?: boolean
+    error?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["smsLog"]>
+
+  export type SmsLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    cognitoId?: boolean
+    userType?: boolean
+    message?: boolean
+    status?: boolean
+    messageId?: boolean
+    error?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["smsLog"]>
+
+  export type SmsLogSelectScalar = {
+    id?: boolean
+    cognitoId?: boolean
+    userType?: boolean
+    message?: boolean
+    status?: boolean
+    messageId?: boolean
+    error?: boolean
+    createdAt?: boolean
+  }
+
+  export type SmsLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cognitoId" | "userType" | "message" | "status" | "messageId" | "error" | "createdAt", ExtArgs["result"]["smsLog"]>
+
+  export type $SmsLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SmsLog"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      cognitoId: string
+      userType: string
+      message: string
+      status: string
+      messageId: string | null
+      error: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["smsLog"]>
+    composites: {}
+  }
+
+  type SmsLogGetPayload<S extends boolean | null | undefined | SmsLogDefaultArgs> = $Result.GetResult<Prisma.$SmsLogPayload, S>
+
+  type SmsLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SmsLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SmsLogCountAggregateInputType | true
+    }
+
+  export interface SmsLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SmsLog'], meta: { name: 'SmsLog' } }
+    /**
+     * Find zero or one SmsLog that matches the filter.
+     * @param {SmsLogFindUniqueArgs} args - Arguments to find a SmsLog
+     * @example
+     * // Get one SmsLog
+     * const smsLog = await prisma.smsLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SmsLogFindUniqueArgs>(args: SelectSubset<T, SmsLogFindUniqueArgs<ExtArgs>>): Prisma__SmsLogClient<$Result.GetResult<Prisma.$SmsLogPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one SmsLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SmsLogFindUniqueOrThrowArgs} args - Arguments to find a SmsLog
+     * @example
+     * // Get one SmsLog
+     * const smsLog = await prisma.smsLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SmsLogFindUniqueOrThrowArgs>(args: SelectSubset<T, SmsLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SmsLogClient<$Result.GetResult<Prisma.$SmsLogPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first SmsLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmsLogFindFirstArgs} args - Arguments to find a SmsLog
+     * @example
+     * // Get one SmsLog
+     * const smsLog = await prisma.smsLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SmsLogFindFirstArgs>(args?: SelectSubset<T, SmsLogFindFirstArgs<ExtArgs>>): Prisma__SmsLogClient<$Result.GetResult<Prisma.$SmsLogPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first SmsLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmsLogFindFirstOrThrowArgs} args - Arguments to find a SmsLog
+     * @example
+     * // Get one SmsLog
+     * const smsLog = await prisma.smsLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SmsLogFindFirstOrThrowArgs>(args?: SelectSubset<T, SmsLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__SmsLogClient<$Result.GetResult<Prisma.$SmsLogPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more SmsLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmsLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SmsLogs
+     * const smsLogs = await prisma.smsLog.findMany()
+     * 
+     * // Get first 10 SmsLogs
+     * const smsLogs = await prisma.smsLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const smsLogWithIdOnly = await prisma.smsLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SmsLogFindManyArgs>(args?: SelectSubset<T, SmsLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmsLogPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a SmsLog.
+     * @param {SmsLogCreateArgs} args - Arguments to create a SmsLog.
+     * @example
+     * // Create one SmsLog
+     * const SmsLog = await prisma.smsLog.create({
+     *   data: {
+     *     // ... data to create a SmsLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends SmsLogCreateArgs>(args: SelectSubset<T, SmsLogCreateArgs<ExtArgs>>): Prisma__SmsLogClient<$Result.GetResult<Prisma.$SmsLogPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many SmsLogs.
+     * @param {SmsLogCreateManyArgs} args - Arguments to create many SmsLogs.
+     * @example
+     * // Create many SmsLogs
+     * const smsLog = await prisma.smsLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SmsLogCreateManyArgs>(args?: SelectSubset<T, SmsLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SmsLogs and returns the data saved in the database.
+     * @param {SmsLogCreateManyAndReturnArgs} args - Arguments to create many SmsLogs.
+     * @example
+     * // Create many SmsLogs
+     * const smsLog = await prisma.smsLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SmsLogs and only return the `id`
+     * const smsLogWithIdOnly = await prisma.smsLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SmsLogCreateManyAndReturnArgs>(args?: SelectSubset<T, SmsLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmsLogPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a SmsLog.
+     * @param {SmsLogDeleteArgs} args - Arguments to delete one SmsLog.
+     * @example
+     * // Delete one SmsLog
+     * const SmsLog = await prisma.smsLog.delete({
+     *   where: {
+     *     // ... filter to delete one SmsLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SmsLogDeleteArgs>(args: SelectSubset<T, SmsLogDeleteArgs<ExtArgs>>): Prisma__SmsLogClient<$Result.GetResult<Prisma.$SmsLogPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one SmsLog.
+     * @param {SmsLogUpdateArgs} args - Arguments to update one SmsLog.
+     * @example
+     * // Update one SmsLog
+     * const smsLog = await prisma.smsLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SmsLogUpdateArgs>(args: SelectSubset<T, SmsLogUpdateArgs<ExtArgs>>): Prisma__SmsLogClient<$Result.GetResult<Prisma.$SmsLogPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more SmsLogs.
+     * @param {SmsLogDeleteManyArgs} args - Arguments to filter SmsLogs to delete.
+     * @example
+     * // Delete a few SmsLogs
+     * const { count } = await prisma.smsLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SmsLogDeleteManyArgs>(args?: SelectSubset<T, SmsLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SmsLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmsLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SmsLogs
+     * const smsLog = await prisma.smsLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SmsLogUpdateManyArgs>(args: SelectSubset<T, SmsLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SmsLogs and returns the data updated in the database.
+     * @param {SmsLogUpdateManyAndReturnArgs} args - Arguments to update many SmsLogs.
+     * @example
+     * // Update many SmsLogs
+     * const smsLog = await prisma.smsLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SmsLogs and only return the `id`
+     * const smsLogWithIdOnly = await prisma.smsLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SmsLogUpdateManyAndReturnArgs>(args: SelectSubset<T, SmsLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmsLogPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one SmsLog.
+     * @param {SmsLogUpsertArgs} args - Arguments to update or create a SmsLog.
+     * @example
+     * // Update or create a SmsLog
+     * const smsLog = await prisma.smsLog.upsert({
+     *   create: {
+     *     // ... data to create a SmsLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SmsLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SmsLogUpsertArgs>(args: SelectSubset<T, SmsLogUpsertArgs<ExtArgs>>): Prisma__SmsLogClient<$Result.GetResult<Prisma.$SmsLogPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of SmsLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmsLogCountArgs} args - Arguments to filter SmsLogs to count.
+     * @example
+     * // Count the number of SmsLogs
+     * const count = await prisma.smsLog.count({
+     *   where: {
+     *     // ... the filter for the SmsLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends SmsLogCountArgs>(
+      args?: Subset<T, SmsLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SmsLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SmsLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmsLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SmsLogAggregateArgs>(args: Subset<T, SmsLogAggregateArgs>): Prisma.PrismaPromise<GetSmsLogAggregateType<T>>
+
+    /**
+     * Group by SmsLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmsLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SmsLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SmsLogGroupByArgs['orderBy'] }
+        : { orderBy?: SmsLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SmsLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSmsLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SmsLog model
+   */
+  readonly fields: SmsLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SmsLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SmsLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SmsLog model
+   */ 
+  interface SmsLogFieldRefs {
+    readonly id: FieldRef<"SmsLog", 'Int'>
+    readonly cognitoId: FieldRef<"SmsLog", 'String'>
+    readonly userType: FieldRef<"SmsLog", 'String'>
+    readonly message: FieldRef<"SmsLog", 'String'>
+    readonly status: FieldRef<"SmsLog", 'String'>
+    readonly messageId: FieldRef<"SmsLog", 'String'>
+    readonly error: FieldRef<"SmsLog", 'String'>
+    readonly createdAt: FieldRef<"SmsLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SmsLog findUnique
+   */
+  export type SmsLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmsLog
+     */
+    select?: SmsLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmsLog
+     */
+    omit?: SmsLogOmit<ExtArgs> | null
+    /**
+     * Filter, which SmsLog to fetch.
+     */
+    where: SmsLogWhereUniqueInput
+  }
+
+  /**
+   * SmsLog findUniqueOrThrow
+   */
+  export type SmsLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmsLog
+     */
+    select?: SmsLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmsLog
+     */
+    omit?: SmsLogOmit<ExtArgs> | null
+    /**
+     * Filter, which SmsLog to fetch.
+     */
+    where: SmsLogWhereUniqueInput
+  }
+
+  /**
+   * SmsLog findFirst
+   */
+  export type SmsLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmsLog
+     */
+    select?: SmsLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmsLog
+     */
+    omit?: SmsLogOmit<ExtArgs> | null
+    /**
+     * Filter, which SmsLog to fetch.
+     */
+    where?: SmsLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmsLogs to fetch.
+     */
+    orderBy?: SmsLogOrderByWithRelationInput | SmsLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SmsLogs.
+     */
+    cursor?: SmsLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmsLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmsLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SmsLogs.
+     */
+    distinct?: SmsLogScalarFieldEnum | SmsLogScalarFieldEnum[]
+  }
+
+  /**
+   * SmsLog findFirstOrThrow
+   */
+  export type SmsLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmsLog
+     */
+    select?: SmsLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmsLog
+     */
+    omit?: SmsLogOmit<ExtArgs> | null
+    /**
+     * Filter, which SmsLog to fetch.
+     */
+    where?: SmsLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmsLogs to fetch.
+     */
+    orderBy?: SmsLogOrderByWithRelationInput | SmsLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SmsLogs.
+     */
+    cursor?: SmsLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmsLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmsLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SmsLogs.
+     */
+    distinct?: SmsLogScalarFieldEnum | SmsLogScalarFieldEnum[]
+  }
+
+  /**
+   * SmsLog findMany
+   */
+  export type SmsLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmsLog
+     */
+    select?: SmsLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmsLog
+     */
+    omit?: SmsLogOmit<ExtArgs> | null
+    /**
+     * Filter, which SmsLogs to fetch.
+     */
+    where?: SmsLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmsLogs to fetch.
+     */
+    orderBy?: SmsLogOrderByWithRelationInput | SmsLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SmsLogs.
+     */
+    cursor?: SmsLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmsLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmsLogs.
+     */
+    skip?: number
+    distinct?: SmsLogScalarFieldEnum | SmsLogScalarFieldEnum[]
+  }
+
+  /**
+   * SmsLog create
+   */
+  export type SmsLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmsLog
+     */
+    select?: SmsLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmsLog
+     */
+    omit?: SmsLogOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SmsLog.
+     */
+    data: XOR<SmsLogCreateInput, SmsLogUncheckedCreateInput>
+  }
+
+  /**
+   * SmsLog createMany
+   */
+  export type SmsLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SmsLogs.
+     */
+    data: SmsLogCreateManyInput | SmsLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SmsLog createManyAndReturn
+   */
+  export type SmsLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmsLog
+     */
+    select?: SmsLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmsLog
+     */
+    omit?: SmsLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many SmsLogs.
+     */
+    data: SmsLogCreateManyInput | SmsLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SmsLog update
+   */
+  export type SmsLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmsLog
+     */
+    select?: SmsLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmsLog
+     */
+    omit?: SmsLogOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SmsLog.
+     */
+    data: XOR<SmsLogUpdateInput, SmsLogUncheckedUpdateInput>
+    /**
+     * Choose, which SmsLog to update.
+     */
+    where: SmsLogWhereUniqueInput
+  }
+
+  /**
+   * SmsLog updateMany
+   */
+  export type SmsLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SmsLogs.
+     */
+    data: XOR<SmsLogUpdateManyMutationInput, SmsLogUncheckedUpdateManyInput>
+    /**
+     * Filter which SmsLogs to update
+     */
+    where?: SmsLogWhereInput
+    /**
+     * Limit how many SmsLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SmsLog updateManyAndReturn
+   */
+  export type SmsLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmsLog
+     */
+    select?: SmsLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmsLog
+     */
+    omit?: SmsLogOmit<ExtArgs> | null
+    /**
+     * The data used to update SmsLogs.
+     */
+    data: XOR<SmsLogUpdateManyMutationInput, SmsLogUncheckedUpdateManyInput>
+    /**
+     * Filter which SmsLogs to update
+     */
+    where?: SmsLogWhereInput
+    /**
+     * Limit how many SmsLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SmsLog upsert
+   */
+  export type SmsLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmsLog
+     */
+    select?: SmsLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmsLog
+     */
+    omit?: SmsLogOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SmsLog to update in case it exists.
+     */
+    where: SmsLogWhereUniqueInput
+    /**
+     * In case the SmsLog found by the `where` argument doesn't exist, create a new SmsLog with this data.
+     */
+    create: XOR<SmsLogCreateInput, SmsLogUncheckedCreateInput>
+    /**
+     * In case the SmsLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SmsLogUpdateInput, SmsLogUncheckedUpdateInput>
+  }
+
+  /**
+   * SmsLog delete
+   */
+  export type SmsLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmsLog
+     */
+    select?: SmsLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmsLog
+     */
+    omit?: SmsLogOmit<ExtArgs> | null
+    /**
+     * Filter which SmsLog to delete.
+     */
+    where: SmsLogWhereUniqueInput
+  }
+
+  /**
+   * SmsLog deleteMany
+   */
+  export type SmsLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SmsLogs to delete
+     */
+    where?: SmsLogWhereInput
+    /**
+     * Limit how many SmsLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SmsLog without action
+   */
+  export type SmsLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmsLog
+     */
+    select?: SmsLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmsLog
+     */
+    omit?: SmsLogOmit<ExtArgs> | null
   }
 
 
@@ -9946,7 +11131,8 @@ export namespace Prisma {
     cognitoId: 'cognitoId',
     name: 'name',
     email: 'email',
-    phoneNumber: 'phoneNumber'
+    phoneNumber: 'phoneNumber',
+    smsOptIn: 'smsOptIn'
   };
 
   export type ManagerScalarFieldEnum = (typeof ManagerScalarFieldEnum)[keyof typeof ManagerScalarFieldEnum]
@@ -9957,10 +11143,25 @@ export namespace Prisma {
     cognitoId: 'cognitoId',
     name: 'name',
     email: 'email',
-    phoneNumber: 'phoneNumber'
+    phoneNumber: 'phoneNumber',
+    smsOptIn: 'smsOptIn'
   };
 
   export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]
+
+
+  export const SmsLogScalarFieldEnum: {
+    id: 'id',
+    cognitoId: 'cognitoId',
+    userType: 'userType',
+    message: 'message',
+    status: 'status',
+    messageId: 'messageId',
+    error: 'error',
+    createdAt: 'createdAt'
+  };
+
+  export type SmsLogScalarFieldEnum = (typeof SmsLogScalarFieldEnum)[keyof typeof SmsLogScalarFieldEnum]
 
 
   export const LocationScalarFieldEnum: {
@@ -10338,6 +11539,7 @@ export namespace Prisma {
     name?: StringFilter<"Manager"> | string
     email?: StringFilter<"Manager"> | string
     phoneNumber?: StringFilter<"Manager"> | string
+    smsOptIn?: BoolFilter<"Manager"> | boolean
     managedProperties?: PropertyListRelationFilter
   }
 
@@ -10347,6 +11549,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    smsOptIn?: SortOrder
     managedProperties?: PropertyOrderByRelationAggregateInput
   }
 
@@ -10359,6 +11562,7 @@ export namespace Prisma {
     name?: StringFilter<"Manager"> | string
     email?: StringFilter<"Manager"> | string
     phoneNumber?: StringFilter<"Manager"> | string
+    smsOptIn?: BoolFilter<"Manager"> | boolean
     managedProperties?: PropertyListRelationFilter
   }, "id" | "cognitoId">
 
@@ -10368,6 +11572,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    smsOptIn?: SortOrder
     _count?: ManagerCountOrderByAggregateInput
     _avg?: ManagerAvgOrderByAggregateInput
     _max?: ManagerMaxOrderByAggregateInput
@@ -10384,6 +11589,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Manager"> | string
     email?: StringWithAggregatesFilter<"Manager"> | string
     phoneNumber?: StringWithAggregatesFilter<"Manager"> | string
+    smsOptIn?: BoolWithAggregatesFilter<"Manager"> | boolean
   }
 
   export type TenantWhereInput = {
@@ -10395,6 +11601,7 @@ export namespace Prisma {
     name?: StringFilter<"Tenant"> | string
     email?: StringFilter<"Tenant"> | string
     phoneNumber?: StringFilter<"Tenant"> | string
+    smsOptIn?: BoolFilter<"Tenant"> | boolean
     properties?: PropertyListRelationFilter
     favorites?: PropertyListRelationFilter
     applications?: ApplicationListRelationFilter
@@ -10407,6 +11614,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    smsOptIn?: SortOrder
     properties?: PropertyOrderByRelationAggregateInput
     favorites?: PropertyOrderByRelationAggregateInput
     applications?: ApplicationOrderByRelationAggregateInput
@@ -10422,6 +11630,7 @@ export namespace Prisma {
     name?: StringFilter<"Tenant"> | string
     email?: StringFilter<"Tenant"> | string
     phoneNumber?: StringFilter<"Tenant"> | string
+    smsOptIn?: BoolFilter<"Tenant"> | boolean
     properties?: PropertyListRelationFilter
     favorites?: PropertyListRelationFilter
     applications?: ApplicationListRelationFilter
@@ -10434,6 +11643,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    smsOptIn?: SortOrder
     _count?: TenantCountOrderByAggregateInput
     _avg?: TenantAvgOrderByAggregateInput
     _max?: TenantMaxOrderByAggregateInput
@@ -10450,6 +11660,76 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Tenant"> | string
     email?: StringWithAggregatesFilter<"Tenant"> | string
     phoneNumber?: StringWithAggregatesFilter<"Tenant"> | string
+    smsOptIn?: BoolWithAggregatesFilter<"Tenant"> | boolean
+  }
+
+  export type SmsLogWhereInput = {
+    AND?: SmsLogWhereInput | SmsLogWhereInput[]
+    OR?: SmsLogWhereInput[]
+    NOT?: SmsLogWhereInput | SmsLogWhereInput[]
+    id?: IntFilter<"SmsLog"> | number
+    cognitoId?: StringFilter<"SmsLog"> | string
+    userType?: StringFilter<"SmsLog"> | string
+    message?: StringFilter<"SmsLog"> | string
+    status?: StringFilter<"SmsLog"> | string
+    messageId?: StringNullableFilter<"SmsLog"> | string | null
+    error?: StringNullableFilter<"SmsLog"> | string | null
+    createdAt?: DateTimeFilter<"SmsLog"> | Date | string
+  }
+
+  export type SmsLogOrderByWithRelationInput = {
+    id?: SortOrder
+    cognitoId?: SortOrder
+    userType?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    messageId?: SortOrderInput | SortOrder
+    error?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SmsLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: SmsLogWhereInput | SmsLogWhereInput[]
+    OR?: SmsLogWhereInput[]
+    NOT?: SmsLogWhereInput | SmsLogWhereInput[]
+    cognitoId?: StringFilter<"SmsLog"> | string
+    userType?: StringFilter<"SmsLog"> | string
+    message?: StringFilter<"SmsLog"> | string
+    status?: StringFilter<"SmsLog"> | string
+    messageId?: StringNullableFilter<"SmsLog"> | string | null
+    error?: StringNullableFilter<"SmsLog"> | string | null
+    createdAt?: DateTimeFilter<"SmsLog"> | Date | string
+  }, "id">
+
+  export type SmsLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    cognitoId?: SortOrder
+    userType?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    messageId?: SortOrderInput | SortOrder
+    error?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: SmsLogCountOrderByAggregateInput
+    _avg?: SmsLogAvgOrderByAggregateInput
+    _max?: SmsLogMaxOrderByAggregateInput
+    _min?: SmsLogMinOrderByAggregateInput
+    _sum?: SmsLogSumOrderByAggregateInput
+  }
+
+  export type SmsLogScalarWhereWithAggregatesInput = {
+    AND?: SmsLogScalarWhereWithAggregatesInput | SmsLogScalarWhereWithAggregatesInput[]
+    OR?: SmsLogScalarWhereWithAggregatesInput[]
+    NOT?: SmsLogScalarWhereWithAggregatesInput | SmsLogScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"SmsLog"> | number
+    cognitoId?: StringWithAggregatesFilter<"SmsLog"> | string
+    userType?: StringWithAggregatesFilter<"SmsLog"> | string
+    message?: StringWithAggregatesFilter<"SmsLog"> | string
+    status?: StringWithAggregatesFilter<"SmsLog"> | string
+    messageId?: StringNullableWithAggregatesFilter<"SmsLog"> | string | null
+    error?: StringNullableWithAggregatesFilter<"SmsLog"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SmsLog"> | Date | string
   }
 
   export type LocationWhereInput = {
@@ -10922,6 +12202,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
     managedProperties?: PropertyCreateNestedManyWithoutManagerInput
   }
 
@@ -10931,6 +12212,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
     managedProperties?: PropertyUncheckedCreateNestedManyWithoutManagerInput
   }
 
@@ -10939,6 +12221,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
     managedProperties?: PropertyUpdateManyWithoutManagerNestedInput
   }
 
@@ -10948,6 +12231,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
     managedProperties?: PropertyUncheckedUpdateManyWithoutManagerNestedInput
   }
 
@@ -10957,6 +12241,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
   }
 
   export type ManagerUpdateManyMutationInput = {
@@ -10964,6 +12249,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ManagerUncheckedUpdateManyInput = {
@@ -10972,6 +12258,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TenantCreateInput = {
@@ -10979,6 +12266,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
@@ -10991,6 +12279,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
@@ -11002,6 +12291,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
@@ -11014,6 +12304,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
@@ -11026,6 +12317,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
   }
 
   export type TenantUpdateManyMutationInput = {
@@ -11033,6 +12325,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TenantUncheckedUpdateManyInput = {
@@ -11041,6 +12334,81 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type SmsLogCreateInput = {
+    cognitoId: string
+    userType: string
+    message: string
+    status: string
+    messageId?: string | null
+    error?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SmsLogUncheckedCreateInput = {
+    id?: number
+    cognitoId: string
+    userType: string
+    message: string
+    status: string
+    messageId?: string | null
+    error?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SmsLogUpdateInput = {
+    cognitoId?: StringFieldUpdateOperationsInput | string
+    userType?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    messageId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmsLogUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cognitoId?: StringFieldUpdateOperationsInput | string
+    userType?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    messageId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmsLogCreateManyInput = {
+    id?: number
+    cognitoId: string
+    userType: string
+    message: string
+    status: string
+    messageId?: string | null
+    error?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SmsLogUpdateManyMutationInput = {
+    cognitoId?: StringFieldUpdateOperationsInput | string
+    userType?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    messageId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmsLogUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cognitoId?: StringFieldUpdateOperationsInput | string
+    userType?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    messageId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LocationUpdateInput = {
@@ -11673,6 +13041,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    smsOptIn?: SortOrder
   }
 
   export type ManagerAvgOrderByAggregateInput = {
@@ -11685,6 +13054,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    smsOptIn?: SortOrder
   }
 
   export type ManagerMinOrderByAggregateInput = {
@@ -11693,6 +13063,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    smsOptIn?: SortOrder
   }
 
   export type ManagerSumOrderByAggregateInput = {
@@ -11705,6 +13076,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    smsOptIn?: SortOrder
   }
 
   export type TenantAvgOrderByAggregateInput = {
@@ -11717,6 +13089,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    smsOptIn?: SortOrder
   }
 
   export type TenantMinOrderByAggregateInput = {
@@ -11725,10 +13098,85 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    smsOptIn?: SortOrder
   }
 
   export type TenantSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type SmsLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    cognitoId?: SortOrder
+    userType?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    messageId?: SortOrder
+    error?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SmsLogAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type SmsLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    cognitoId?: SortOrder
+    userType?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    messageId?: SortOrder
+    error?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SmsLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    cognitoId?: SortOrder
+    userType?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    messageId?: SortOrder
+    error?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SmsLogSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type LocationCountOrderByAggregateInput = {
@@ -11771,21 +13219,6 @@ export namespace Prisma {
     in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type PropertyScalarRelationFilter = {
@@ -11862,24 +13295,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
     _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type ApplicationNullableScalarRelationFilter = {
@@ -12467,6 +13882,10 @@ export namespace Prisma {
     deleteMany?: LeaseScalarWhereInput | LeaseScalarWhereInput[]
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type PropertyUpdateManyWithoutLocationNestedInput = {
     create?: XOR<PropertyCreateWithoutLocationInput, PropertyUncheckedCreateWithoutLocationInput> | PropertyCreateWithoutLocationInput[] | PropertyUncheckedCreateWithoutLocationInput[]
     connectOrCreate?: PropertyCreateOrConnectWithoutLocationInput | PropertyCreateOrConnectWithoutLocationInput[]
@@ -12515,10 +13934,6 @@ export namespace Prisma {
 
   export type EnumApplicationStatusFieldUpdateOperationsInput = {
     set?: $Enums.ApplicationStatus
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type PropertyUpdateOneRequiredWithoutApplicationsNestedInput = {
@@ -12861,13 +14276,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumApplicationStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -12880,16 +14288,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
-    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12907,6 +14305,23 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumApplicationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
+  }
+
+  export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
+    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
@@ -12931,6 +14346,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
   }
 
   export type ManagerUncheckedCreateWithoutManagedPropertiesInput = {
@@ -12939,6 +14355,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
   }
 
   export type ManagerCreateOrConnectWithoutManagedPropertiesInput = {
@@ -13015,6 +14432,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
@@ -13026,6 +14444,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
@@ -13041,6 +14460,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
@@ -13052,6 +14472,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
@@ -13100,6 +14521,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ManagerUncheckedUpdateWithoutManagedPropertiesInput = {
@@ -13108,6 +14530,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type LeaseUpsertWithWhereUniqueWithoutPropertyInput = {
@@ -13196,6 +14619,7 @@ export namespace Prisma {
     name?: StringFilter<"Tenant"> | string
     email?: StringFilter<"Tenant"> | string
     phoneNumber?: StringFilter<"Tenant"> | string
+    smsOptIn?: BoolFilter<"Tenant"> | boolean
   }
 
   export type TenantUpsertWithWhereUniqueWithoutPropertiesInput = {
@@ -13695,6 +15119,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
@@ -13706,6 +15131,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
@@ -13820,6 +15246,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
@@ -13831,6 +15258,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
@@ -13929,6 +15357,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
@@ -13940,6 +15369,7 @@ export namespace Prisma {
     name: string
     email: string
     phoneNumber: string
+    smsOptIn?: boolean
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
@@ -14083,6 +15513,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
@@ -14094,6 +15525,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
@@ -14311,6 +15743,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
@@ -14322,6 +15755,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
@@ -14333,6 +15767,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TenantUpdateWithoutPropertiesInput = {
@@ -14340,6 +15775,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
@@ -14351,6 +15787,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
@@ -14362,6 +15799,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    smsOptIn?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PropertyCreateManyManagerInput = {
