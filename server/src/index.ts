@@ -23,6 +23,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 /* ROUTES */
+app.get("/healthz", (_req, res) => {
+  res.status(200).send("ok");
+});
+
 app.get("/", (req, res) => {
   res.send("This is home route");
 });
