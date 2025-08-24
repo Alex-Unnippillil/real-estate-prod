@@ -3,8 +3,9 @@ import { Compass, MapPin } from "lucide-react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useEffect, useRef } from "react";
+import { env } from "../../../../../../packages/shared/config/env";
 
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN as string;
+mapboxgl.accessToken = env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 const PropertyLocation = ({ propertyId }: PropertyDetailsProps) => {
   const {

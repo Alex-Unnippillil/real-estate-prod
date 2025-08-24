@@ -12,14 +12,14 @@ import {
 } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import { useRouter, usePathname } from "next/navigation";
+import { env } from "../../../../packages/shared/config/env";
 
 // https://docs.amplify.aws/gen1/javascript/tools/libraries/configure-categories/
 Amplify.configure({
   Auth: {
     Cognito: {
-      userPoolId: process.env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID!,
-      userPoolClientId:
-        process.env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID!,
+      userPoolId: env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID,
+      userPoolClientId: env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID,
     },
   },
 });
