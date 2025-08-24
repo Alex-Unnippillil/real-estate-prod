@@ -173,3 +173,11 @@ model Payment {
 
   lease Lease @relation(fields: [leaseId], references: [id])
 }
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  recipientId String
+  message     String
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
