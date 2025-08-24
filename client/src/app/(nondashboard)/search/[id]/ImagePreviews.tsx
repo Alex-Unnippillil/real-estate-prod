@@ -5,19 +5,24 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 const ImagePreviews = ({ images }: ImagePreviewsProps) => {
+  const imageList = images.length > 0 ? images : ["/placeholder.jpg"];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handlePrev = () => {
-    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? imageList.length - 1 : prev - 1
+    );
   };
 
   const handleNext = () => {
-    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    setCurrentImageIndex((prev) =>
+      prev === imageList.length - 1 ? 0 : prev + 1
+    );
   };
 
   return (
     <div className="relative h-[450px] w-full">
-      {images.map((image, index) => (
+      {imageList.map((image, index) => (
         <div
           key={image}
           className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
