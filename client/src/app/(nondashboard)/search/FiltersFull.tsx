@@ -7,7 +7,7 @@ import { debounce } from "lodash";
 import { cleanParams, cn, formatEnumString } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
 import { AmenityIcons, PropertyTypeIcons } from "@/lib/constants";
 import { Slider } from "@/components/ui/slider";
 import {
@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { env } from "../../../../../packages/shared/config/env";
+import { toast } from "sonner";
 
 const FiltersFull = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const FiltersFull = () => {
   const pathname = usePathname();
   const filters = useAppSelector((state) => state.global.filters);
   const [localFilters, setLocalFilters] = useState(initialState.filters);
+  const [isLoading, setIsLoading] = useState(false);
   const isFiltersFullOpen = useAppSelector(
     (state) => state.global.isFiltersFullOpen
   );
@@ -64,11 +66,17 @@ const FiltersFull = () => {
     }));
   };
 
-  const handleLocationSearch = async () => {
+  const handleLocationSearch = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    const trimmed = localFilters.location.trim();
+    if (!trimmed) return;
+    setIsLoading(true);
     try {
       const response = await fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-          localFilters.location
+          trimmed
         )}.json?access_token=${
           env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
         }&fuzzyMatch=true`
@@ -78,11 +86,16 @@ const FiltersFull = () => {
         const [lng, lat] = data.features[0].center;
         setLocalFilters((prev) => ({
           ...prev,
+          location: trimmed,
           coordinates: [lng, lat],
         }));
+      } else {
+        toast.error("Location not found");
       }
     } catch (err) {
-      console.error("Error search location:", err);
+      toast.error("Failed to search location");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -94,10 +107,11 @@ const FiltersFull = () => {
         {/* Location */}
         <div>
           <h4 className="font-bold mb-2">Location</h4>
-          <div className="flex items-center">
+          <form onSubmit={handleLocationSearch} className="flex items-center">
             <Input
               placeholder="Enter location"
-              value={filters.location}
+              aria-label="Enter location"
+              value={localFilters.location}
               onChange={(e) =>
                 setLocalFilters((prev) => ({
                   ...prev,
@@ -107,12 +121,17 @@ const FiltersFull = () => {
               className="rounded-l-xl rounded-r-none border-r-0"
             />
             <Button
-              onClick={handleLocationSearch}
+              type="submit"
+              disabled={isLoading}
               className="rounded-r-xl rounded-l-none border-l-none border-border shadow-none border hover:bg-primary-700 hover:text-primary-50"
             >
-              <Search className="w-4 h-4" />
+              {isLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Search className="w-4 h-4" />
+              )}
             </Button>
-          </div>
+          </form>
         </div>
 
         {/* Property Type */}

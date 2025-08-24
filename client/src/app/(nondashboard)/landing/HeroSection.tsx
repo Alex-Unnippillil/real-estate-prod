@@ -9,17 +9,23 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setFilters } from "@/state";
 import { env } from "../../../../../packages/shared/config/env";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 const HeroSection = () => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleLocationSearch = async () => {
+  const handleLocationSearch = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    const trimmedQuery = searchQuery.trim();
+    if (!trimmedQuery) return;
+    setIsLoading(true);
     try {
-      const trimmedQuery = searchQuery.trim();
-      if (!trimmedQuery) return;
-
       const response = await fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
           trimmedQuery
@@ -42,9 +48,13 @@ const HeroSection = () => {
           lng: lng,
         });
         router.push(`/search?${params.toString()}`);
+      } else {
+        toast.error("Location not found");
       }
     } catch (error) {
-      console.error("error search location:", error);
+      toast.error("Failed to search location");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -73,21 +83,27 @@ const HeroSection = () => {
             lifestyle and needs!
           </p>
 
-          <div className="flex justify-center">
+          <form onSubmit={handleLocationSearch} className="flex justify-center">
             <Input
               type="text"
+              aria-label="Search by city, neighborhood or address"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by city, neighborhood or address"
               className="w-full max-w-lg rounded-none rounded-l-xl border-none bg-white h-12"
             />
             <Button
-              onClick={handleLocationSearch}
+              type="submit"
+              disabled={isLoading}
               className="bg-secondary-500 text-white rounded-none rounded-r-xl border-none hover:bg-secondary-600 h-12"
             >
-              Search
+              {isLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                "Search"
+              )}
             </Button>
-          </div>
+          </form>
         </div>
       </motion.div>
     </div>

@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { debounce } from "lodash";
 import { cleanParams, cn, formatPriceValue } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Filter, Grid, List, Search } from "lucide-react";
+import { Filter, Grid, List, Search, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { PropertyTypeIcons } from "@/lib/constants";
 import { env } from "../../../../../packages/shared/config/env";
+import { toast } from "sonner";
 
 const FiltersBar = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const FiltersBar = () => {
   );
   const viewMode = useAppSelector((state) => state.global.viewMode);
   const [searchInput, setSearchInput] = useState(filters.location);
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateURL = debounce((newFilters: FiltersState) => {
     const cleanFilters = cleanParams(newFilters);
@@ -73,11 +75,17 @@ const FiltersBar = () => {
     updateURL(newFilters);
   };
 
-  const handleLocationSearch = async () => {
+  const handleLocationSearch = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    const trimmed = searchInput.trim();
+    if (!trimmed) return;
+    setIsLoading(true);
     try {
       const response = await fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-          searchInput
+          trimmed
         )}.json?access_token=${
           env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
         }&fuzzyMatch=true`
@@ -87,13 +95,17 @@ const FiltersBar = () => {
         const [lng, lat] = data.features[0].center;
         dispatch(
           setFilters({
-            location: searchInput,
+            location: trimmed,
             coordinates: [lng, lat],
           })
         );
+      } else {
+        toast.error("Location not found");
       }
     } catch (err) {
-      console.error("Error search location:", err);
+      toast.error("Failed to search location");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -115,21 +127,27 @@ const FiltersBar = () => {
         </Button>
 
         {/* Search Location */}
-        <div className="flex items-center">
+        <form onSubmit={handleLocationSearch} className="flex items-center">
           <Input
             placeholder="Search location"
+            aria-label="Search location"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             className="w-40 rounded-l-xl rounded-r-none border-primary-400 border-r-0"
           />
           <Button
-            onClick={handleLocationSearch}
-            className={`rounded-r-xl rounded-l-none border-l-none border-primary-400 shadow-none 
+            type="submit"
+            disabled={isLoading}
+            className={`rounded-r-xl rounded-l-none border-l-none border-primary-400 shadow-none
               border hover:bg-primary-700 hover:text-primary-50`}
           >
-            <Search className="w-4 h-4" />
+            {isLoading ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Search className="w-4 h-4" />
+            )}
           </Button>
-        </div>
+        </form>
 
         {/* Price Range */}
         <div className="flex gap-1">
