@@ -12,6 +12,16 @@ import {
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { Property } from "@/types/prismaTypes";
 
 const Properties = () => {
@@ -78,13 +88,37 @@ const Properties = () => {
               >
                 Edit
               </Button>
-              <Button
-                type="button"
-                className="bg-red-500 text-white hover:bg-red-600"
-                onClick={() => handleDelete(property.id)}
-              >
-                Delete
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    type="button"
+                    className="bg-red-500 text-white hover:bg-red-600"
+                  >
+                    Delete
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Delete Property</DialogTitle>
+                    <DialogDescription>
+                      Are you sure you want to delete this property?
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button variant="outline">Cancel</Button>
+                    </DialogClose>
+                    <DialogClose asChild>
+                      <Button
+                        className="bg-red-500 text-white hover:bg-red-600"
+                        onClick={() => handleDelete(property.id)}
+                      >
+                        Confirm
+                      </Button>
+                    </DialogClose>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </div>
             {editingId === property.id && (
               <form
