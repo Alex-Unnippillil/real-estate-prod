@@ -114,7 +114,7 @@ export const api = createApi({
       },
     }),
 
-    getProperty: build.query<Property, number>({
+    getProperty: build.query<Property & { manager: Manager }, number>({
       query: (id) => `properties/${id}`,
       providesTags: (result, error, id) => [{ type: "PropertyDetails", id }],
       async onQueryStarted(_, { queryFulfilled }) {

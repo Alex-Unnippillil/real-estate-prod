@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetAuthUserQuery } from "@/state/api";
+import { useGetAuthUserQuery, useGetPropertyQuery } from "@/state/api";
 import { useParams } from "next/navigation";
 import React, { useState } from "react";
 import ImagePreviews from "./ImagePreviews";
@@ -15,6 +15,7 @@ const SingleListing = () => {
   const propertyId = Number(id);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: authUser } = useGetAuthUserQuery();
+  const { data: property } = useGetPropertyQuery(propertyId);
 
   return (
     <div>
@@ -29,7 +30,11 @@ const SingleListing = () => {
         </div>
 
         <div className="order-1 md:order-2">
-          <ContactWidget onOpenModal={() => setIsModalOpen(true)} />
+          <ContactWidget
+            onOpenModal={() => setIsModalOpen(true)}
+            managerName={property?.manager?.name}
+            managerPhone={property?.manager?.phoneNumber}
+          />
         </div>
       </div>
 
