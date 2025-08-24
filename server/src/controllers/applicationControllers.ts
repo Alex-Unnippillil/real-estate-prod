@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import {
+  createApplicationSchema,
+  updateApplicationStatusSchema,
+} from "../dto/application.dto";
 
 const prisma = new PrismaClient();
 
@@ -88,6 +92,11 @@ export const createApplication = async (
   res: Response
 ): Promise<void> => {
   try {
+    const parseResult = createApplicationSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      res.status(400).json({ errors: parseResult.error.flatten() });
+      return;
+    }
     const {
       applicationDate,
       status,
@@ -97,7 +106,7 @@ export const createApplication = async (
       email,
       phoneNumber,
       message,
-    } = req.body;
+    } = parseResult.data;
 
     const property = await prisma.property.findUnique({
       where: { id: propertyId },
@@ -171,7 +180,12 @@ export const updateApplicationStatus = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const { status } = req.body;
+    const parseResult = updateApplicationStatusSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      res.status(400).json({ errors: parseResult.error.flatten() });
+      return;
+    }
+    const { status } = parseResult.data;
     console.log("status:", status);
 
     const application = await prisma.application.findUnique({

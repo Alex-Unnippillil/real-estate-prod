@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { wktToGeoJSON } from "@terraformer/wkt";
+import {
+  createManagerSchema,
+  updateManagerSchema,
+} from "../dto/manager.dto";
 
 const prisma = new PrismaClient();
 
@@ -31,7 +35,12 @@ export const createManager = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { cognitoId, name, email, phoneNumber } = req.body;
+    const parseResult = createManagerSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      res.status(400).json({ errors: parseResult.error.flatten() });
+      return;
+    }
+    const { cognitoId, name, email, phoneNumber } = parseResult.data;
 
     const manager = await prisma.manager.create({
       data: {
@@ -56,7 +65,12 @@ export const updateManager = async (
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
-    const { name, email, phoneNumber } = req.body;
+    const parseResult = updateManagerSchema.safeParse(req.body);
+    if (!parseResult.success) {
+      res.status(400).json({ errors: parseResult.error.flatten() });
+      return;
+    }
+    const { name, email, phoneNumber } = parseResult.data;
 
     const updateManager = await prisma.manager.update({
       where: { cognitoId },
