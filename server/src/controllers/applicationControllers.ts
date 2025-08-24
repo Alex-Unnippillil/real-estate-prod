@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, ApplicationStatus } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -187,6 +187,8 @@ export const updateApplicationStatus = async (
       return;
     }
 
+    const previousStatus = application.status;
+
     if (status === "Approved") {
       const newLease = await prisma.lease.create({
         data: {
@@ -228,6 +230,14 @@ export const updateApplicationStatus = async (
         data: { status },
       });
     }
+
+    await prisma.auditLog.create({
+      data: {
+        applicationId: application.id,
+        previousStatus,
+        newStatus: status as ApplicationStatus,
+      },
+    });
 
     // Respond with the updated application details
     const updatedApplication = await prisma.application.findUnique({
